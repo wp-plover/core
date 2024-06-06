@@ -52,7 +52,7 @@ class Highlight extends Extension {
 		// Render highlight attrs for core/code block
 		add_filter( 'render_block_core/code', [ $this, 'render' ], 11, 2 );
 		// Send default highlight attributes to JavaScript
-		add_filter( 'plover_editor_data', [ $this, 'localize_highlight_attributes' ] );
+		add_filter( 'plover_core_editor_data', [ $this, 'localize_highlight_attributes' ] );
 	}
 
 	/**

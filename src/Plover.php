@@ -25,18 +25,11 @@ class Plover extends Container {
 	const VERSION = '1.0.0';
 
 	/**
-	 * The core instances.
+	 * The core instance.
 	 *
-	 * @var array Plover[]
+	 * @var Plover|null
 	 */
-	protected static $core_instances = [];
-
-	/**
-	 * The identifier of current plover core instance.
-	 *
-	 * @var string
-	 */
-	protected $instance_id;
+	protected static $core_instance = null;
 
 	/**
 	 * Indicates if the core has "booted".
@@ -86,9 +79,7 @@ class Plover extends Container {
 	 * @param string $id
 	 * @param $base_path
 	 */
-	public function __construct( string $id, $base_path ) {
-		$this->instance_id = $id;
-
+	public function __construct( $base_path ) {
 		$this->bind_paths_in_container( $base_path );
 		$this->register_base_bindings();
 		$this->register_base_service_providers();
@@ -102,14 +93,13 @@ class Plover extends Container {
 	 *
 	 * @return $this
 	 */
-	public function bind_paths_in_container( string $base_path ) {
-		$app_path  = untrailingslashit( $base_path );
+	protected function bind_paths_in_container( string $base_path ) {
+		$app_path = untrailingslashit( $base_path );
+		// TODO: A generic approach to get core path.
 		$core_path = untrailingslashit( dirname( __DIR__ ) );
 		$app_url   = content_url( Path::get_segment( $app_path, - 2 ) );
 		$core_url  = $app_url . str_replace( $app_path, '', $core_path );
 
-		$this->instance( 'app.path', $app_path );
-		$this->instance( 'app.url', $app_url );
 		$this->instance( 'core.path', $core_path );
 		$this->instance( 'core.url', $core_url );
 
@@ -122,7 +112,7 @@ class Plover extends Container {
 	 * @return void
 	 */
 	protected function register_base_bindings() {
-		static::set_instance( $this->instance_id, $this );
+		static::set_instance( $this );
 
 		$this->instance( 'core.version', static::VERSION );
 		$this->instance( 'core', $this );
@@ -133,13 +123,12 @@ class Plover extends Container {
 	/**
 	 * Set the shared instance of plover/core.
 	 *
-	 * @param string $id
 	 * @param Plover $core
 	 *
 	 * @return Plover
 	 */
-	public static function set_instance( string $id, Plover $core ): Plover {
-		return static::$core_instances[ $id ] = $core;
+	protected static function set_instance( Plover $core ): Plover {
+		return static::$core_instance = $core;
 	}
 
 	/**
@@ -231,7 +220,7 @@ class Plover extends Container {
 	 *
 	 * @return \Plover\Core\Framework\ServiceProvider
 	 */
-	public function resolve_provider( $provider ) {
+	protected function resolve_provider( $provider ) {
 		return new $provider( $this );
 	}
 
@@ -267,7 +256,6 @@ class Plover extends Container {
 	 * @return void
 	 */
 	protected function boot_provider( ServiceProvider $provider ) {
-
 		$provider->call_booting_callbacks();
 
 		if ( method_exists( $provider, 'boot' ) ) {
@@ -297,23 +285,10 @@ class Plover extends Container {
 	/**
 	 * Get the saved globally available instance of plover/core.
 	 *
-	 * @param string $id
-	 *
 	 * @return mixed|null
 	 */
-	public static function get_instance( string $id ) {
-		return static::$core_instances[ $id ] ?? null;
-	}
-
-	/**
-	 * Get app asset url.
-	 *
-	 * @param string $path
-	 *
-	 * @return string
-	 */
-	public function app_url( string $path ): string {
-		return $this->get( 'app.url' ) . Str::leadingslashit( $path );
+	public static function get_instance() {
+		return static::$core_instance;
 	}
 
 	/**
@@ -325,17 +300,6 @@ class Plover extends Container {
 	 */
 	public function core_url( string $path ): string {
 		return $this->get( 'core.url' ) . Str::leadingslashit( $path );
-	}
-
-	/**
-	 * Get app asset url.
-	 *
-	 * @param string $path
-	 *
-	 * @return string
-	 */
-	public function app_path( string $path ): string {
-		return $this->get( 'app.path' ) . Str::leadingslashit( $path );
 	}
 
 	/**
@@ -426,7 +390,7 @@ class Plover extends Container {
 	}
 
 	/**
-	 * Boot the application's service providers.
+	 * Boot the container's service providers.
 	 *
 	 * @return void
 	 */
@@ -449,71 +413,10 @@ class Plover extends Container {
 	/**
 	 * Is debug mode on or not.
 	 *
-	 * @return string
-	 * @todo theme-related switches
+	 * @return bool
+	 * @todo project-related switches
 	 */
-	public function is_debug(): string {
+	public function is_debug(): bool {
 		return defined( 'WP_DEBUG' ) && WP_DEBUG;
-	}
-
-	/**
-	 * 'do_action' wrapper that prefixes the hook name with id.
-	 *
-	 * @param string $hook_name
-	 * @param ...$args
-	 */
-	public function do_action( string $hook_name, ...$args ) {
-		do_action( $this->id( $hook_name, '_' ), ...$args );
-	}
-
-	/**
-	 * Get prefixed id.
-	 *
-	 * @param string $id
-	 * @param string $sep
-	 *
-	 * @return string
-	 */
-	public function id( string $id, string $sep = '-' ): string {
-		if ( empty( $this->instance_id ) ) {
-			return $id;
-		}
-
-		return $this->instance_id . $sep . $id;
-	}
-
-	/**
-	 * 'add_action' wrapper that prefixes the hook name with id.
-	 *
-	 * @param string $hook_name
-	 * @param mixed $callback
-	 * @param int $priority
-	 * @param int $accepted_args
-	 */
-	public function add_action( string $hook_name, $callback, int $priority = 10, int $accepted_args = 1 ) {
-		add_action( $this->id( $hook_name, '_' ), $callback, $priority, $accepted_args );
-	}
-
-	/**
-	 * 'apply_filters' wrapper that prefixes the hook name with id.
-	 *
-	 * @param string $hook_name
-	 * @param mixed $value
-	 *
-	 * @return mixed|null
-	 */
-	public function apply_filters( string $hook_name, $value ) {
-		return apply_filters( $this->id( $hook_name, '_' ), $value );
-	}
-
-	/**
-	 * 'add_filter' wrapper that prefixes the hook name with id.
-	 *
-	 * @param string $hook_name
-	 * @param mixed $callback
-	 * @param mixed ...$args
-	 */
-	public function add_filter( string $hook_name, $callback, ...$args ) {
-		add_filter( $this->id( $hook_name, '_' ), $callback, ...$args );
 	}
 }

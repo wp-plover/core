@@ -32,7 +32,7 @@ class Shadow extends CustomBlockSupport {
 		) );
 
 		add_filter( 'render_block', [ $this, 'render' ], 11, 2 );
-		add_filter( 'plover_editor_data', [ $this, 'localize_shadow_presets' ] );
+		add_filter( 'plover_core_editor_data', [ $this, 'localize_shadow_presets' ] );
 		add_filter( 'wp_theme_json_data_user', [ $this, 'add_shadow_presets' ] );
 	}
 
@@ -66,7 +66,7 @@ class Shadow extends CustomBlockSupport {
 		static $plover_shadow_presets = null;
 		if ( $plover_shadow_presets === null ) {
 			$plover_shadow_presets = [
-				'text-shadow' => $this->core->apply_filters( 'text_shadow_presets', [
+				'text-shadow' => apply_filters( 'plover_core_text_shadow_presets', [
 					[
 						'name'   => 'Solid',
 						'slug'   => 'solid',
@@ -83,7 +83,7 @@ class Shadow extends CustomBlockSupport {
 						'shadow' => '0 0 0.2em rgba(245,232,54,0.7)',
 					]
 				] ),
-				'drop-shadow' => $this->core->apply_filters( 'drop_shadow_presets', [
+				'drop-shadow' => apply_filters( 'plover_core_drop_shadow_presets', [
 					[
 						"name"   => "Small",
 						"slug"   => "small",
@@ -115,7 +115,7 @@ class Shadow extends CustomBlockSupport {
 						'shadow' => 'drop-shadow(0 25px 25px rgba(0,0,0,0.15))',
 					]
 				] ),
-				'box-shadow'  => $this->core->apply_filters( 'box_shadow_presets', [
+				'box-shadow'  => apply_filters( 'plover_core_box_shadow_presets', [
 					[
 						'name'   => 'Small',
 						'slug'   => 'small',

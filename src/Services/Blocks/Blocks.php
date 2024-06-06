@@ -50,10 +50,10 @@ class Blocks {
 			'asset' => $core->core_path( 'assets/js/block-supports/index.asset.php' )
 		) );
 
-		add_filter( 'plover_editor_data', function ( $data ) {
+		add_filter( 'plover_core_editor_data', function ( $data ) {
 
-			$data['blockSupports'] = $this->core->apply_filters(
-				'extended_block_supports',
+			$data['blockSupports'] = apply_filters(
+				'plover_core_extended_block_supports',
 				$this->block_supports
 			);
 

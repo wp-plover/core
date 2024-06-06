@@ -59,7 +59,7 @@ class Filesystem {
 				}
 
 				if ( is_dir( $folder . $file ) ) {
-					$files2 = self::list_files( $folder . $file, $levels - 1 );
+					$files2 = static::list_files( $folder . $file, $levels - 1 );
 					if ( $files2 ) {
 						$files = array_merge( $files, $files2 );
 					} else {

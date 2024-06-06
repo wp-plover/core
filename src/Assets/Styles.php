@@ -26,8 +26,8 @@ class Styles extends Assets {
 	 */
 	public function enqueue_block_style( string $block_name, array $args ) {
 		$args = wp_parse_args( $args, array(
-			'handle' => $this->core->id( str_replace( '/', '-', $block_name ) ),
-			'ver'    => $this->core->is_debug() ? time() : $this->core->get( 'app.version' ),
+			'handle' => 'plover-' . str_replace( '/', '-', $block_name ),
+			'ver'    => $this->core->is_debug() ? time() : false,
 		) );
 
 		// We allow enqueue multiple stylesheets for a specific block.
@@ -43,7 +43,7 @@ class Styles extends Assets {
 	 * @return mixed|null
 	 */
 	public function all_block_styles() {
-		return $this->core->apply_filters( 'all_block_styles', $this->block_styles );
+		return apply_filters( 'plover_core_all_block_styles', $this->block_styles );
 	}
 
 	/**
@@ -63,7 +63,6 @@ class Styles extends Assets {
 		// Add allowed safe css attrs.
 		add_filter( 'safecss_filter_attr_allow_css', function ( $allow_css, $css_test_string ) {
 			if ( ! $allow_css ) {
-
 				/*
 				 * Add CSS filter functions drop-shadow() and rgb,rgba color to whitelist by removing them from the test string.
 				 */

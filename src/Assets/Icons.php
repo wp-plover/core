@@ -46,7 +46,7 @@ class Icons {
 			return null;
 		}
 
-		return self::sanitize( Filesystem::get()->get_contents( $svg_file ) );
+		return static::sanitize( Filesystem::get()->get_contents( $svg_file ) );
 	}
 
 	/**
@@ -64,7 +64,7 @@ class Icons {
 			$libraries[ $slug ] = untrailingslashit( $library_dir );
 		}
 
-		return $this->core->apply_filters( 'icon_libraries', $libraries );
+		return apply_filters( 'plover_core_icon_libraries', $libraries );
 	}
 
 	/**
@@ -73,7 +73,7 @@ class Icons {
 	 * @return string
 	 */
 	public static function sanitize( string $svg ): string {
-		return self::svg_sanitizer()->sanitize( $svg );
+		return static::svg_sanitizer()->sanitize( $svg );
 	}
 
 	/**
@@ -119,7 +119,7 @@ class Icons {
 		foreach ( $svg_files as $svg_file ) {
 			$slug           = basename( $svg_file, '.svg' );
 			$icons[ $slug ] = [
-				's' => self::sanitize( $fs->get_contents( $svg_file ) ),
+				's' => static::sanitize( $fs->get_contents( $svg_file ) ),
 			];
 
 			if ( isset( $meta[ $slug ] ) ) {

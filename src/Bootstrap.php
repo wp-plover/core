@@ -17,6 +17,13 @@ class Bootstrap {
 	protected $core;
 
 	/**
+	 * Current application instance.
+	 *
+	 * @var Application
+	 */
+	protected $app;
+
+	/**
 	 * Service providers.
 	 *
 	 * @var array
@@ -28,9 +35,14 @@ class Bootstrap {
 	 *
 	 * @param Plover $core
 	 */
-	public function __construct( Plover $core, $ver ) {
+	public function __construct( $id, $base_path, $ver = false ) {
+		$this->core = plover_core();
+		if ( ! $this->core ) {
+			$core = new Plover( $base_path );
+		}
+
 		$this->core = $core;
-		$this->core->instance( 'app.version', $ver );
+		$this->app  = new Application( $id, $base_path, $core, $ver );
 	}
 
 	/**
@@ -40,7 +52,7 @@ class Bootstrap {
 	 * @return Bootstrap
 	 */
 	public static function make( $id, $base_path, $ver = false ) {
-		return new static( new Plover( $id, $base_path ), $ver );
+		return new static( $id, $base_path, $ver );
 	}
 
 	/**
@@ -134,12 +146,12 @@ class Bootstrap {
 	}
 
 	/**
-	 * @return Plover
+	 * @return Application
 	 */
-	public function boot(): Plover {
+	public function boot(): Application {
 		$this->core->register_providers( $this->providers );
 		$this->core->boot();
 
-		return $this->core;
+		return $this->app;
 	}
 }

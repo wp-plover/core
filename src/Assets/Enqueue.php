@@ -149,7 +149,6 @@ class Enqueue {
 	 * @return void
 	 */
 	protected function enqueue_styles( array $assets, array $args ) {
-
 		$args = wp_parse_args( $args, array(
 			'template_html' => '',
 			'inline_handle' => '',
@@ -182,11 +181,9 @@ class Enqueue {
 		}
 
 		if ( $inline_style ) {
-			$handle = $this->core->id( $inline_handle );
-
-			wp_register_style( $handle, false, $inline_deps );
-			wp_enqueue_style( $handle );
-			wp_add_inline_style( $handle, $inline_style );
+			wp_register_style( $inline_handle, false, $inline_deps );
+			wp_enqueue_style( $inline_handle );
+			wp_add_inline_style( $inline_handle, $inline_style );
 		}
 	}
 
@@ -235,7 +232,8 @@ class Enqueue {
 				if ( $asset_path && $fs->is_file( $asset_path ) ) {
 					$file_size = $fs->size( $asset_path );
 
-					if ( $file_size !== false && $file_size <= (int) $this->core->apply_filters( 'assets_inline_size', 500 ) ) {
+					if ( $file_size !== false && $file_size <= (int) apply_filters( 'plover_core_assets_inline_size',
+							500 ) ) {
 						$should_inline = true;
 					}
 				}
@@ -244,7 +242,7 @@ class Enqueue {
 			if ( $should_inline ) {
 				$inline_str  .= Str::remove_line_breaks( $fs->get_contents( $asset_path ) );
 				$inline_deps = array_merge( $inline_deps, $args['deps'] ?? array() );
-			} else if ( $args['src'] ) {
+			} elseif ( $args['src'] ) {
 				$asset_files[ $handle ] = $args;
 			}
 		}
@@ -262,7 +260,6 @@ class Enqueue {
 	 * @return void
 	 */
 	protected function enqueue_scripts( array $assets, array $args ) {
-
 		$args = wp_parse_args( $args, array(
 			'template_html' => '',
 			'inline_handle' => '',
@@ -295,10 +292,9 @@ class Enqueue {
 		}
 
 		if ( $inline_script ) {
-			$handle = $this->core->id( $inline_handle );
-			wp_register_script( $handle, false, $inline_deps, false, true );
-			wp_enqueue_script( $handle );
-			wp_add_inline_script( $handle, $inline_script );
+			wp_register_script( $inline_handle, false, $inline_deps, false, true );
+			wp_enqueue_script( $inline_handle );
+			wp_add_inline_script( $inline_handle, $inline_script );
 
 			$this->enqueue_core_packages_styles_from_deps( $deps );
 		}
@@ -329,14 +325,13 @@ class Enqueue {
 	 * @see https://developer.wordpress.org/block-editor/how-to-guides/enqueueing-assets-in-the-editor/#editor-content-scripts-and-styles
 	 */
 	public function enqueue_block_editor_inline_assets( $editor_settings, $editor_context ) {
-
 		// Enqueue editor scripts.
 		$this->enqueue_scripts(
 			$this->scripts->get_assets(),
 			array(
 				'load_all'      => true,
 				'mode'          => 'queue',
-				'inline_handle' => 'block-editor-inline-scripts'
+				'inline_handle' => 'plover-block-editor-inline-scripts'
 			)
 		);
 
@@ -374,7 +369,7 @@ class Enqueue {
 		wp_localize_script(
 			$localize_handle,
 			'PloverEditor',
-			apply_filters( 'plover_editor_data', array() )
+			apply_filters( 'plover_core_editor_data', array() )
 		);
 		wp_enqueue_script( $localize_handle );
 
@@ -384,7 +379,7 @@ class Enqueue {
 			array(
 				'load_all'      => true,
 				'mode'          => 'queue',
-				'inline_handle' => 'editor-styles'
+				'inline_handle' => 'plover-editor-styles'
 			)
 		);
 
@@ -394,7 +389,7 @@ class Enqueue {
 			array(
 				'load_all'      => true,
 				'mode'          => 'queue',
-				'inline_handle' => 'editor-scripts'
+				'inline_handle' => 'plover-editor-scripts'
 			)
 		);
 	}

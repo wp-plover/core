@@ -66,7 +66,7 @@ abstract class Assets {
 			'src'       => '',
 			'path'      => '',
 			'deps'      => array(),
-			'ver'       => 'app',
+			'ver'       => false,
 			'keywords'  => [],
 			'condition' => true,
 		) );
@@ -85,10 +85,6 @@ abstract class Assets {
 	protected function asset_version( $ver ) {
 		if ( $ver === 'core' ) {
 			return $this->core->is_debug() ? time() : $this->core->get( 'core.version' );
-		}
-
-		if ( $ver === 'app' ) {
-			return $this->core->is_debug() ? time() : $this->core->get( 'app.version' );
 		}
 
 		return $ver;
@@ -140,7 +136,7 @@ abstract class Assets {
 	 * @return array
 	 */
 	public function get_assets() {
-		return $this->core->apply_filters( $this->asset_type . '_assets', $this->assets );
+		return apply_filters( 'plover_core_' . $this->asset_type . '_assets', $this->assets );
 	}
 
 	/**
@@ -149,6 +145,6 @@ abstract class Assets {
 	 * @return array
 	 */
 	public function get_editor_assets() {
-		return $this->core->apply_filters( $this->asset_type . '_editor_assets', $this->editor_assets );
+		return apply_filters( 'plover_core_' . $this->asset_type . '_editor_assets', $this->editor_assets );
 	}
 }

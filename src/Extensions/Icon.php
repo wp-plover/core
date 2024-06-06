@@ -46,7 +46,7 @@ class Icon extends Extension {
 		) );
 
 		// Send default icon attributes to JavaScript
-		add_filter( 'plover_editor_data', [ $this, 'localize_icon_attributes' ] );
+		add_filter( 'plover_core_editor_data', [ $this, 'localize_icon_attributes' ] );
 		add_filter( 'render_block_core/button', [ $this, 'render_button_with_icon' ], 11, 2 );
 	}
 

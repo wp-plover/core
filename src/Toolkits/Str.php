@@ -58,7 +58,7 @@ class Str {
 	 * @return string String with leading slash added.
 	 */
 	public static function leadingslashit( string $string ): string {
-		return DIRECTORY_SEPARATOR . self::unleadingslashit( $string );
+		return DIRECTORY_SEPARATOR . static::unleadingslashit( $string );
 	}
 
 	/**
