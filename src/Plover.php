@@ -298,7 +298,7 @@ class Plover extends Container {
 	 *
 	 * @return string
 	 */
-	public function core_url( string $path ): string {
+	public function core_url( string $path = '' ): string {
 		return $this->get( 'core.url' ) . Str::leadingslashit( $path );
 	}
 
@@ -309,7 +309,7 @@ class Plover extends Container {
 	 *
 	 * @return string
 	 */
-	public function core_path( string $path ): string {
+	public function core_path( string $path = '' ): string {
 		return $this->get( 'core.path' ) . Str::leadingslashit( $path );
 	}
 

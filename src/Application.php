@@ -13,8 +13,8 @@ use Plover\Core\Toolkits\Str;
  *
  * @method \Plover\Core\Framework\ServiceProvider register( $provider, $force = false )
  * @method \Plover\Core\Framework\ServiceProvider get_provider( $provider )
- * @method string core_url( string $path )
- * @method string core_path( string $path )
+ * @method string core_url( string $path = '' )
+ * @method string core_path( string $path = '' )
  * @method register_providers( $providers )
  * @method registered( $callback )
  * @method booting( $callback )
@@ -112,13 +112,22 @@ class Application {
 	}
 
 	/**
+	 * Current app version.
+	 *
+	 * @return mixed
+	 */
+	public function app_ver() {
+		return $this->app_ver();
+	}
+
+	/**
 	 * Get app asset url.
 	 *
 	 * @param string $path
 	 *
 	 * @return string
 	 */
-	public function app_url( string $path ): string {
+	public function app_url( string $path = '' ): string {
 		return $this->app_url . Str::leadingslashit( $path );
 	}
 
@@ -129,7 +138,7 @@ class Application {
 	 *
 	 * @return string
 	 */
-	public function app_path( string $path ): string {
+	public function app_path( string $path = '' ): string {
 		return $this->app_path . Str::leadingslashit( $path );
 	}
 

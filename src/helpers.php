@@ -29,7 +29,7 @@ if ( ! function_exists( 'plover_app' ) ) {
 	 *
 	 * @param $id
 	 *
-	 * @return mixed|null
+	 * @return \Plover\Core\Application|null
 	 */
 	function plover_app( $id ) {
 		return \Plover\Core\Application::get_app( $id );
