@@ -19,7 +19,7 @@ if ( ! function_exists( 'plover_core' ) ) {
 			return null;
 		}
 
-		return $abs !== null ? $core->get( $abs ) : null;
+		return $abs !== null ? $core->get( $abs ) : $core;
 	}
 }
 

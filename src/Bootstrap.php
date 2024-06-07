@@ -38,11 +38,10 @@ class Bootstrap {
 	public function __construct( $id, $base_path, $ver = false ) {
 		$this->core = plover_core();
 		if ( ! $this->core ) {
-			$core = new Plover( $base_path );
+			$this->core = new Plover( $base_path );
 		}
 
-		$this->core = $core;
-		$this->app  = new Application( $id, $base_path, $core, $ver );
+		$this->app = new Application( $id, $base_path, $this->core, $ver );
 	}
 
 	/**
