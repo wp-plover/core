@@ -10,12 +10,23 @@ namespace Plover\Core;
 class Bootstrap {
 
 	/**
+	 * Is booted or not.
+	 *
+	 * @var bool
+	 */
+	protected static $booted = false;
+	/**
+	 * Service providers.
+	 *
+	 * @var array
+	 */
+	protected static $providers = [];
+	/**
 	 * Plover core instance.
 	 *
 	 * @var Plover
 	 */
 	protected $core;
-
 	/**
 	 * Current application instance.
 	 *
@@ -24,34 +35,31 @@ class Bootstrap {
 	protected $app;
 
 	/**
-	 * Service providers.
-	 *
-	 * @var array
-	 */
-	protected $providers = [];
-
-	/**
 	 * Create plover core bootstrapper instance.
 	 *
-	 * @param Plover $core
+	 * @param $id
+	 * @param $base_path
+	 * @param bool $ver
 	 */
-	public function __construct( $id, $base_path, $ver = false ) {
+	protected function __construct( $id, $base_path, $ver = false ) {
 		$this->core = plover_core();
 		if ( ! $this->core ) {
 			$this->core = new Plover( $base_path );
 		}
 
-		$this->app = new Application( $id, $base_path, $this->core, $ver );
+		$this->app = new Application( $id, $base_path, $this->core );
 	}
 
 	/**
 	 * @param $id
 	 * @param $base_path
+	 * @param array $providers
 	 *
 	 * @return Bootstrap
 	 */
-	public static function make( $id, $base_path, $ver = false ) {
-		return new static( $id, $base_path, $ver );
+	public static function make( $id, $base_path, $providers = [] ) {
+		return ( new static( $id, $base_path ) )
+			->withProviders( $providers );
 	}
 
 	/**
@@ -63,8 +71,8 @@ class Bootstrap {
 	 * @return $this
 	 */
 	public function withProviders( array $providers = [] ) {
-		$this->providers = array_merge(
-			$this->providers,
+		static::$providers = array_merge(
+			static::$providers,
 			$providers
 		);
 
@@ -145,12 +153,18 @@ class Bootstrap {
 	}
 
 	/**
-	 * @return Application
+	 * @return void
 	 */
-	public function boot(): Application {
-		$this->core->register_providers( $this->providers );
-		$this->core->boot();
+	public function boot() {
+		if ( static::$booted ) {
+			return;
+		}
 
-		return $this->app;
+		static::$booted = true;
+
+		add_action( 'after_setup_theme', function () {
+			$this->core->register_providers( static::$providers );
+			$this->core->boot();
+		} );
 	}
 }

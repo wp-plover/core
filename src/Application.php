@@ -76,13 +76,6 @@ class Application {
 	protected $app_url;
 
 	/**
-	 * Current project version.
-	 *
-	 * @var bool|string
-	 */
-	protected $app_ver = false;
-
-	/**
 	 * Create application instance.
 	 *
 	 * @param string $id
@@ -92,7 +85,6 @@ class Application {
 	 */
 	public function __construct( string $id, string $base_path, Plover $plover, $ver = false ) {
 		$this->app_id   = $id;
-		$this->app_ver  = $ver;
 		$this->app_path = untrailingslashit( $base_path );
 		$this->app_url  = content_url( Path::get_segment( $this->app_path, - 2 ) );
 
@@ -109,15 +101,6 @@ class Application {
 	 */
 	public static function get_app( $id ) {
 		return static::$instances[ $id ] ?? null;
-	}
-
-	/**
-	 * Current app version.
-	 *
-	 * @return mixed
-	 */
-	public function app_ver() {
-		return $this->app_ver();
 	}
 
 	/**

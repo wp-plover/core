@@ -337,7 +337,7 @@ class Plover extends Container {
 		$index = 0;
 
 		while ( $index < count( $callbacks ) ) {
-			$callbacks[ $index ]( $this );
+			$this->call( $callbacks[ $index ] );
 
 			$index ++;
 		}

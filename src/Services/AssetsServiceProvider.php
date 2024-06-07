@@ -33,13 +33,9 @@ class AssetsServiceProvider extends ServiceProvider {
 		'icons'   => \Plover\Core\Assets\Icons::class,
 	];
 
-	public function register() {
-		$this->core->booted( function () {
-			$this->core->make( Enqueue::class );
-		} );
-	}
-
 	public function boot( Styles $styles ) {
+		$this->core->make( Enqueue::class );
+
 		$block_styles = Filesystem::list_files( $this->core->core_path( 'assets/css/block-styles' ) );
 		$style_groups = [
 			'elements'     => [

@@ -51,7 +51,6 @@ class Blocks {
 		) );
 
 		add_filter( 'plover_core_editor_data', function ( $data ) {
-
 			$data['blockSupports'] = apply_filters(
 				'plover_core_extended_block_supports',
 				$this->block_supports
@@ -123,7 +122,9 @@ class Blocks {
 
 		if ( $block instanceof HasSupports ) {
 			$this->extend_block_supports(
-				$blockName, $block->supports(), $block->override()
+				$blockName,
+				$block->supports(),
+				$block->override()
 			);
 		}
 

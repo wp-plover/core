@@ -179,7 +179,8 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 	public function boot( Blocks $blocks, Extensions $extensions ) {
 		// core custom supports
 		$blocks->register_custom_support(
-			'ploverShadow', \Plover\Core\Supports\Shadow::class
+			'ploverShadow',
+			\Plover\Core\Supports\Shadow::class
 		);
 
 		// core extend blocks
