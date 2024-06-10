@@ -75,7 +75,6 @@ class Container implements ContainerInterface {
 	 */
 	protected $reboundCallbacks = [];
 
-
 	/**
 	 * Finds an entry of the container by its identifier and returns it.
 	 *
@@ -91,7 +90,7 @@ class Container implements ContainerInterface {
 				throw $e;
 			}
 
-			throw new EntryNotFoundException( $id, $e->getCode(), $e );
+			return null;
 		}
 	}
 
@@ -367,7 +366,8 @@ class Container implements ContainerInterface {
 	 */
 	protected function hasParameterOverride( ReflectionParameter $dependency ): bool {
 		return array_key_exists(
-			$dependency->name, $this->getLastParameterOverride()
+			$dependency->name,
+			$this->getLastParameterOverride()
 		);
 	}
 
@@ -582,7 +582,8 @@ class Container implements ContainerInterface {
 			}
 
 			return $container->resolve(
-				$concrete, $parameters
+				$concrete,
+				$parameters
 			);
 		};
 	}

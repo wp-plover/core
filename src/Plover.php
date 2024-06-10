@@ -7,6 +7,7 @@ use Plover\Core\Framework\ServiceProvider;
 use Plover\Core\Services\AssetsServiceProvider;
 use Plover\Core\Services\Blocks\BlocksServiceProvider;
 use Plover\Core\Services\Extensions\ExtensionsServiceProvider;
+use Plover\Core\Services\Settings\SettingsServiceProvider;
 use Plover\Core\Toolkits\Path;
 use Plover\Core\Toolkits\Str;
 use Psr\Container\ContainerInterface;
@@ -137,6 +138,7 @@ class Plover extends Container {
 	 * @return void
 	 */
 	protected function register_base_service_providers() {
+		$this->register( new SettingsServiceProvider( $this ) );
 		$this->register( new AssetsServiceProvider( $this ) );
 		$this->register( new ExtensionsServiceProvider( $this ) );
 		$this->register( new BlocksServiceProvider( $this ) );

@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-06-07T08:12:51+00:00\n"
+"POT-Creation-Date: 2024-06-10T10:27:40+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: plover\n"
@@ -16,12 +16,49 @@ msgstr ""
 msgid "No Wrap"
 msgstr ""
 
+#: src/Extensions/Highlight.php:33
+msgid "Code highlight"
+msgstr ""
+
+#: src/Extensions/Highlight.php:34
+msgid "Add out-of-the-box code highlighting features for core/code block."
+msgstr ""
+
+#: src/Extensions/Highlight.php:41
+msgid "Enabled by default"
+msgstr ""
+
+#: src/Extensions/Highlight.php:46
+msgid "No"
+msgstr ""
+
+#: src/Extensions/Highlight.php:47
+msgid "Yes"
+msgstr ""
+
+#: src/Extensions/Highlight.php:52
+msgid "Default theme"
+msgstr ""
+
+#: src/Extensions/Highlight.php:60
+msgid "Default language"
+msgstr ""
+
 #: src/Extensions/Icon.php:165
 msgid "No such icon library."
 msgstr ""
 
-#: src/Router/Auth.php:20
+#: src/Router/Auth.php:19
+#: src/Router/Auth.php:35
 msgid "Forbidden"
+msgstr ""
+
+#: src/Supports/Shadow.php:24
+msgid "Block shadow"
+msgstr ""
+
+#: src/Supports/Shadow.php:25
+msgid "Extra text-shadow, drop-shadow, and box-shadow."
 msgstr ""
 
 #. translators: %s is the type of color property, e.g., "background"
@@ -29,63 +66,63 @@ msgstr ""
 msgid "Color %s styles"
 msgstr ""
 
-#: static/scripts/block-extensions/highlight/HighlightControls.jsx:20
+#: static/scripts/block-extensions/highlight/HighlightControls.jsx:25
 msgid "Style"
 msgstr ""
 
-#: static/scripts/block-extensions/highlight/HighlightControls.jsx:26
+#: static/scripts/block-extensions/highlight/HighlightControls.jsx:31
 msgid "Highlight"
 msgstr ""
 
-#: static/scripts/block-extensions/highlight/HighlightControls.jsx:27
+#: static/scripts/block-extensions/highlight/HighlightControls.jsx:32
 msgid "None"
 msgstr ""
 
-#: static/scripts/block-extensions/highlight/HighlightControls.jsx:32
+#: static/scripts/block-extensions/highlight/HighlightControls.jsx:37
 msgid "Theme"
 msgstr ""
 
-#: static/scripts/block-extensions/highlight/HighlightControls.jsx:50
+#: static/scripts/block-extensions/highlight/HighlightControls.jsx:44
 msgid "Language"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:56
+#: static/scripts/block-extensions/icon/IconControls.jsx:52
 msgid "Filter"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:82
+#: static/scripts/block-extensions/icon/IconControls.jsx:78
 msgid "No icons"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:120
+#: static/scripts/block-extensions/icon/IconControls.jsx:116
 msgid "Icon library"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:134
+#: static/scripts/block-extensions/icon/IconControls.jsx:130
 msgid "Select icon"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:167
+#: static/scripts/block-extensions/icon/IconControls.jsx:163
 msgid "Icon"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:177
+#: static/scripts/block-extensions/icon/IconControls.jsx:173
 msgid "Icon position"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:185
+#: static/scripts/block-extensions/icon/IconControls.jsx:181
 msgid "Left"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:186
+#: static/scripts/block-extensions/icon/IconControls.jsx:182
 msgid "Right"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:190
+#: static/scripts/block-extensions/icon/IconControls.jsx:186
 msgid "Icon Size"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:206
+#: static/scripts/block-extensions/icon/IconControls.jsx:202
 msgid "Clear icon"
 msgstr ""
 

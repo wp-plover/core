@@ -17,7 +17,7 @@ class Enqueue {
 	/**
 	 * All core packages.
 	 */
-	const CORE_PACKAGES = [ 'utils', 'icons', 'components' ];
+	const CORE_PACKAGES = [ 'utils', 'icons', 'components', 'dashboard', 'api' ];
 
 	/**
 	 * Plover core instance.
@@ -55,6 +55,7 @@ class Enqueue {
 		add_action( 'enqueue_block_assets', [ $this, 'enqueue_block_inline_assets' ] );
 		add_filter( 'block_editor_settings_all', [ $this, 'enqueue_block_editor_inline_assets' ], 10, 2 );
 		add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_editor_assets' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_dashboard_assets' ] );
 	}
 
 	/**
@@ -92,6 +93,23 @@ class Enqueue {
 				$ver,
 				false
 			);
+
+			$this->enqueue_core_styles_from_deps( $asset['dependencies'] ?? array() );
+		}
+	}
+
+	/**
+	 * Enqueue plover core packages stylesheet from script dependencies.
+	 *
+	 * @param $deps
+	 *
+	 * @return void
+	 */
+	protected function enqueue_core_styles_from_deps( $deps ) {
+		foreach ( $deps as $dep ) {
+			if ( str_starts_with( $dep, 'plover' ) || str_starts_with( $dep, 'wp-' ) ) {
+				wp_enqueue_style( $dep );
+			}
 		}
 	}
 
@@ -209,7 +227,11 @@ class Enqueue {
 
 		foreach ( $assets as $handle => $args ) {
 			// Skip if additional condition is not met.
-			if ( ! ( $args['condition'] ?? true ) ) {
+			$condition = $args['condition'] ?? true;
+			if ( is_callable( $condition ) ) { // support callback as condition.
+				$condition = call_user_func( $condition, $this->core );
+			}
+			if ( ! $condition ) {
 				continue;
 			}
 
@@ -288,7 +310,7 @@ class Enqueue {
 
 			wp_enqueue_script( $handle );
 
-			$this->enqueue_core_packages_styles_from_deps( $deps );
+			$this->enqueue_core_styles_from_deps( $deps );
 		}
 
 		if ( $inline_script ) {
@@ -296,22 +318,7 @@ class Enqueue {
 			wp_enqueue_script( $inline_handle );
 			wp_add_inline_script( $inline_handle, $inline_script );
 
-			$this->enqueue_core_packages_styles_from_deps( $deps );
-		}
-	}
-
-	/**
-	 * Enqueue plover core packages stylesheet from script dependencies.
-	 *
-	 * @param $deps
-	 *
-	 * @return void
-	 */
-	protected function enqueue_core_packages_styles_from_deps( $deps ) {
-		foreach ( $deps as $dep ) {
-			if ( str_starts_with( $dep, 'plover' ) ) {
-				wp_enqueue_style( $dep );
-			}
+			$this->enqueue_core_styles_from_deps( $deps );
 		}
 	}
 
@@ -390,6 +397,46 @@ class Enqueue {
 				'load_all'      => true,
 				'mode'          => 'queue',
 				'inline_handle' => 'plover-editor-scripts'
+			)
+		);
+	}
+
+	/**
+	 * Enqueue dashboard/admin assets.
+	 *
+	 * @return void
+	 */
+	public function enqueue_dashboard_assets() {
+		if ( ! is_admin() ) {
+			return;
+		}
+
+		// Dashboard localize data
+		if ( apply_filters( 'plover_core_should_localize_dashboard_data', false ) ) {
+			$localize_handle = 'plover-dashboard-data';
+			wp_register_script( $localize_handle, false, array(), false, true );
+			wp_localize_script(
+				$localize_handle,
+				'PloverDashboard',
+				apply_filters( 'plover_core_dashboard_data', array() )
+			);
+			wp_enqueue_script( $localize_handle );
+		}
+
+		// enqueue dashboard styles.
+		$this->enqueue_styles(
+			$this->styles->get_dashboard_assets(),
+			array(
+				'inline_handle' => 'plover-dashboard-styles'
+			)
+		);
+
+		// enqueue dashboard scripts.
+		$this->enqueue_scripts(
+			$this->scripts->get_dashboard_assets(),
+			array(
+				'mode'          => 'queue',
+				'inline_handle' => 'plover-dashboard-scripts'
 			)
 		);
 	}

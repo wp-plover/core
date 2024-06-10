@@ -19,11 +19,11 @@ class Arr {
 	public static function pluck( array $array, string $value, $key = null ) {
 		$result = [];
 
-		foreach ( $array as $item ) {
+		foreach ( $array as $origin_key => $item ) {
 			if ( $key && isset( $item[ $key ] ) ) {
 				$result[ $item[ $key ] ] = $item[ $value ];
 			} else {
-				$result[] = $item[ $value ];
+				$result[ $origin_key ] = $item[ $value ];
 			}
 		}
 

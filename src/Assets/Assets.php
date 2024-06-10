@@ -33,6 +33,13 @@ abstract class Assets {
 	protected $editor_assets = [];
 
 	/**
+	 * Dashboard assets files.
+	 *
+	 * @var array
+	 */
+	protected $dashboard_assets = [];
+
+	/**
 	 * Asset type.
 	 *
 	 * @var string
@@ -62,6 +69,20 @@ abstract class Assets {
 	 * @return void
 	 */
 	public function enqueue_asset( string $handle, array $args ) {
+		$this->assets[ $handle ] = $this->parse_asset_args( $args );
+	}
+
+	/**
+	 * Parse asset args.
+	 *
+	 * @param $args
+	 * @param $extra_deps
+	 *
+	 * @return array
+	 */
+	protected function parse_asset_args( $args, $extra_deps = array() ) {
+		$fs = Filesystem::get();
+
 		$args = wp_parse_args( $args, array(
 			'src'       => '',
 			'path'      => '',
@@ -71,9 +92,20 @@ abstract class Assets {
 			'condition' => true,
 		) );
 
-		$args['ver'] = $this->asset_version( $args['ver'] );
+		if ( isset( $args['asset'] ) && $fs->is_file( $args['asset'] ) ) {
+			$asset        = require $args['asset'];
+			$args['deps'] = array_merge(
+				$args['deps'] ?? array(),
+				$asset['dependencies'] ?? array()
+			);
 
-		$this->assets[ $handle ] = $args;
+			$args['ver'] = $asset['version'] ?? $this->asset_version( $args['ver'] );
+		}
+
+		$args['deps'] = array_merge( $args['deps'], ( $extra_deps[ $this->asset_type ] ?? array() ) );
+		$args['ver']  = $this->asset_version( $args['ver'] );
+
+		return $args;
 	}
 
 	/**
@@ -103,31 +135,31 @@ abstract class Assets {
 			return;
 		}
 
-		$fs = Filesystem::get();
+		$this->editor_assets[ $handle ] = $this->parse_asset_args( $args, [
+			'script' => [
+				'plover-editor-data'
+			],
+		] );
+	}
 
-		$args = wp_parse_args( $args, array(
-			'src'       => '',
-			'path'      => '',
-			'deps'      => array(),
-			'ver'       => 'app',
-			'keywords'  => [],
-			'condition' => true,
-		) );
-
-		if ( isset( $args['asset'] ) && $fs->is_file( $args['asset'] ) ) {
-			$asset        = require $args['asset'];
-			$args['deps'] = array_merge(
-				array( 'plover-editor-data' ), // should be depended on by all editor scripts
-				$args['deps'] ?? array(),
-				$asset['dependencies'] ?? array()
-			);
-
-			$args['ver'] = $asset['version'] ?? $this->asset_version( $args['ver'] );
+	/**
+	 * Enqueue the asset file in admin dashboard.
+	 *
+	 * @param string $handle
+	 * @param array $args
+	 *
+	 * @return void
+	 */
+	public function enqueue_dashboard_asset( string $handle, array $args ) {
+		if ( ! is_admin() ) {
+			return;
 		}
 
-		$args['ver'] = $this->asset_version( $args['ver'] );
-
-		$this->editor_assets[ $handle ] = $args;
+		$this->dashboard_assets[ $handle ] = $this->parse_asset_args( $args, [
+			'script' => [
+				'plover-dashboard-data'
+			]
+		] );
 	}
 
 	/**
@@ -146,5 +178,14 @@ abstract class Assets {
 	 */
 	public function get_editor_assets() {
 		return apply_filters( 'plover_core_' . $this->asset_type . '_editor_assets', $this->editor_assets );
+	}
+
+	/**
+	 * Get all dashboard asset files.
+	 *
+	 * @return array
+	 */
+	public function get_dashboard_assets() {
+		return apply_filters( 'plover_core_' . $this->asset_type . '_dashboard_assets', $this->dashboard_assets );
 	}
 }

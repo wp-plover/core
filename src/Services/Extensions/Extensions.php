@@ -3,6 +3,7 @@
 namespace Plover\Core\Services\Extensions;
 
 use Plover\Core\Plover;
+use Plover\Core\Services\Extensions\Contract\Extension;
 
 /**
  * @since 1.0.0
@@ -33,7 +34,7 @@ class Extensions {
 		$core->booted( function () use ( $core ) {
 			foreach ( $this->all() as $abs => $extension ) {
 				$instance = $core->make( $extension );
-				if ( is_object( $instance ) && method_exists( $instance, 'bootstrap' ) ) {
+				if ( $instance instanceof Extension && method_exists( $instance, 'bootstrap' ) ) {
 					$core->call( [ $instance, 'bootstrap' ] );
 				}
 			}
@@ -45,17 +46,17 @@ class Extensions {
 	 *
 	 * @param string $abs
 	 * @param $extension
-	 * @param $force
+	 * @param $override
 	 *
 	 * @return void
 	 */
-	public function register( string $abs, $extension = null, $force = false ) {
+	public function register( string $abs, $extension = null, $override = false ) {
 		if ( is_null( $extension ) ) {
 			$extension = $abs;
 		}
 
-		if ( isset( $this->extensions[ $abs ] ) && ! $force ) {
-			return;
+		if ( isset( $this->extensions[ $abs ] ) && ! $override ) {
+			throw new ExtensionRegisteredException( $abs . ' has been registered.' );
 		}
 
 		$this->extensions[ $abs ] = $extension;

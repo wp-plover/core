@@ -10,6 +10,16 @@ namespace Plover\Core\Toolkits;
 class Str {
 
 	/**
+	 * @param string $string
+	 * @param array $search
+	 *
+	 * @return string
+	 */
+	public static function to_title_case( string $string, array $search = [ '-', '_' ] ): string {
+		return trim( ucwords( str_replace( $search, ' ', $string ) ) );
+	}
+
+	/**
 	 * Checks if any of the given needles are in the haystack.
 	 *
 	 * @param string $haystack

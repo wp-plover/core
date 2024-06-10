@@ -16,6 +16,21 @@ class Shadow extends CustomBlockSupport {
 	 * @return void
 	 */
 	public function bootstrap() {
+		$modules  = $this->core->get( 'modules' );
+		$settings = $this->core->get( 'settings' );
+
+		if ( $modules ) {
+			$modules->register( 'plover_shadow', array(
+				'label'   => __( 'Block shadow', 'plover' ),
+				'excerpt' => __( 'Extra text-shadow, drop-shadow, and box-shadow.', 'plover' ),
+				'fields'  => array()
+			) );
+		}
+
+		// module is disabled.
+		if ( ! $this->settings->checked( 'plover_shadow' ) ) {
+			return;
+		}
 
 		$this->scripts->enqueue_editor_asset( 'plover-block-shadow', array(
 			'ver'   => 'core',
@@ -232,7 +247,8 @@ class Shadow extends CustomBlockSupport {
 		if ( str_starts_with( $text_shadow, 'var:custom|textShadow|' ) ) {
 			$text_shadow = str_replace(
 				               'var:custom|textShadow|',
-				               'var(--wp--custom--text-shadow--', $text_shadow
+				               'var(--wp--custom--text-shadow--',
+				               $text_shadow
 			               ) . ')';
 		}
 
@@ -268,14 +284,16 @@ class Shadow extends CustomBlockSupport {
 		if ( str_starts_with( $box_shadow, 'var:preset|shadow|' ) ) {
 			$box_shadow = str_replace(
 				              'var:preset|shadow|',
-				              'var(--wp--preset--shadow--', $box_shadow
+				              'var(--wp--preset--shadow--',
+				              $box_shadow
 			              ) . ')';
 		}
 
 		if ( str_starts_with( $box_shadow, 'var:custom|boxShadow|' ) ) {
 			$box_shadow = str_replace(
 				              'var:custom|boxShadow|',
-				              'var(--wp--custom--box-shadow--', $box_shadow
+				              'var(--wp--custom--box-shadow--',
+				              $box_shadow
 			              ) . ')';
 		}
 
@@ -311,7 +329,8 @@ class Shadow extends CustomBlockSupport {
 		if ( str_starts_with( $drop_shadow, 'var:custom|dropShadow|' ) ) {
 			$drop_shadow = str_replace(
 				               'var:custom|dropShadow|',
-				               'var(--wp--custom--drop-shadow--', $drop_shadow
+				               'var(--wp--custom--drop-shadow--',
+				               $drop_shadow
 			               ) . ')';
 		}
 

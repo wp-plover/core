@@ -4,6 +4,7 @@ namespace Plover\Core\Assets;
 
 use Plover\Core\Plover;
 use Plover\Core\Toolkits\Filesystem;
+use Plover\Core\Toolkits\Format;
 
 /**
  * Icon library and icons handler.
@@ -46,7 +47,7 @@ class Icons {
 			return null;
 		}
 
-		return static::sanitize( Filesystem::get()->get_contents( $svg_file ) );
+		return Format::sanitize_svg( Filesystem::get()->get_contents( $svg_file ) );
 	}
 
 	/**
@@ -65,31 +66,6 @@ class Icons {
 		}
 
 		return apply_filters( 'plover_core_icon_libraries', $libraries );
-	}
-
-	/**
-	 * @param string $svg
-	 *
-	 * @return string
-	 */
-	public static function sanitize( string $svg ): string {
-		return static::svg_sanitizer()->sanitize( $svg );
-	}
-
-	/**
-	 * @return \enshrined\svgSanitize\Sanitizer
-	 */
-	public static function svg_sanitizer(): \enshrined\svgSanitize\Sanitizer {
-		static $sanitizer = null;
-
-		if ( is_null( $sanitizer ) ) {
-			$sanitizer = new \enshrined\svgSanitize\Sanitizer();
-
-			$sanitizer->minify( true );
-			$sanitizer->removeXMLTag( true );
-		}
-
-		return $sanitizer;
 	}
 
 	/**
@@ -119,7 +95,7 @@ class Icons {
 		foreach ( $svg_files as $svg_file ) {
 			$slug           = basename( $svg_file, '.svg' );
 			$icons[ $slug ] = [
-				's' => static::sanitize( $fs->get_contents( $svg_file ) ),
+				's' => Format::sanitize_svg( $fs->get_contents( $svg_file ) ),
 			];
 
 			if ( isset( $meta[ $slug ] ) ) {
