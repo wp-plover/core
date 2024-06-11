@@ -3,7 +3,7 @@
 namespace Plover\Core\Services\Modules;
 
 use Plover\Core\Plover;
-use Plover\Core\Services\Modules\Contract\Module;
+use Plover\Core\Services\Settings\Settings;
 
 /**
  * @since 1.0.0
@@ -12,7 +12,7 @@ class Modules {
 	/**
 	 * All registered modules.
 	 *
-	 * @var Module[]
+	 * @var array
 	 */
 	protected $modules = [];
 
@@ -22,12 +22,18 @@ class Modules {
 	protected $core;
 
 	/**
+	 * @var Settings
+	 */
+	protected $settings;
+
+	/**
 	 * Create modules instance.
 	 *
 	 * @param Plover $core
 	 */
-	public function __construct( Plover $core ) {
-		$this->core = $core;
+	public function __construct( Plover $core, Settings $settings ) {
+		$this->core     = $core;
+		$this->settings = $settings;
 
 		add_filter( 'plover_core_dashboard_data', function ( $data ) {
 			// TODO: escape label, icon, excerpt, description.
@@ -47,6 +53,10 @@ class Modules {
 	 * @throws \Exception
 	 */
 	public function register( $id, $args = array() ) {
+		if ( isset( $this->modules[ $id ] ) ) {
+			return;
+		}
+
 		$args = wp_parse_args( $args, array(
 			'label'       => '',
 			'enabled'     => 'yes',
@@ -56,41 +66,55 @@ class Modules {
 			'fields'      => array(),
 		) );
 
-		$settings = $this->core->get( 'settings' );
-		if ( $settings ) {
-			$settings->add_group( $id, array(
-				'default' => $args['enabled'],
-			) );
+		$this->settings->add_group( $id, array(
+			'default' => $args['enabled'],
+		) );
 
-			$args['enabled'] = $settings->get( $id );
-		}
-
-		foreach ( $args['fields'] as $field => $field_args ) {
-			$field_args = wp_parse_args( $field_args, array(
-				'label'   => '',
-				'default' => '',
-				'control' => Control::T_TEXT,
-			) );
-
-			if ( $settings ) {
-				$settings->add_field( $id, $field, array(
-					'default'  => $field_args['default'],
-					'sanitize' => Control::sanitize(
-						$field_args['control'],
-						array_merge(
-							$field_args['control_args'] ?? array(),
-							array( 'default' => $field_args['default'] )
-						)
-					),
-				) );
-
-				$field_args['value'] = $settings->get( $id, $field );
-			}
-
-			$args['fields'][ $field ] = $field_args;
-		}
+		$fields          = $args['fields'] ?? array();
+		$args['enabled'] = $this->settings->get( $id );
+		$args['fields']  = array();
 
 		$this->modules[ $id ] = $args;
+
+		foreach ( $fields as $field => $field_args ) {
+			$this->add_field( $id, $field, $field_args );
+		}
+	}
+
+	/**
+	 * Add a field to exists module.
+	 *
+	 * @param $module
+	 * @param $field
+	 * @param $args
+	 *
+	 * @return void
+	 */
+	public function add_field( $module, $field, $args = array() ) {
+		if ( ! isset( $this->modules[ $module ] ) ) {
+			return;
+		}
+
+		$field_args = wp_parse_args( $args, array(
+			'label'   => '',
+			'default' => '',
+			'control' => Control::T_TEXT,
+		) );
+
+		$this->settings->add_field( $module, $field, array(
+			'default'  => $field_args['default'],
+			'sanitize' => Control::sanitize(
+				$field_args['control'],
+				array_merge(
+					$field_args['control_args'] ?? array(),
+					array( 'default' => $field_args['default'] )
+				)
+			),
+		) );
+
+		$field_args['value'] = $this->settings->get( $module, $field );
+
+		$this->modules[ $module ]['fields'][ $field ] = $field_args;
 	}
 
 	/**

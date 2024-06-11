@@ -254,8 +254,8 @@ class Enqueue {
 				if ( $asset_path && $fs->is_file( $asset_path ) ) {
 					$file_size = $fs->size( $asset_path );
 
-					if ( $file_size !== false && $file_size <= (int) apply_filters( 'plover_core_assets_inline_size',
-							500 ) ) {
+					$inline_size = apply_filters( 'plover_core_assets_inline_size', 500 );
+					if ( $file_size !== false && $file_size <= (int) $inline_size ) {
 						$should_inline = true;
 					}
 				}

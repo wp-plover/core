@@ -121,7 +121,7 @@ class Highlight extends Extension {
 			$prism_themes[] = [ 'label' => Str::to_title_case( $theme ), 'value' => $theme ];
 		}
 
-		return apply_filters( 'plover_core_support_highlight_themes', $prism_themes );
+		return apply_filters( 'plover_core_highlight_themes', $prism_themes );
 	}
 
 	/**
@@ -151,7 +151,7 @@ class Highlight extends Extension {
 			[ 'label' => 'Rust', 'value' => 'rust' ],
 		];
 
-		return apply_filters( 'plover_core_support_highlight_languages', $languages );
+		return apply_filters( 'plover_core_highlight_languages', $languages );
 	}
 
 	/**
@@ -163,7 +163,7 @@ class Highlight extends Extension {
 	 */
 	public function localize_highlight_attributes( $data ) {
 		$data['extensions']['highlight'] = [
-			'attributes'        => [
+			'attributes'        => apply_filters( 'plover_core_highlight_attributes', [
 				'highlight' => [
 					'type'    => 'string',
 					'default' => $this->settings->get( self::MODULE_NAME, 'default_style' ),
@@ -176,7 +176,7 @@ class Highlight extends Extension {
 					'type'    => 'string',
 					'default' => $this->settings->get( self::MODULE_NAME, 'default_language' ),
 				],
-			],
+			] ),
 			'support_themes'    => $this->support_themes(),
 			'support_languages' => $this->support_languages(),
 		];
@@ -191,21 +191,27 @@ class Highlight extends Extension {
 	 * @return mixed
 	 */
 	public function render( $block_content, $block ) {
-		$attrs = $block['attrs'] ?? [];
-		$html  = new Document( $block_content );
-		$wrap  = $html->get_element_by_tag_name( 'pre' );
+		$attrs     = $block['attrs'] ?? [];
+		$highlight = strtolower( $attrs['highlight'] ?? $this->settings->get( self::MODULE_NAME, 'default_style' ) );
+
+		if ( $highlight === 'none' ) {
+			return $block_content;
+		}
+
+		$html = new Document( $block_content );
+		$wrap = $html->get_element_by_tag_name( 'pre' );
 		if ( ! $wrap ) {
 			return $block_content;
 		}
 
-		$highlight = strtolower( $attrs['highlight'] ?? $this->settings->get( self::MODULE_NAME, 'default_style' ) );
-		$theme     = $attrs['theme'] ?? $this->settings->get( self::MODULE_NAME, 'default_theme' );
-		$lang      = $attrs['language'] ?? $this->settings->get( self::MODULE_NAME, 'default_language' );
+		$theme = $attrs['theme'] ?? $this->settings->get( self::MODULE_NAME, 'default_theme' );
+		$lang  = $attrs['language'] ?? $this->settings->get( self::MODULE_NAME, 'default_language' );
 
-		if ( $highlight !== 'none' ) {
-			$wrap->add_classnames( "plover-prism prism-{$theme}-theme language-{$lang}" );
-		}
+		$wrap->add_classnames( "plover-prism prism-{$theme}-theme language-{$lang}" );
+
+		$html = apply_filters( 'plover_core_render_highlight', $html, $block );
 
 		return $html->save_html();
 	}
 }
+

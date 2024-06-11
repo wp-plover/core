@@ -10,6 +10,33 @@ namespace Plover\Core\Toolkits;
 class StyleEngine {
 
 	/**
+	 * A utility for constructing className strings conditionally.
+	 *
+	 * @param ...$args
+	 *
+	 * @return string
+	 */
+	public static function clsx( ...$args ) {
+		$classNames = array();
+
+		foreach ( $args as $arg ) {
+			if ( is_string( $arg ) && $arg !== '' ) {
+				$classNames[] = $arg;
+			} elseif ( is_array( $arg ) ) {
+				foreach ( $arg as $k => $v ) {
+					if ( is_string( $v ) ) {
+						$classNames[] = $v;
+					} elseif ( is_bool( $v ) && $v === true ) {
+						$classNames[] = $k;
+					}
+				}
+			}
+		}
+
+		return implode( ' ', $classNames );
+	}
+
+	/**
 	 * Converts string of CSS rules to an array.
 	 *
 	 * @param string $css
@@ -63,11 +90,13 @@ class StyleEngine {
 	public static function get_block_color_styles( $attrs ): array {
 		$color_styles = array();
 		// Text color.
-		$preset_text_color    = array_key_exists( 'textColor', $attrs ) ? "var:preset|color|{$attrs['textColor']}" : null;
+		$preset_text_color    = array_key_exists( 'textColor',
+			$attrs ) ? "var:preset|color|{$attrs['textColor']}" : null;
 		$custom_text_color    = $attrs['style']['color']['text'] ?? null;
 		$color_styles['text'] = $preset_text_color ? $preset_text_color : $custom_text_color;
 		// Background Color.
-		$preset_background_color    = array_key_exists( 'backgroundColor', $attrs ) ? "var:preset|color|{$attrs['backgroundColor']}" : null;
+		$preset_background_color    = array_key_exists( 'backgroundColor',
+			$attrs ) ? "var:preset|color|{$attrs['backgroundColor']}" : null;
 		$custom_background_color    = $attrs['style']['color']['background'] ?? null;
 		$color_styles['background'] = $preset_background_color ? $preset_background_color : $custom_background_color;
 
@@ -99,7 +128,8 @@ class StyleEngine {
 		}
 
 		// Border color.
-		$preset_color           = array_key_exists( 'borderColor', $attrs ) ? "var:preset|color|{$attrs['borderColor']}" : null;
+		$preset_color           = array_key_exists( 'borderColor',
+			$attrs ) ? "var:preset|color|{$attrs['borderColor']}" : null;
 		$custom_color           = $attrs['style']['border']['color'] ?? null;
 		$border_styles['color'] = $preset_color ? $preset_color : $custom_color;
 
