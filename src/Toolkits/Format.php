@@ -27,6 +27,33 @@ class Format {
 	}
 
 	/**
+	 * Generates a closure to sanitize tags value.
+	 *
+	 * @param $args
+	 *
+	 * @return \Closure
+	 */
+	public static function create_tags_sanitizer( $args = array() ) {
+		return function ( $input ) use ( $args ) {
+			if ( is_string( $input ) ) {
+				$input = explode( ',', $input );
+			}
+
+			if ( ! is_array( $input ) ) {
+				return [];
+			}
+
+			if ( isset( $args['suggestions'] ) && ( $args['validate'] ?? false ) ) {
+				$input = array_filter( $input, function ( $item ) use ( $args ) {
+					return in_array( $item, $args['suggestions'] );
+				} );
+			}
+
+			return $input;
+		};
+	}
+
+	/**
 	 * @param $str
 	 *
 	 * @return string
@@ -47,7 +74,7 @@ class Format {
 	}
 
 	/**
-	 * Checkbox sanitization callback example.
+	 * Checkbox value sanitization callback.
 	 *
 	 * Sanitization callback for 'checkbox' type controls. This callback sanitizes `$checked`
 	 * as a boolean value, either TRUE or FALSE.
@@ -61,6 +88,8 @@ class Format {
 	}
 
 	/**
+	 * Sanitize raw SVG string.
+	 *
 	 * @param string $svg
 	 *
 	 * @return string
@@ -76,5 +105,21 @@ class Format {
 		}
 
 		return $sanitizer->sanitize( $svg );
+	}
+
+	/**
+	 * Format inline JavaScript code.
+	 *
+	 * @param string $js
+	 *
+	 * @return string
+	 */
+	public static function inline_js( string $js ): string {
+		$js = str_replace( '"', "'", $js );
+		$js = trim( rtrim( $js, ';' ) );
+		$js = Str::reduce_whitespace( $js );
+		$js = Str::remove_line_breaks( $js );
+
+		return apply_filters( 'plover_core_format_inline_js', $js );
 	}
 }

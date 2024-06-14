@@ -6,6 +6,7 @@ use Plover\Core\Framework\Container\Container;
 use Plover\Core\Framework\ServiceProvider;
 use Plover\Core\Services\AssetsServiceProvider;
 use Plover\Core\Services\Blocks\BlocksServiceProvider;
+use Plover\Core\Services\CoreEnhanceServiceProvider;
 use Plover\Core\Services\Extensions\ExtensionsServiceProvider;
 use Plover\Core\Services\Settings\SettingsServiceProvider;
 use Plover\Core\Toolkits\Path;

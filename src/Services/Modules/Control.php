@@ -11,6 +11,7 @@ class Control {
 	const T_TEXT = 'text';
 	const T_SELECT = 'select';
 	const T_SWITCH = 'switch';
+	const T_TAGS = 'tags';
 
 	/**
 	 * @param $control

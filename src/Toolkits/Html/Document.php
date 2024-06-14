@@ -127,9 +127,24 @@ class Document {
 	 * @return DOMElement|null
 	 */
 	private function sanitize_element( $node ): ?Element {
-
 		if ( $node && $node->nodeType === XML_ELEMENT_NODE ) {
 			return new Element( $node );
+		}
+
+		return null;
+	}
+
+	/**
+	 * @param array $tags
+	 *
+	 * @return Element|null
+	 */
+	public function get_element_by_tags_priority( array $tags = array( '*' ) ) {
+		foreach ( $tags as $tag ) {
+			$el = $this->get_element_by_tag_name( $tag );
+			if ( $el ) {
+				return $el;
+			}
 		}
 
 		return null;

@@ -36,12 +36,19 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 			]
 		],
 		'core/button'              => [
-			'spacing'      => [
+			'spacing'            => [
 				'margin'   => true,
 				'padding'  => true,
 				'blockGap' => true,
 			],
-			'ploverShadow' => [
+			'ploverEventHandler' => [
+				'onclick'         => true,
+				'onmouseover'     => true,
+				'defaultControls' => [
+					'onclick' => true,
+				],
+			],
+			'ploverShadow'       => [
 				'box'             => true,
 				'defaultControls' => [
 					'box' => true,
@@ -181,6 +188,10 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 		$blocks->register_custom_support(
 			'ploverShadow',
 			\Plover\Core\Supports\Shadow::class
+		);
+		$blocks->register_custom_support(
+			'ploverEventHandler',
+			\Plover\Core\Supports\EventHandler::class
 		);
 
 		// core extend blocks

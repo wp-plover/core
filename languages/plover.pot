@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-06-11T11:08:22+00:00\n"
+"POT-Creation-Date: 2024-06-14T06:58:15+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: plover\n"
@@ -44,7 +44,7 @@ msgstr ""
 msgid "Default language"
 msgstr ""
 
-#: src/Extensions/Icon.php:165
+#: src/Extensions/Icon.php:188
 msgid "No such icon library."
 msgstr ""
 
@@ -53,11 +53,43 @@ msgstr ""
 msgid "Forbidden"
 msgstr ""
 
-#: src/Supports/Shadow.php:24
-msgid "Block shadow"
+#: src/Supports/EventHandler.php:26
+msgid "Block event handler"
+msgstr ""
+
+#: src/Supports/EventHandler.php:27
+msgid "Adding event handler to blocks to execute custom JavaScript snippets."
+msgstr ""
+
+#: src/Supports/EventHandler.php:30
+msgid "Allowed roles"
+msgstr ""
+
+#: src/Supports/EventHandler.php:31
+msgid "Only users who are granted the allowed roles can add event handlers."
+msgstr ""
+
+#: src/Supports/EventHandler.php:42
+msgid "Allowed events"
+msgstr ""
+
+#: src/Supports/EventHandler.php:89
+msgid "on click event"
+msgstr ""
+
+#: src/Supports/EventHandler.php:90
+msgid "on db click event"
+msgstr ""
+
+#: src/Supports/EventHandler.php:91
+msgid "on mouse over event"
 msgstr ""
 
 #: src/Supports/Shadow.php:25
+msgid "Block shadow"
+msgstr ""
+
+#: src/Supports/Shadow.php:26
 msgid "Extra text-shadow, drop-shadow, and box-shadow."
 msgstr ""
 
@@ -124,6 +156,18 @@ msgstr ""
 
 #: static/scripts/block-extensions/icon/IconControls.jsx:202
 msgid "Clear icon"
+msgstr ""
+
+#: static/scripts/block-supports/event-handler/EventHandlerPanel.js:88
+msgid "JavaScript Event Handler"
+msgstr ""
+
+#: static/scripts/block-supports/event-handler/EventHandlerPanel.js:92
+msgid "Add custom JavaScript to the corresponding events of this block."
+msgstr ""
+
+#: static/scripts/block-supports/event-handler/EventHandlerPanel.js:104
+msgid "Edit"
 msgstr ""
 
 #. translators: %s is the name of shadow, e.g., "custom/solid"

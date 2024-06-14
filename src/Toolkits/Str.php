@@ -38,6 +38,18 @@ class Str {
 	}
 
 	/**
+	 * Replaces multiple whitespace with single.
+	 *
+	 * @param string $string The string to search.
+	 *
+	 * @return string
+	 *
+	 */
+	public static function reduce_whitespace( string $string ): string {
+		return preg_replace( '/\s+/', ' ', $string );
+	}
+
+	/**
 	 * Removes line breaks from a string.
 	 *
 	 * @param string $string

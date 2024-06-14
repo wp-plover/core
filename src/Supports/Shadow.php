@@ -10,17 +10,18 @@ use Plover\Core\Toolkits\Arr;
  */
 class Shadow extends CustomBlockSupport {
 
+	const MODULE_NAME = 'plover_shadow';
+
 	/**
 	 * Bootstrap the custom block support.
 	 *
 	 * @return void
 	 */
 	public function bootstrap() {
-		$modules  = $this->core->get( 'modules' );
-		$settings = $this->core->get( 'settings' );
+		$modules = $this->core->get( 'modules' );
 
 		if ( $modules ) {
-			$modules->register( 'plover_shadow', array(
+			$modules->register( self::MODULE_NAME, array(
 				'label'   => __( 'Block shadow', 'plover' ),
 				'excerpt' => __( 'Extra text-shadow, drop-shadow, and box-shadow.', 'plover' ),
 				'fields'  => array()
@@ -28,7 +29,7 @@ class Shadow extends CustomBlockSupport {
 		}
 
 		// module is disabled.
-		if ( ! $this->settings->checked( 'plover_shadow' ) ) {
+		if ( ! $this->settings->checked( self::MODULE_NAME ) ) {
 			return;
 		}
 

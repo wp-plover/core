@@ -42,6 +42,54 @@ class Element {
 	}
 
 	/**
+	 * @param string $qualified_name
+	 *
+	 * @return void
+	 */
+	public function remove_attribute( string $qualified_name ) {
+		$this->el->removeAttribute( $qualified_name );
+	}
+
+	/**
+	 * Change current element's tag name
+	 *
+	 * @param string $tag
+	 *
+	 * @return void|null
+	 */
+	public function transfer_to( string $tag ) {
+		if ( ! $this->el->ownerDocument ) {
+			return null;
+		}
+
+		$child_nodes = [];
+
+		foreach ( $this->el->childNodes as $child ) {
+			$child_nodes[] = $child;
+		}
+
+		$new_element = $this->el->ownerDocument->createElement( $tag );
+
+		foreach ( $child_nodes as $child ) {
+			$child2 = $this->el->ownerDocument->importNode( $child, true );
+			$new_element->appendChild( $child2 );
+		}
+
+		foreach ( $this->el->attributes as $attr_node ) {
+			$attr_name  = $attr_node->nodeName;
+			$attr_value = $attr_node->nodeValue;
+
+			$new_element->setAttribute( $attr_name, $attr_value );
+		}
+
+		if ( $this->el->parentNode ) {
+			$this->el->parentNode->replaceChild( $new_element, $this->el );
+		}
+
+		$this->el = $new_element;
+	}
+
+	/**
 	 * Add classnames to element.
 	 *
 	 * @param $classnames
@@ -49,12 +97,14 @@ class Element {
 	 * @return void
 	 */
 	public function add_classnames( $classnames ) {
-		$this->el->setAttribute( 'class', implode( ' ', array_unique(
-			array_merge(
-				$this->classnames_to_array( $this->get_attribute( 'class' ) ),
-				$this->classnames_to_array( $classnames )
-			)
-		) ) );
+		$this->el->setAttribute( 'class',
+			implode( ' ',
+				array_unique(
+					array_merge(
+						$this->classnames_to_array( $this->get_attribute( 'class' ) ),
+						$this->classnames_to_array( $classnames )
+					)
+				) ) );
 	}
 
 	/**
@@ -89,13 +139,17 @@ class Element {
 	 * @return void
 	 */
 	public function remove_classnames( $classnames ) {
-		$this->el->setAttribute( 'class', implode( ' ', array_diff(
-			$this->classnames_to_array( $this->get_attribute( 'class' ) ),
-			$this->classnames_to_array( $classnames )
-		) ) );
+		$this->el->setAttribute( 'class',
+			implode( ' ',
+				array_diff(
+					$this->classnames_to_array( $this->get_attribute( 'class' ) ),
+					$this->classnames_to_array( $classnames )
+				) ) );
 	}
 
 	/**
+	 * Append inline-styles.
+	 *
 	 * @param $css
 	 *
 	 * @return void
@@ -105,11 +159,61 @@ class Element {
 			$css = StyleEngine::css_to_declarations( $css );
 		}
 
-		$this->el->setAttribute( 'style', StyleEngine::compile_css(
-			array_merge(
-				StyleEngine::css_to_declarations( $this->get_attribute( 'style' ) ),
-				$css
-			)
-		) );
+		$this->el->setAttribute( 'style',
+			StyleEngine::compile_css(
+				array_merge(
+					StyleEngine::css_to_declarations( $this->get_attribute( 'style' ) ),
+					$css
+				)
+			) );
+	}
+
+	/**
+	 * Get some inline-styles properties.
+	 *
+	 * @param $properties
+	 *
+	 * @return array
+	 */
+	public function get_styles( $properties = array() ) {
+		$styles = StyleEngine::css_to_declarations( $this->get_attribute( 'style' ) );
+		if ( empty( $properties ) ) {
+			return $styles;
+		}
+
+		return array_intersect_key( $styles, array_flip( $properties ) );
+	}
+
+	/**
+	 * Remove some inline-styles properties.
+	 *
+	 * @param $properties
+	 *
+	 * @return array
+	 */
+	public function remove_styles( $properties = array() ) {
+		$styles = StyleEngine::css_to_declarations( $this->get_attribute( 'style' ) );
+		if ( empty( $properties ) ) {
+			return $styles;
+		}
+
+		$this->set_styles( array_diff_key( $styles, array_flip( $properties ) ) );
+
+		return array_intersect_key( $styles, array_flip( $properties ) );
+	}
+
+	/**
+	 * Replace inline-styles.
+	 *
+	 * @param $css
+	 *
+	 * @return void
+	 */
+	public function set_styles( $css ) {
+		if ( ! is_array( $css ) ) {
+			$css = StyleEngine::css_to_declarations( $css );
+		}
+
+		$this->el->setAttribute( 'style', StyleEngine::compile_css( $css ) );
 	}
 }

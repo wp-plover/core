@@ -45,9 +45,33 @@ class Icon extends Extension {
 			'path' => $this->core->core_path( 'assets/js/block-extensions/icon/style.css' ),
 		) );
 
+		// Allow safe svg in post
+		add_filter( 'wp_kses_allowed_html', [ $this, 'allow_safe_svg_in_post' ], 11, 2 );
 		// Send default icon attributes to JavaScript
 		add_filter( 'plover_core_editor_data', [ $this, 'localize_icon_attributes' ] );
 		add_filter( 'render_block_core/button', [ $this, 'render_button_with_icon' ], 11, 2 );
+	}
+
+	/**
+	 * @param $allowedposttags
+	 * @param $context
+	 *
+	 * @return array
+	 */
+	public function allow_safe_svg_in_post( $allowedposttags, $context ) {
+		if ( $context !== 'post' ) {
+			return $allowedposttags;
+		}
+
+		$attributes = \enshrined\svgSanitize\data\AllowedAttributes::getAttributes();
+		$attributes = array_fill_keys( array_unique( $attributes ), true );
+		$tags       = \enshrined\svgSanitize\data\AllowedTags::getTags();
+
+		// add safe svg support
+		return array_merge(
+			array_fill_keys( array_unique( $tags ), $attributes ),
+			$allowedposttags
+		);
 	}
 
 	/**
@@ -86,12 +110,12 @@ class Icon extends Extension {
 		$html     = new Document( $block_content );
 		$imported = $html->get_dom()->importNode( $svg->get_dom_element(), true );
 
-		$a = $html->get_element_by_tag_name( 'a' );
-		if ( $a ) {
+		$el = $html->get_element_by_tags_priority( array( 'button', 'a', '*' ) );
+		if ( $el ) {
 			if ( $icon_position === 'left' ) {
-				$a->get_dom_element()->insertBefore( $imported, $a->get_dom_element()->firstChild );
+				$el->get_dom_element()->insertBefore( $imported, $el->get_dom_element()->firstChild );
 			} else {
-				$a->get_dom_element()->appendChild( $imported );
+				$el->get_dom_element()->appendChild( $imported );
 			}
 		}
 
@@ -140,7 +164,6 @@ class Icon extends Extension {
 	 * @return void
 	 */
 	public function register_reset_api() {
-
 		$router = Router::v1();
 
 		$router->read( '/icons/(?P<library>[0-9|a-z|_-]+)', array( $this, 'icons_api' ) )
