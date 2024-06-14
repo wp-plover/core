@@ -337,12 +337,13 @@ class Plover extends Container {
 	 * @return void
 	 */
 	protected function fire_callbacks( array &$callbacks ) {
-		$index = 0;
+		$priorities = array_keys( $callbacks );
+		sort( $priorities );
 
-		while ( $index < count( $callbacks ) ) {
-			$this->call( $callbacks[ $index ] );
-
-			$index ++;
+		foreach ( $priorities as $priority ) {
+			foreach ( $callbacks[ $priority ] as $callback ) {
+				$this->call( $callback );
+			}
 		}
 	}
 
@@ -350,33 +351,36 @@ class Plover extends Container {
 	 * Register a new registered listener.
 	 *
 	 * @param callable $callback
+	 * @param $priority
 	 *
 	 * @return void
 	 */
-	public function registered( $callback ) {
-		$this->registered_callbacks[] = $callback;
+	public function registered( $callback, $priority = 10 ) {
+		$this->registered_callbacks[ $priority ][] = $callback;
 	}
 
 	/**
 	 * Register a new boot listener.
 	 *
 	 * @param callable $callback
+	 * @param $priority
 	 *
 	 * @return void
 	 */
-	public function booting( $callback ) {
-		$this->booting_callbacks[] = $callback;
+	public function booting( $callback, $priority = 10 ) {
+		$this->booting_callbacks[ $priority ][] = $callback;
 	}
 
 	/**
 	 * Register a new "booted" listener.
 	 *
 	 * @param callable $callback
+	 * @param $priority
 	 *
 	 * @return void
 	 */
-	public function booted( $callback ) {
-		$this->booted_callbacks[] = $callback;
+	public function booted( $callback, $priority = 10 ) {
+		$this->booted_callbacks[ $priority ][] = $callback;
 
 		if ( $this->is_booted() ) {
 			$callback( $this );

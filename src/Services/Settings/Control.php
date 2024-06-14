@@ -1,6 +1,6 @@
 <?php
 
-namespace Plover\Core\Services\Modules;
+namespace Plover\Core\Services\Settings;
 
 use Plover\Core\Toolkits\Format;
 

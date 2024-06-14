@@ -23,13 +23,6 @@ class Blocks {
 	protected $core;
 
 	/**
-	 * Registered custom support.
-	 *
-	 * @var array
-	 */
-	protected $custom_supports = [];
-
-	/**
 	 * Extended block supports.
 	 *
 	 * @var array
@@ -58,56 +51,6 @@ class Blocks {
 
 			return $data;
 		} );
-
-		$this->core->booted( function () {
-			foreach ( $this->custom_supports() as $abs => $support ) {
-				$instance = $this->core->make( $support );
-				if ( is_object( $instance ) && method_exists( $instance, 'bootstrap' ) ) {
-					$this->core->call( [ $instance, 'bootstrap' ] );
-				}
-			}
-		} );
-	}
-
-	/**
-	 * Get all custom supports.
-	 *
-	 * @return array
-	 */
-	public function custom_supports() {
-		return $this->custom_supports;
-	}
-
-	/**
-	 * Register a custom support.
-	 *
-	 * @param string $abs
-	 * @param $extension
-	 * @param $force
-	 *
-	 * @return void
-	 */
-	public function register_custom_support( string $abs, $support = null, $force = false ) {
-		if ( is_null( $support ) ) {
-			$support = $abs;
-		}
-
-		if ( isset( $this->custom_supports[ $abs ] ) && ! $force ) {
-			return;
-		}
-
-		$this->custom_supports[ $abs ] = $support;
-	}
-
-	/**
-	 * Unregister exists custom support.
-	 *
-	 * @param $abs
-	 *
-	 * @return void
-	 */
-	public function unregister_custom_support( $abs ) {
-		unset( $this->custom_supports[ $abs ] );
 	}
 
 	/**

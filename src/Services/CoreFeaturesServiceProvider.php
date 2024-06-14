@@ -43,6 +43,7 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 			],
 			'ploverEventHandler' => [
 				'onclick'         => true,
+				'ondblclick'      => true,
 				'onmouseover'     => true,
 				'defaultControls' => [
 					'onclick' => true,
@@ -176,34 +177,23 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 	];
 
 	/**
-	 * ServiceProvider boot function.
-	 *
-	 * @param Blocks $blocks
-	 * @param Extensions $extensions
-	 *
 	 * @return void
 	 */
-	public function boot( Blocks $blocks, Extensions $extensions ) {
-		// core custom supports
-		$blocks->register_custom_support(
-			'ploverShadow',
-			\Plover\Core\Supports\Shadow::class
-		);
-		$blocks->register_custom_support(
-			'ploverEventHandler',
-			\Plover\Core\Supports\EventHandler::class
-		);
+	public function register() {
+		$this->core->registered( function ( Blocks $blocks, Extensions $extensions ) {
+			// core extend blocks
+			$blocks->extend( new \Plover\Core\Blocks\SiteLogo() );
+			$blocks->extend( new \Plover\Core\Blocks\Code() );
+			// extend block supports
+			foreach ( $this->block_supports as $block_name => $supports ) {
+				$blocks->extend_block_supports( $block_name, $supports );
+			}
 
-		// core extend blocks
-		$blocks->extend( new \Plover\Core\Blocks\SiteLogo() );
-		$blocks->extend( new \Plover\Core\Blocks\Code() );
-		// extend block supports
-		foreach ( $this->block_supports as $block_name => $supports ) {
-			$blocks->extend_block_supports( $block_name, $supports );
-		}
-
-		// register core extensions
-		$extensions->register( 'icon', \Plover\Core\Extensions\Icon::class );
-		$extensions->register( 'highlight', \Plover\Core\Extensions\Highlight::class );
+			// register core extensions
+			$extensions->register( 'shadow', \Plover\Core\Extensions\Shadow::class );
+			$extensions->register( 'event-handler', \Plover\Core\Extensions\EventHandler::class );
+			$extensions->register( 'icon', \Plover\Core\Extensions\Icon::class );
+			$extensions->register( 'highlight', \Plover\Core\Extensions\Highlight::class );
+		} );
 	}
 }

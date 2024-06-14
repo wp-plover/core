@@ -41,7 +41,7 @@ class Bootstrap {
 	 * @param $base_path
 	 * @param bool $ver
 	 */
-	protected function __construct( $id, $base_path, $ver = false ) {
+	protected function __construct( $id, $base_path ) {
 		$this->core = plover_core();
 		if ( ! $this->core ) {
 			$this->core = new Plover( $base_path );
@@ -98,11 +98,12 @@ class Bootstrap {
 	 * Register a callback to be invoked when the application's service providers are registered.
 	 *
 	 * @param callable $callback
+	 * @param int $priority
 	 *
 	 * @return $this
 	 */
-	public function registered( callable $callback ) {
-		$this->core->registered( $callback );
+	public function registered( callable $callback, int $priority = 0 ) {
+		$this->core->registered( $callback, $priority );
 
 		return $this;
 	}
@@ -130,11 +131,12 @@ class Bootstrap {
 	 * Register a callback to be invoked when the application is "booting".
 	 *
 	 * @param callable $callback
+	 * @param int $priority
 	 *
 	 * @return $this
 	 */
-	public function booting( callable $callback ) {
-		$this->core->booting( $callback );
+	public function booting( callable $callback, int $priority = 0 ) {
+		$this->core->booting( $callback, $priority );
 
 		return $this;
 	}
@@ -143,11 +145,12 @@ class Bootstrap {
 	 * Register a callback to be invoked when the application is "booted".
 	 *
 	 * @param callable $callback
+	 * @param int $priority
 	 *
 	 * @return $this
 	 */
-	public function booted( callable $callback ) {
-		$this->core->booted( $callback );
+	public function booted( callable $callback, int $priority = 0 ) {
+		$this->core->booted( $callback, $priority );
 
 		return $this;
 	}

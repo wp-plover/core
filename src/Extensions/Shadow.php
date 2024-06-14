@@ -1,33 +1,34 @@
 <?php
 
-namespace Plover\Core\Supports;
+namespace Plover\Core\Extensions;
 
-use Plover\Core\Services\Blocks\Contract\CustomBlockSupport;
+use Plover\Core\Services\Extensions\Contract\Extension;
 use Plover\Core\Toolkits\Arr;
 
 /**
  * @since 1.0.0
  */
-class Shadow extends CustomBlockSupport {
+class Shadow extends Extension {
 
 	const MODULE_NAME = 'plover_shadow';
+
+	/**
+	 * @return void
+	 */
+	public function register() {
+		$this->modules->register( self::MODULE_NAME, array(
+			'label'   => __( 'Block shadow', 'plover' ),
+			'excerpt' => __( 'Extra text-shadow, drop-shadow, and box-shadow.', 'plover' ),
+			'fields'  => array()
+		) );
+	}
 
 	/**
 	 * Bootstrap the custom block support.
 	 *
 	 * @return void
 	 */
-	public function bootstrap() {
-		$modules = $this->core->get( 'modules' );
-
-		if ( $modules ) {
-			$modules->register( self::MODULE_NAME, array(
-				'label'   => __( 'Block shadow', 'plover' ),
-				'excerpt' => __( 'Extra text-shadow, drop-shadow, and box-shadow.', 'plover' ),
-				'fields'  => array()
-			) );
-		}
-
+	public function boot() {
 		// module is disabled.
 		if ( ! $this->settings->checked( self::MODULE_NAME ) ) {
 			return;

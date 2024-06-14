@@ -1,58 +1,73 @@
 <?php
 
-namespace Plover\Core\Supports;
+namespace Plover\Core\Extensions;
 
-use Plover\Core\Services\Blocks\Contract\CustomBlockSupport;
-use Plover\Core\Services\Modules\Control;
+use Plover\Core\Services\Extensions\Contract\Extension;
+use Plover\Core\Services\Settings\Control;
 use Plover\Core\Toolkits\Format;
 
 /**
  * @since 1.0.0
  */
-class EventHandler extends CustomBlockSupport {
+class EventHandler extends Extension {
 
 	const MODULE_NAME = 'plover_event_handler';
+
+	/**
+	 * @return void
+	 * @throws \Exception
+	 */
+	public function register() {
+		$this->modules->register( self::MODULE_NAME, array(
+			'label'   => __( 'Block event handler', 'plover' ),
+			'excerpt' => __( 'Adding event handler to blocks to execute custom JavaScript snippets.', 'plover' ),
+			'fields'  => array(
+				'allowed_roles'  => array(
+					'label'        => __( 'Allowed roles', 'plover' ),
+					'help'         => __(
+						'Only users who are granted the allowed roles can add event handlers.',
+						'plover'
+					),
+					'default'      => array( 'administrator', 'editor' ),
+					'control'      => Control::T_TAGS,
+					'control_args' => array(
+						'suggestions' => array( 'administrator', 'editor', 'author', 'contributor' )
+					)
+				),
+				'allowed_events' => array(
+					'label'        => __( 'Allowed events', 'plover' ),
+					'default'      => array( 'onclick', 'onmouseover' ),
+					'control'      => Control::T_TAGS,
+					'control_args' => array(
+						'validate'    => true,
+						'suggestions' => array_keys( $this->supported_event_handlers() )
+					)
+				)
+			)
+		) );
+	}
+
+	/**
+	 * Allowed event handlers
+	 *
+	 * @return mixed|null
+	 */
+	public function supported_event_handlers() {
+		return apply_filters( 'plover_core_supported_event_handlers', array(
+			'onclick'     => array( 'label' => __( 'on click event', 'plover' ) ),
+			'ondblclick'  => array( 'label' => __( 'on db click event', 'plover' ) ),
+			'onmouseover' => array( 'label' => __( 'on mouse over event', 'plover' ) ),
+		) );
+	}
 
 	/**
 	 * Bootstrap the event-handler block support.
 	 *
 	 * @return void
 	 */
-	public function bootstrap() {
-		$modules = $this->core->get( 'modules' );
-
-		if ( $modules ) {
-			$modules->register( self::MODULE_NAME, array(
-				'label'   => __( 'Block event handler', 'plover' ),
-				'excerpt' => __( 'Adding event handler to blocks to execute custom JavaScript snippets.', 'plover' ),
-				'fields'  => array(
-					'allowed_roles'  => array(
-						'label'        => __( 'Allowed roles', 'plover' ),
-						'help'         => __(
-							'Only users who are granted the allowed roles can add event handlers.',
-							'plover'
-						),
-						'default'      => array( 'admin', 'editor' ),
-						'control'      => Control::T_TAGS,
-						'control_args' => array(
-							'suggestions' => array( 'admin', 'editor', 'author', 'contributor' )
-						)
-					),
-					'allowed_events' => array(
-						'label'        => __( 'Allowed events', 'plover' ),
-						'default'      => array( 'onclick', 'onmouseover' ),
-						'control'      => Control::T_TAGS,
-						'control_args' => array(
-							'validate'    => true,
-							'suggestions' => array_keys( $this->supported_event_handlers() )
-						)
-					)
-				)
-			) );
-		}
-
+	public function boot() {
 		// module is disabled.
-		if ( ! $this->settings->checked( self::MODULE_NAME, null, true ) ) {
+		if ( ! $this->settings->checked( self::MODULE_NAME ) ) {
 			return;
 		}
 
@@ -77,19 +92,6 @@ class EventHandler extends CustomBlockSupport {
 
 			add_filter( 'plover_core_editor_data', [ $this, 'localize_allowed_event_handler' ] );
 		}
-	}
-
-	/**
-	 * Allowed event handlers
-	 *
-	 * @return mixed|null
-	 */
-	public function supported_event_handlers() {
-		return apply_filters( 'plover_core_supported_event_handlers', array(
-			'onclick'     => array( 'label' => __( 'on click event', 'plover' ) ),
-			'ondblclick'  => array( 'label' => __( 'on db click event', 'plover' ) ),
-			'onmouseover' => array( 'label' => __( 'on mouse over event', 'plover' ) ),
-		) );
 	}
 
 	/**

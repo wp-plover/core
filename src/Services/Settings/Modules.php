@@ -1,9 +1,8 @@
 <?php
 
-namespace Plover\Core\Services\Modules;
+namespace Plover\Core\Services\Settings;
 
 use Plover\Core\Plover;
-use Plover\Core\Services\Settings\Settings;
 
 /**
  * @since 1.0.0

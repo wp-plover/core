@@ -11,6 +11,11 @@ use Plover\Core\Services\Extensions\Contract\Extension;
 class Extensions {
 
 	/**
+	 * @var bool
+	 */
+	protected $booted = false;
+
+	/**
 	 * All registered extensions.
 	 *
 	 * @var array
@@ -18,27 +23,17 @@ class Extensions {
 	protected $extensions = [];
 
 	/**
+	 * @var Plover
+	 */
+	protected $core;
+
+	/**
 	 * Create extensions instance.
 	 *
 	 * @param array $extensions
 	 */
-	public function __construct( Plover $core, array $extensions = array() ) {
-		foreach ( $extensions as $abs => $extension ) {
-			if ( ! is_string( $abs ) ) {
-				$abs = $extension;
-			}
-
-			$this->register( $abs, $extension );
-		}
-
-		$core->booted( function () use ( $core ) {
-			foreach ( $this->all() as $abs => $extension ) {
-				$instance = $core->make( $extension );
-				if ( $instance instanceof Extension && method_exists( $instance, 'bootstrap' ) ) {
-					$core->call( [ $instance, 'bootstrap' ] );
-				}
-			}
-		} );
+	public function __construct( Plover $core ) {
+		$this->core = $core;
 	}
 
 	/**
@@ -48,7 +43,7 @@ class Extensions {
 	 * @param $extension
 	 * @param $override
 	 *
-	 * @return void
+	 * @return mixed|object|string|null
 	 */
 	public function register( string $abs, $extension = null, $override = false ) {
 		if ( is_null( $extension ) ) {
@@ -56,19 +51,46 @@ class Extensions {
 		}
 
 		if ( isset( $this->extensions[ $abs ] ) && ! $override ) {
-			throw new ExtensionRegisteredException( $abs . ' has been registered.' );
+			return $this->extensions[ $abs ];
+		}
+
+		if ( is_string( $extension ) ) {
+			$extension = $this->core->make( $extension );
+		}
+
+		if ( method_exists( $extension, 'register' ) ) {
+			$this->core->call( [ $extension, 'register' ] );
+		}
+
+		if ( $this->is_booted() ) {
+			$this->boot_extension( $extension );
 		}
 
 		$this->extensions[ $abs ] = $extension;
+
+		return $extension;
 	}
 
 	/**
-	 * Get all registered extensions.
+	 * Determine if all extensions has booted.
 	 *
-	 * @return array
+	 * @return bool
 	 */
-	public function all() {
-		return $this->extensions;
+	public function is_booted(): bool {
+		return $this->booted;
+	}
+
+	/**
+	 * Boot the given extension.
+	 *
+	 * @param $extension
+	 *
+	 * @return void
+	 */
+	protected function boot_extension( $extension ) {
+		if ( method_exists( $extension, 'boot' ) ) {
+			$this->core->call( [ $extension, 'boot' ] );
+		}
 	}
 
 	/**
@@ -80,5 +102,24 @@ class Extensions {
 	 */
 	public function unregister( $abs ) {
 		unset( $this->extensions[ $abs ] );
+	}
+
+	/**
+	 * Boot all extensions.
+	 *
+	 * @return void
+	 */
+	public function boot() {
+		if ( $this->is_booted() ) {
+			return;
+		}
+
+		foreach ( $this->extensions as $abs => $extension ) {
+			if ( method_exists( $extension, 'boot' ) ) {
+				$this->core->call( [ $extension, 'boot' ] );
+			}
+		}
+
+		$this->booted = true;
 	}
 }

@@ -34,7 +34,7 @@ class Settings {
 		if ( ! isset( $this->groups[ $id ] ) ) {
 			$this->groups[ $id ] = array(
 				'default' => $args['default'],
-				'value'   => get_option( $id . '_enabled', true ),
+				'value'   => get_option( $id . '_enabled', $args['default'] ),
 				'fields'  => array(),
 			);
 		}
@@ -159,5 +159,52 @@ class Settings {
 		}
 
 		return $group_data['fields'][ $field ]['value'] ?? $default;
+	}
+
+	/**
+	 * Get all setting groups.
+	 *
+	 * @return array
+	 */
+	public function all() {
+		return $this->groups;
+	}
+
+	/**
+	 * Reset setting groups.
+	 *
+	 * @param $group
+	 *
+	 * @return void
+	 */
+	public function reset( $group = null ) {
+		if ( $group !== null ) {
+			$this->reset_group( $group );
+		} else {
+			foreach ( $this->groups as $group => $args ) {
+				$this->reset_group( $group );
+			}
+		}
+	}
+
+	/**
+	 * Reset a group.
+	 *
+	 * @param $group
+	 *
+	 * @return void
+	 */
+	protected function reset_group( $group ) {
+		if ( ! isset( $this->groups[ $group ] ) ) {
+			return;
+		}
+
+		delete_option( $group . '_enabled' );
+		delete_option( $group . '_fields' );
+
+		$this->groups[ $group ]['value'] = $this->groups[ $group ]['default'] ?? null;
+		foreach ( $this->groups[ $group ]['fields'] as $field => $args ) {
+			$this->groups[ $group ]['fields'][ $field ]['value'] = $this->groups[ $group ]['fields'][ $field ]['default'] ?? null;
+		}
 	}
 }

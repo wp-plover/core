@@ -36,6 +36,8 @@ class SettingsApi {
 		       ->use( array( Auth::class, 'can_manage_options' ) );
 		$router->create( '/settings', array( $this, 'update_setting_groups' ) )
 		       ->use( array( Auth::class, 'can_manage_options' ) );
+		$router->delete( '/settings', array( $this, 'reset_settings' ) )
+		       ->use( array( Auth::class, 'can_manage_options' ) );
 
 		$router->register();
 	}
@@ -83,5 +85,21 @@ class SettingsApi {
 		}
 
 		return rest_ensure_response( $saved );
+	}
+
+	/**
+	 * Reset settings.
+	 *
+	 * @param \WP_REST_Request|null $request
+	 *
+	 * @return \WP_Error|\WP_HTTP_Response|\WP_REST_Response
+	 */
+	public function reset_settings( ?\WP_REST_Request $request ) {
+		$group = $request->get_param( 'group' );
+		$this->settings->reset( $group );
+
+		return rest_ensure_response( [
+			'status' => 'ok'
+		] );
 	}
 }

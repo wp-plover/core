@@ -25,7 +25,7 @@ class Icon extends Extension {
 	 *
 	 * @return void
 	 */
-	public function bootstrap( Icons $icons ) {
+	public function boot( Icons $icons ) {
 		$this->icons = $icons;
 
 		// Register rest api for retrieve icons

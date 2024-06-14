@@ -3,6 +3,7 @@
 namespace Plover\Core\Services\Extensions;
 
 use Plover\Core\Framework\ServiceProvider;
+use Plover\Core\Services\Extensions\Contract\Extension;
 
 /**
  * Extensions service provider.
@@ -24,4 +25,10 @@ class ExtensionsServiceProvider extends ServiceProvider {
 	public $aliases = [
 		'extensions' => \Plover\Core\Services\Extensions\Extensions::class,
 	];
+
+	public function boot() {
+		$this->core->booted( function ( Extensions $extensions ) {
+			$extensions->boot();
+		} );
+	}
 }
