@@ -29,6 +29,6 @@ class ExtensionsServiceProvider extends ServiceProvider {
 	public function boot() {
 		$this->core->booted( function ( Extensions $extensions ) {
 			$extensions->boot();
-		} );
+		}, 5 );
 	}
 }

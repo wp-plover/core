@@ -165,7 +165,7 @@ class StyleEngine {
 				// Get spacing CSS variable from preset value if provided.
 				if ( is_string( $value ) && str_contains( $value, 'var:preset|spacing|' ) ) {
 					$index_to_splice = strrpos( $value, '|' ) + 1;
-					$slug            = _wp_to_kebab_case( substr( $value, $index_to_splice ) );
+					$slug            = Format::to_kebab_case( substr( $value, $index_to_splice ) );
 					$value           = "var(--wp--preset--spacing--$slug)";
 				}
 
@@ -179,7 +179,7 @@ class StyleEngine {
 			// Get spacing CSS variable from preset value if provided.
 			if ( is_string( $gap ) && str_contains( $gap, 'var:preset|spacing|' ) ) {
 				$index_to_splice = strrpos( $gap, '|' ) + 1;
-				$slug            = _wp_to_kebab_case( substr( $gap, $index_to_splice ) );
+				$slug            = Format::to_kebab_case( substr( $gap, $index_to_splice ) );
 				$gap             = "var(--wp--preset--spacing--$slug)";
 			}
 		}

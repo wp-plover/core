@@ -5,7 +5,6 @@ namespace Plover\Core\Framework\Container;
 use Closure;
 use Exception;
 use LogicException;
-use Psr\Container\ContainerInterface;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionParameter;
@@ -17,7 +16,7 @@ use ReflectionParameter;
  *
  * @since 1.0.0
  */
-class Container implements ContainerInterface {
+class Container {
 
 	/**
 	 * The contextual binding map.

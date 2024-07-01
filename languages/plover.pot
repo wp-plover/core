@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-06-14T09:05:45+00:00\n"
+"POT-Creation-Date: 2024-07-01T09:43:09+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: plover\n"
@@ -76,7 +76,27 @@ msgstr ""
 msgid "Default language"
 msgstr ""
 
-#: src/Extensions/Icon.php:188
+#: src/Extensions/Icon.php:64
+msgid "Plover"
+msgstr ""
+
+#: src/Extensions/Icon.php:68
+msgid "moon"
+msgstr ""
+
+#: src/Extensions/Icon.php:74
+msgid "sun"
+msgstr ""
+
+#: src/Extensions/Icon.php:80
+msgid "arrow-left"
+msgstr ""
+
+#: src/Extensions/Icon.php:86
+msgid "arrow-right"
+msgstr ""
+
+#: src/Extensions/Icon.php:239
 msgid "No such icon library."
 msgstr ""
 
@@ -85,7 +105,15 @@ msgid "Block shadow"
 msgstr ""
 
 #: src/Extensions/Shadow.php:21
-msgid "Extra text-shadow, drop-shadow, and box-shadow."
+msgid "Extra text-shadow, drop-shadow, and box-shadow support for code blocks."
+msgstr ""
+
+#: src/Extensions/Sticky.php:20
+msgid "Block Sticky"
+msgstr ""
+
+#: src/Extensions/Sticky.php:21
+msgid "Make your content in the page visible at all times, making it permanently visible while scrolling."
 msgstr ""
 
 #: src/Router/Auth.php:19
@@ -107,6 +135,8 @@ msgid "Highlight"
 msgstr ""
 
 #: static/scripts/block-extensions/highlight/HighlightControls.jsx:32
+#: static/scripts/block-extensions/icon/IconControls.jsx:170
+#: static/scripts/block-extensions/icon/IconControls.jsx:171
 msgid "None"
 msgstr ""
 
@@ -118,55 +148,59 @@ msgstr ""
 msgid "Language"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:52
+#: static/scripts/block-extensions/icon/IconControls.jsx:59
 msgid "Filter"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:78
+#: static/scripts/block-extensions/icon/IconControls.jsx:104
 msgid "No icons"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:116
+#: static/scripts/block-extensions/icon/IconControls.jsx:146
 msgid "Icon library"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:130
+#: static/scripts/block-extensions/icon/IconControls.jsx:162
 msgid "Select icon"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:163
+#: static/scripts/block-extensions/icon/IconControls.jsx:196
 msgid "Icon"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:173
+#: static/scripts/block-extensions/icon/IconControls.jsx:206
 msgid "Icon position"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:181
+#: static/scripts/block-extensions/icon/IconControls.jsx:214
 msgid "Left"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:182
+#: static/scripts/block-extensions/icon/IconControls.jsx:215
 msgid "Right"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:186
+#: static/scripts/block-extensions/icon/IconControls.jsx:219
 msgid "Icon Size"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:202
+#: static/scripts/block-extensions/icon/IconControls.jsx:236
 msgid "Clear icon"
 msgstr ""
 
-#: static/scripts/block-supports/event-handler/EventHandlerPanel.js:88
+#: static/scripts/block-supports/event-handler/EventHandlerPanel.js:33
+msgid "Code gose here..."
+msgstr ""
+
+#: static/scripts/block-supports/event-handler/EventHandlerPanel.js:73
 msgid "JavaScript Event Handler"
 msgstr ""
 
-#: static/scripts/block-supports/event-handler/EventHandlerPanel.js:92
-msgid "Add custom JavaScript to the corresponding events of this block."
+#: static/scripts/block-supports/event-handler/EventHandlerPanel.js:77
+msgid "Add custom JavaScript snippet to the event handlers in this block."
 msgstr ""
 
-#: static/scripts/block-supports/event-handler/EventHandlerPanel.js:104
+#: static/scripts/block-supports/event-handler/EventHandlerPanel.js:89
 msgid "Edit"
 msgstr ""
 
@@ -253,4 +287,40 @@ msgstr ""
 
 #: static/scripts/block-supports/shadow/utils.js:24
 msgid "Custom"
+msgstr ""
+
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:25
+msgid "Parent Element"
+msgstr ""
+
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:26
+msgid "Document"
+msgstr ""
+
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:36
+msgid "Sticky this block while scrolling"
+msgstr ""
+
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:48
+msgid "Offset top"
+msgstr ""
+
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:58
+msgid "Z-Index"
+msgstr ""
+
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:59
+msgid "If your sticky block is covered by other elements, try increasing the z-index value"
+msgstr ""
+
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:72
+msgid "Sticky container"
+msgstr ""
+
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:74
+msgid "Set custom container"
+msgstr ""
+
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:130
+msgid "Sticky"
 msgstr ""

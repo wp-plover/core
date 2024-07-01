@@ -17,7 +17,7 @@ class Enqueue {
 	/**
 	 * All core packages.
 	 */
-	const CORE_PACKAGES = [ 'utils', 'icons', 'components', 'dashboard', 'api' ];
+	protected const CORE_PACKAGES = [ 'utils', 'icons', 'components', 'api' ];
 
 	/**
 	 * Plover core instance.
@@ -212,7 +212,7 @@ class Enqueue {
 	 *
 	 * @return array
 	 */
-	protected function get_assets( string $template_html, array $assets, array $args ) {
+	protected function get_assets( $template_html, array $assets, array $args ) {
 		$args = wp_parse_args( $args, array(
 			'load_all' => false,
 			'mode'     => 'dynamic',
@@ -262,10 +262,18 @@ class Enqueue {
 			}
 
 			if ( $should_inline ) {
-				$inline_str  .= Str::remove_line_breaks( $fs->get_contents( $asset_path ) );
-				$inline_deps = array_merge( $inline_deps, $args['deps'] ?? array() );
+				if ( $asset_path && $fs->is_file( $asset_path ) ) {
+					$inline_str  .= Str::remove_line_breaks( $fs->get_contents( $asset_path ) );
+					$inline_deps = array_merge( $inline_deps, $args['deps'] ?? array() );
+				}
 			} elseif ( $args['src'] ) {
 				$asset_files[ $handle ] = $args;
+			}
+
+			// raw assets
+			if ( isset( $args['raw'] ) && $args['raw'] ) {
+				$inline_str  .= Str::remove_line_breaks( $args['raw'] );
+				$inline_deps = array_merge( $inline_deps, $args['deps'] ?? array() );
 			}
 		}
 

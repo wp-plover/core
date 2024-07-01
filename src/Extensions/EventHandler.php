@@ -11,7 +11,7 @@ use Plover\Core\Toolkits\Format;
  */
 class EventHandler extends Extension {
 
-	const MODULE_NAME = 'plover_event_handler';
+	const MODULE_NAME = 'plover_block_event_handler';
 
 	/**
 	 * @return void

@@ -32,15 +32,15 @@ class Filesystem {
 	 * @return array|false
 	 */
 	public static function list_files( $folder = '', $levels = 100, $exclusions = array() ) {
-		if ( empty( $folder ) ) {
+		if ( empty( $folder ) || ! self::get()->exists( $folder ) ) {
 			return false;
 		}
-
-		$folder = trailingslashit( $folder );
 
 		if ( ! $levels ) {
 			return false;
 		}
+
+		$folder = trailingslashit( $folder );
 
 		$files = array();
 

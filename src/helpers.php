@@ -35,3 +35,21 @@ if ( ! function_exists( 'plover_app' ) ) {
 		return \Plover\Core\Application::get_app( $id );
 	}
 }
+
+if ( ! function_exists( 'plover_block_id' ) ) {
+	/**
+	 * Get unique block id form block attrs.
+	 *
+	 * @param $attrs
+	 *
+	 * @return mixed|string
+	 */
+	function plover_block_id( $attrs ) {
+		if ( isset( $attrs['ploverBlockID'] ) && $attrs['ploverBlockID'] ) {
+			return $attrs['ploverBlockID'];
+		}
+
+		// fallback method.
+		return wp_generate_uuid4();
+	}
+}

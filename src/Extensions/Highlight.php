@@ -18,7 +18,7 @@ class Highlight extends Extension {
 	/**
 	 * Module name
 	 */
-	const MODULE_NAME = 'plover_highlight';
+	const MODULE_NAME = 'plover_code_highlight';
 
 	/**
 	 * Register extension as module.
@@ -64,52 +64,6 @@ class Highlight extends Extension {
 				),
 			)
 		) );
-	}
-
-	/**
-	 * Support themes.
-	 *
-	 * @return mixed|null
-	 */
-	protected function support_themes() {
-		$prism_themes      = [];
-		$prism_theme_files = Filesystem::list_files( $this->core->core_path( 'assets/css/prism-themes' ) );
-		foreach ( $prism_theme_files as $theme_file ) {
-			$theme          = basename( $theme_file, '.css' );
-			$prism_themes[] = [ 'label' => Str::to_title_case( $theme ), 'value' => $theme ];
-		}
-
-		return apply_filters( 'plover_core_highlight_themes', $prism_themes );
-	}
-
-	/**
-	 * Support languages.
-	 *
-	 * @return mixed|null
-	 */
-	protected function support_languages() {
-		$languages = [
-			[ 'label' => 'C-Like', 'value' => 'clike' ],
-			[ 'label' => 'Markup', 'value' => 'markup' ],
-			[ 'label' => 'HTML', 'value' => 'html' ],
-			[ 'label' => 'XML', 'value' => 'xml' ],
-			[ 'label' => 'SVG', 'value' => 'svg' ],
-			[ 'label' => 'CSS', 'value' => 'css' ],
-			[ 'label' => 'JavaScript', 'value' => 'javascript' ],
-			[ 'label' => 'TypeScript', 'value' => 'typescript' ],
-			[ 'label' => 'React JSX', 'value' => 'jsx' ],
-			[ 'label' => 'React TSX', 'value' => 'tsx' ],
-			[ 'label' => 'Go', 'value' => 'go' ],
-			[ 'label' => 'C', 'value' => 'c' ],
-			[ 'label' => 'C#', 'value' => 'cs' ],
-			[ 'label' => 'C++', 'value' => 'cpp' ],
-			[ 'label' => 'PHP', 'value' => 'php' ],
-			[ 'label' => 'JSON', 'value' => 'json' ],
-			[ 'label' => 'Python', 'value' => 'python' ],
-			[ 'label' => 'Rust', 'value' => 'rust' ],
-		];
-
-		return apply_filters( 'plover_core_highlight_languages', $languages );
 	}
 
 	/**
@@ -159,6 +113,52 @@ class Highlight extends Extension {
 	}
 
 	/**
+	 * Support themes.
+	 *
+	 * @return mixed|null
+	 */
+	protected function support_themes() {
+		$prism_themes      = [];
+		$prism_theme_files = Filesystem::list_files( $this->core->core_path( 'assets/css/prism-themes' ) );
+		foreach ( $prism_theme_files as $theme_file ) {
+			$theme          = basename( $theme_file, '.css' );
+			$prism_themes[] = [ 'label' => Str::to_title_case( $theme ), 'value' => $theme ];
+		}
+
+		return apply_filters( 'plover_core_highlight_themes', $prism_themes );
+	}
+
+	/**
+	 * Support languages.
+	 *
+	 * @return mixed|null
+	 */
+	protected function support_languages() {
+		$languages = [
+			[ 'label' => 'C-Like', 'value' => 'clike' ],
+			[ 'label' => 'Markup', 'value' => 'markup' ],
+			[ 'label' => 'HTML', 'value' => 'html' ],
+			[ 'label' => 'XML', 'value' => 'xml' ],
+			[ 'label' => 'SVG', 'value' => 'svg' ],
+			[ 'label' => 'CSS', 'value' => 'css' ],
+			[ 'label' => 'JavaScript', 'value' => 'javascript' ],
+			[ 'label' => 'TypeScript', 'value' => 'typescript' ],
+			[ 'label' => 'React JSX', 'value' => 'jsx' ],
+			[ 'label' => 'React TSX', 'value' => 'tsx' ],
+			[ 'label' => 'Go', 'value' => 'go' ],
+			[ 'label' => 'C', 'value' => 'c' ],
+			[ 'label' => 'C#', 'value' => 'cs' ],
+			[ 'label' => 'C++', 'value' => 'cpp' ],
+			[ 'label' => 'PHP', 'value' => 'php' ],
+			[ 'label' => 'JSON', 'value' => 'json' ],
+			[ 'label' => 'Python', 'value' => 'python' ],
+			[ 'label' => 'Rust', 'value' => 'rust' ],
+		];
+
+		return apply_filters( 'plover_core_highlight_languages', $languages );
+	}
+
+	/**
 	 * Localize data to JavaScript.
 	 *
 	 * @param $data
@@ -189,12 +189,12 @@ class Highlight extends Extension {
 	}
 
 	/**
-	 * @param $block_content
-	 * @param $block
+	 * @param string $block_content
+	 * @param array $block
 	 *
-	 * @return mixed
+	 * @return string
 	 */
-	public function render( $block_content, $block ) {
+	public function render( string $block_content, array $block ): string {
 		$attrs     = $block['attrs'] ?? [];
 		$highlight = strtolower( $attrs['highlight'] ?? $this->settings->get( self::MODULE_NAME, 'default_style' ) );
 

@@ -102,7 +102,7 @@ class Bootstrap {
 	 *
 	 * @return $this
 	 */
-	public function registered( callable $callback, int $priority = 0 ) {
+	public function registered( callable $callback, int $priority = 10 ) {
 		$this->core->registered( $callback, $priority );
 
 		return $this;
@@ -135,7 +135,7 @@ class Bootstrap {
 	 *
 	 * @return $this
 	 */
-	public function booting( callable $callback, int $priority = 0 ) {
+	public function booting( callable $callback, int $priority = 10 ) {
 		$this->core->booting( $callback, $priority );
 
 		return $this;
@@ -149,7 +149,7 @@ class Bootstrap {
 	 *
 	 * @return $this
 	 */
-	public function booted( callable $callback, int $priority = 0 ) {
+	public function booted( callable $callback, int $priority = 10 ) {
 		$this->core->booted( $callback, $priority );
 
 		return $this;

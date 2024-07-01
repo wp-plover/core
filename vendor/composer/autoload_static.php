@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit2d6e25be0cb649b984f30660232e37f9
+class ComposerStaticInit63e561d450393276e1767bfeaf448511
 {
     public static $files = array (
         '76e4e0453b31de80bf7bc104ce48f9c3' => __DIR__ . '/../..' . '/src/helpers.php',
@@ -17,7 +17,6 @@ class ComposerStaticInit2d6e25be0cb649b984f30660232e37f9
         ),
         'P' => 
         array (
-            'Psr\\Container\\' => 14,
             'Plover\\Core\\' => 12,
         ),
     );
@@ -26,10 +25,6 @@ class ComposerStaticInit2d6e25be0cb649b984f30660232e37f9
         'enshrined\\svgSanitize\\' => 
         array (
             0 => __DIR__ . '/..' . '/enshrined/svg-sanitize/src',
-        ),
-        'Psr\\Container\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/container/src',
         ),
         'Plover\\Core\\' => 
         array (
@@ -44,9 +39,9 @@ class ComposerStaticInit2d6e25be0cb649b984f30660232e37f9
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit2d6e25be0cb649b984f30660232e37f9::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit2d6e25be0cb649b984f30660232e37f9::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit2d6e25be0cb649b984f30660232e37f9::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit63e561d450393276e1767bfeaf448511::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit63e561d450393276e1767bfeaf448511::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit63e561d450393276e1767bfeaf448511::$classMap;
 
         }, null, ClassLoader::class);
     }

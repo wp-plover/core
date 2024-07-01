@@ -28,6 +28,7 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 					'color' => true,
 				],
 			],
+			'ploverSticky'         => true,
 			'ploverShadow'         => [
 				'box'             => true,
 				'defaultControls' => [
@@ -142,7 +143,16 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 				]
 			],
 		],
+		'core/cover'               => [
+			'ploverShadow' => [
+				'box'             => true,
+				'defaultControls' => [
+					'box' => true,
+				]
+			]
+		],
 		'core/group'               => [
+			'ploverSticky' => true,
 			'ploverShadow' => [
 				'box'             => true,
 				'defaultControls' => [
@@ -151,6 +161,7 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 			]
 		],
 		'core/row'                 => [
+			'ploverSticky' => true,
 			'ploverShadow' => [
 				'box'             => true,
 				'defaultControls' => [
@@ -159,14 +170,7 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 			]
 		],
 		'core/stack'               => [
-			'ploverShadow' => [
-				'box'             => true,
-				'defaultControls' => [
-					'box' => true,
-				]
-			]
-		],
-		'core/cover'               => [
+			'ploverSticky' => true,
 			'ploverShadow' => [
 				'box'             => true,
 				'defaultControls' => [
@@ -190,10 +194,11 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 			}
 
 			// register core extensions
-			$extensions->register( 'shadow', \Plover\Core\Extensions\Shadow::class );
-			$extensions->register( 'event-handler', \Plover\Core\Extensions\EventHandler::class );
+			$extensions->register( 'block-shadow', \Plover\Core\Extensions\Shadow::class );
+			$extensions->register( 'block-sticky', \Plover\Core\Extensions\Sticky::class );
+			$extensions->register( 'code-highlight', \Plover\Core\Extensions\Highlight::class );
+			$extensions->register( 'block-event-handler', \Plover\Core\Extensions\EventHandler::class );
 			$extensions->register( 'icon', \Plover\Core\Extensions\Icon::class );
-			$extensions->register( 'highlight', \Plover\Core\Extensions\Highlight::class );
-		} );
+		}, 5 );
 	}
 }

@@ -10,7 +10,7 @@ use Plover\Core\Toolkits\Arr;
  */
 class Shadow extends Extension {
 
-	const MODULE_NAME = 'plover_shadow';
+	const MODULE_NAME = 'plover_block_shadow';
 
 	/**
 	 * @return void
@@ -18,7 +18,7 @@ class Shadow extends Extension {
 	public function register() {
 		$this->modules->register( self::MODULE_NAME, array(
 			'label'   => __( 'Block shadow', 'plover' ),
-			'excerpt' => __( 'Extra text-shadow, drop-shadow, and box-shadow.', 'plover' ),
+			'excerpt' => __( 'Extra text-shadow, drop-shadow, and box-shadow support for code blocks.', 'plover' ),
 			'fields'  => array()
 		) );
 	}

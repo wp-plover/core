@@ -6,12 +6,10 @@ use Plover\Core\Framework\Container\Container;
 use Plover\Core\Framework\ServiceProvider;
 use Plover\Core\Services\AssetsServiceProvider;
 use Plover\Core\Services\Blocks\BlocksServiceProvider;
-use Plover\Core\Services\CoreEnhanceServiceProvider;
 use Plover\Core\Services\Extensions\ExtensionsServiceProvider;
 use Plover\Core\Services\Settings\SettingsServiceProvider;
 use Plover\Core\Toolkits\Path;
 use Plover\Core\Toolkits\Str;
-use Psr\Container\ContainerInterface;
 
 /**
  * @since 1.0.0
@@ -276,7 +274,7 @@ class Plover extends Container {
 	protected function register_core_container_aliases() {
 		foreach (
 			[
-				'core' => [ self::class, Container::class, ContainerInterface::class ]
+				'core' => [ self::class, Container::class ]
 			] as $key => $aliases
 		) {
 			foreach ( $aliases as $alias ) {

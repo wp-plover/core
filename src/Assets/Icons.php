@@ -2,8 +2,9 @@
 
 namespace Plover\Core\Assets;
 
+use Plover\Core\Assets\Contract\IconSource;
 use Plover\Core\Plover;
-use Plover\Core\Toolkits\Filesystem;
+use Plover\Core\Toolkits\Arr;
 use Plover\Core\Toolkits\Format;
 
 /**
@@ -21,12 +22,31 @@ class Icons {
 	protected $core;
 
 	/**
+	 * Registered icon sources.
+	 *
+	 * @var array
+	 */
+	protected $sources = [];
+
+	/**
 	 * Create icons instance.
 	 *
 	 * @param Plover $core
 	 */
 	public function __construct( Plover $core ) {
 		$this->core = $core;
+
+		$this->register_icon_source( new PrimitiveIconSource(), 11 );
+	}
+
+	/**
+	 * @param IconSource $source
+	 * @param int $priority
+	 *
+	 * @return void
+	 */
+	public function register_icon_source( IconSource $source, int $priority = 10 ) {
+		$this->sources[ $priority ][] = $source;
 	}
 
 	/**
@@ -36,34 +56,32 @@ class Icons {
 	 * @return string|null
 	 */
 	public function get_icon( $library, $slug ) {
-		$libraries   = $this->get_icon_libraries();
-		$library_dir = $libraries[ $library ] ?? '';
-		if ( ! $library_dir ) {
+		$svg = $this->retrieve_from_icon_source( 'get_icon', $library, $slug );
+		if ( ! is_string( $svg ) ) {
 			return null;
 		}
 
-		$svg_file = $library_dir . DIRECTORY_SEPARATOR . 'svgs' . DIRECTORY_SEPARATOR . $slug . '.svg';
-		if ( ! is_file( $svg_file ) ) {
-			return null;
-		}
-
-		return Format::sanitize_svg( Filesystem::get()->get_contents( $svg_file ) );
+		return Format::sanitize_svg( $svg );
 	}
 
 	/**
-	 * Get all icon libraries.
+	 * Get library info.
 	 *
-	 * @return array
+	 * @param $library
+	 *
+	 * @return mixed|null
 	 */
-	public function get_icon_libraries(): array {
-		$icons_path   = $this->core->core_path( 'assets/icons' );
-		$library_dirs = Filesystem::list_files( $icons_path, 1 );
+	public function get_library( $library ) {
+		return $this->retrieve_from_icon_source( 'get_library', $library );
+	}
 
-		$libraries = [];
-		foreach ( $library_dirs as $library_dir ) {
-			$slug               = basename( $library_dir );
-			$libraries[ $slug ] = untrailingslashit( $library_dir );
-		}
+	/**
+	 * Get all libraries.
+	 *
+	 * @return array|mixed|null
+	 */
+	public function get_libraries() {
+		$libraries = $this->retrieve_all_from_icon_source( 'get_libraries' );
 
 		return apply_filters( 'plover_core_icon_libraries', $libraries );
 	}
@@ -74,35 +92,62 @@ class Icons {
 	 * @return array|null
 	 */
 	public function get_icons( $library ) {
-		$fs          = Filesystem::get();
-		$libraries   = $this->get_icon_libraries();
-		$library_dir = $libraries[ $library ] ?? '';
-		$meta_file   = $library_dir . DIRECTORY_SEPARATOR . 'meta.json';
-		$svgs_dir    = $library_dir . DIRECTORY_SEPARATOR . 'svgs';
-
-		if ( ! $library_dir || ! $fs->exists( $meta_file ) || ! $fs->exists( $svgs_dir ) ) {
-			return null;
+		$icons = $this->retrieve_from_icon_source( 'get_icons', $library );
+		if ( ! is_array( $icons ) ) {
+			$icons = [];
 		}
 
-		$meta = json_decode( $fs->get_contents( $meta_file ), true );
-		if ( ! $meta ) {
-			return null;
-		}
+		return apply_filters( "plover_core_{$library}_icons", $icons );
+	}
 
-		$icons = [];
+	/**
+	 * Retrieve data from the icon sources in order of priority.
+	 *
+	 * @param $method
+	 * @param ...$args
+	 *
+	 * @return mixed|null
+	 */
+	protected function retrieve_from_icon_source( $method, ...$args ) {
+		$priorities = array_keys( $this->sources );
+		sort( $priorities );
 
-		$svg_files = Filesystem::list_files( $svgs_dir, 1 );
-		foreach ( $svg_files as $svg_file ) {
-			$slug           = basename( $svg_file, '.svg' );
-			$icons[ $slug ] = [
-				's' => Format::sanitize_svg( $fs->get_contents( $svg_file ) ),
-			];
-
-			if ( isset( $meta[ $slug ] ) ) {
-				$icons[ $slug ]['t'] = $meta[ $slug ];
+		foreach ( $priorities as $priority ) {
+			foreach ( $this->sources[ $priority ] as $source ) {
+				$data = call_user_func_array( [ $source, $method ], $args );
+				if ( $data ) {
+					return $data;
+				}
 			}
 		}
 
-		return $icons;
+		return null;
+	}
+
+	/**
+	 * Retrieve all data from each icon source in order of priority.
+	 *
+	 * @param $method
+	 * @param ...$args
+	 *
+	 * @return mixed|null
+	 */
+	protected function retrieve_all_from_icon_source( $method, ...$args ) {
+		$priorities = array_keys( $this->sources );
+		sort( $priorities );
+		$result = [];
+
+		foreach ( $priorities as $priority ) {
+			foreach ( $this->sources[ $priority ] as $source ) {
+				$data = call_user_func_array( [ $source, $method ], $args );
+				if ( is_array( $data ) ) {
+					$result = array_merge( $result, $data );
+				} else if ( $data ) {
+					$result[] = $data;
+				}
+			}
+		}
+
+		return $result;
 	}
 }
