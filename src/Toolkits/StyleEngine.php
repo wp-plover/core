@@ -90,13 +90,11 @@ class StyleEngine {
 	public static function get_block_color_styles( $attrs ): array {
 		$color_styles = array();
 		// Text color.
-		$preset_text_color    = array_key_exists( 'textColor',
-			$attrs ) ? "var:preset|color|{$attrs['textColor']}" : null;
+		$preset_text_color    = array_key_exists( 'textColor', $attrs ) ? "var:preset|color|{$attrs['textColor']}" : null;
 		$custom_text_color    = $attrs['style']['color']['text'] ?? null;
 		$color_styles['text'] = $preset_text_color ? $preset_text_color : $custom_text_color;
 		// Background Color.
-		$preset_background_color    = array_key_exists( 'backgroundColor',
-			$attrs ) ? "var:preset|color|{$attrs['backgroundColor']}" : null;
+		$preset_background_color    = array_key_exists( 'backgroundColor', $attrs ) ? "var:preset|color|{$attrs['backgroundColor']}" : null;
 		$custom_background_color    = $attrs['style']['color']['background'] ?? null;
 		$color_styles['background'] = $preset_background_color ? $preset_background_color : $custom_background_color;
 
@@ -128,8 +126,7 @@ class StyleEngine {
 		}
 
 		// Border color.
-		$preset_color           = array_key_exists( 'borderColor',
-			$attrs ) ? "var:preset|color|{$attrs['borderColor']}" : null;
+		$preset_color           = array_key_exists( 'borderColor', $attrs ) ? "var:preset|color|{$attrs['borderColor']}" : null;
 		$custom_color           = $attrs['style']['border']['color'] ?? null;
 		$border_styles['color'] = $preset_color ? $preset_color : $custom_color;
 
@@ -144,6 +141,24 @@ class StyleEngine {
 		}
 
 		return $border_styles;
+	}
+
+	/**
+	 * @return array|mixed
+	 */
+	public static function get_block_shadow_styles() {
+		$shadow_attributes = isset( $attrs['style']['shadow'] ) ? $attrs['style']['shadow'] : null;
+		if ( isset( $shadow_attributes ) && ! empty( $shadow_attributes ) ) {
+
+			// since 6.1.0
+			$shadow_styles = wp_style_engine_get_styles( array( 'shadow' => $shadow_attributes ) );
+
+			if ( ! empty( $shadow_styles['declarations'] ) ) {
+				return $shadow_styles['declarations'];
+			}
+		}
+
+		return array();
 	}
 
 	/**

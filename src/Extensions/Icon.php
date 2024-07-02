@@ -7,6 +7,7 @@ use Plover\Core\Router\Auth;
 use Plover\Core\Router\Router;
 use Plover\Core\Services\Extensions\Contract\Extension;
 use Plover\Core\Toolkits\Html\Document;
+use Plover\Core\Toolkits\StyleEngine;
 
 /**
  * Add icon support for core/button block.
@@ -125,8 +126,9 @@ class Icon extends Extension {
 	 * @return string
 	 */
 	public function render_button_with_icon( $block_content, $block ): string {
-		$icon_library = $block['attrs']['iconLibrary'] ?? '';
-		$icon_slug    = $block['attrs']['iconSlug'] ?? '';
+		$attrs        = $block['attrs'] ?? [];
+		$icon_library = $attrs['iconLibrary'] ?? '';
+		$icon_slug    = $attrs['iconSlug'] ?? '';
 		if ( ! ( $icon_library && $icon_slug ) ) {
 			return $block_content;
 		}
@@ -141,15 +143,15 @@ class Icon extends Extension {
 			return $block_content;
 		}
 
-		$icon_position = $block['attrs']['iconPosition'] ?? 'right';
-		$icon_size     = $block['attrs']['iconSize'] ?? '18px';
+		$icon_position = $attrs['iconPosition'] ?? 'right';
+		$icon_size     = $attrs['iconSize'] ?? '18px';
 
 		if ( $icon_size ) {
 			$svg->set_attribute( 'width', $icon_size );
 			$svg->set_attribute( 'height', $icon_size );
 		}
 
-		// Adapt the icon color
+		// adapt the icon color
 		if ( ! $svg->get_attribute( 'fill' ) ) {
 			$svg->set_attribute( 'fill', 'currentColor' );
 		}
@@ -161,12 +163,55 @@ class Icon extends Extension {
 		$imported = $html->get_dom()->importNode( $svg->get_dom_element(), true );
 
 		$el = $html->get_element_by_tags_priority( array( 'button', 'a', '*' ) );
-		if ( $el ) {
-			if ( $icon_position === 'left' ) {
-				$el->get_dom_element()->insertBefore( $imported, $el->get_dom_element()->firstChild );
-			} else {
-				$el->get_dom_element()->appendChild( $imported );
+		if ( ! $el ) { // empty content, we need to render button element in server-side
+			$wrap  = $html->create_element( 'div' );
+			$width = $attrs['width'] ?? null;
+
+			$wrap->set_attribute( 'class', StyleEngine::clsx(
+				'wp-block-button',
+				$attrs['className'] ?? null,
+				array(
+					"has-custom-width wp-block-button__width-{$width}" => isset( $width ),
+					'has-custom-font-size'                             =>
+						array_key_exists( 'fontSize', $attrs ) || isset( $attrs['style']['typography']['fontSize'] ),
+				)
+			) );
+
+			$el            = $html->create_element( 'a' );
+			$button_styles = wp_style_engine_get_styles(
+				array(
+					'color'   => StyleEngine::get_block_color_styles( $attrs ),
+					'border'  => StyleEngine::get_block_border_styles( $attrs ),
+					'shadow'  => $attrs['style']['shadow'] ?? array(),
+					'spacing' => array(
+						'padding' => $attrs['style']['spacing']['padding'] ?? null,
+						'margin'  => $attrs['style']['spacing']['margin'] ?? null,
+					),
+				)
+			);
+
+			$el->set_attribute( 'class', StyleEngine::clsx(
+				$button_styles['classnames'] ?? null,
+				'wp-block-button__link wp-element-button'
+			) );
+			if ( ! empty( $button_styles['declarations'] ) ) {
+				$el->add_styles( $button_styles['declarations'] );
 			}
+
+			$wrap->append_element( $el );
+			$html->append_element( $wrap );
+		}
+
+		// add block gap
+		$gap = StyleEngine::get_block_gap_value( $attrs );
+		if ( isset( $gap ) ) {
+			$el->add_styles( [ '--plover--style--block-gap' => $gap ] );
+		}
+
+		if ( $icon_position === 'left' ) {
+			$el->get_dom_element()->insertBefore( $imported, $el->get_dom_element()->firstChild );
+		} else {
+			$el->get_dom_element()->appendChild( $imported );
 		}
 
 		return $html->save_html();

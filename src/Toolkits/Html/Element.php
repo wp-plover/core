@@ -32,6 +32,15 @@ class Element {
 	}
 
 	/**
+	 * @param Element $element
+	 *
+	 * @return void
+	 */
+	public function append_element( Element $element ) {
+		$this->el->appendChild( $element->get_dom_element() );
+	}
+
+	/**
 	 * @param string $qualified_name
 	 * @param string $value
 	 *

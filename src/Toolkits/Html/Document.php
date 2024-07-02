@@ -124,7 +124,7 @@ class Document {
 	/**
 	 * @param $node
 	 *
-	 * @return DOMElement|null
+	 * @return Element|null
 	 */
 	private function sanitize_element( $node ): ?Element {
 		if ( $node && $node->nodeType === XML_ELEMENT_NODE ) {
@@ -151,9 +151,18 @@ class Document {
 	}
 
 	/**
+	 * @param Element $element
+	 *
+	 * @return void
+	 */
+	public function append_element( Element $element ) {
+		$this->dom->appendChild( $element->get_dom_element() );
+	}
+
+	/**
 	 * @param string $tag
 	 *
-	 * @return DOMElement|false|null
+	 * @return Element|false|null
 	 */
 	public function create_element( string $tag ) {
 		$element = null;
@@ -168,6 +177,6 @@ class Document {
 			return null;
 		}
 
-		return $element;
+		return $this->sanitize_element( $element );
 	}
 }

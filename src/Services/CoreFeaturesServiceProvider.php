@@ -18,6 +18,7 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 	 */
 	protected $block_supports = [
 		'core/column'              => [
+			'shadow'               => false,
 			'__experimentalBorder' => [
 				'radius'                        => true,
 				'width'                         => true,
@@ -38,10 +39,16 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 		],
 		'core/button'              => [
 			'spacing'            => [
-				'margin'   => true,
-				'padding'  => true,
-				'blockGap' => true,
+				'margin'                          => true,
+				"padding"                         => [ 'horizontal', 'vertical' ],
+				'blockGap'                        => true,
+				'__experimentalSkipSerialization' => true,
+				"__experimentalDefaultControls"   => [
+					'margin'  => true,
+					'padding' => true,
+				]
 			],
+			'shadow'             => false,
 			'ploverEventHandler' => [
 				'onclick'         => true,
 				'ondblclick'      => true,
@@ -57,43 +64,12 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 				]
 			]
 		],
-		'core/list'                => [
-			'spacing'              => [
-				'padding'  => true,
-				'margin'   => true,
-				'blockGap' => true,
-			],
-			'__experimentalLayout' => [
-				'allowSwitching'  => false,
-				'allowInheriting' => false,
-				'default'         => [
-					'type'        => 'flex',
-					'orientation' => 'vertical',
-				],
-			],
-			'__experimentalBorder' => [
-				'radius'                        => true,
-				'width'                         => true,
-				'color'                         => true,
-				'style'                         => true,
-				'__experimentalDefaultControls' => [
-					'width' => true,
-					'color' => true,
-				],
-			],
-			'ploverShadow'         => [
-				'text'            => true,
-				'box'             => true,
-				'defaultControls' => [
-					'text' => true,
-				]
-			],
-		],
 		'core/image'               => [
 			'spacing'      => [
 				'margin'  => true,
 				'padding' => true,
 			],
+			'shadow'       => false,
 			'ploverShadow' => [
 				'drop'            => true,
 				'box'             => true,
@@ -103,6 +79,7 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 			],
 		],
 		'core/post-featured-image' => [
+			'shadow'       => false,
 			'ploverShadow' => [
 				'drop'            => true,
 				'box'             => true,
@@ -112,6 +89,7 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 			],
 		],
 		'core/paragraph'           => [
+			'shadow'       => false,
 			'ploverShadow' => [
 				'text'            => true,
 				'defaultControls' => [
@@ -120,6 +98,7 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 			],
 		],
 		'core/heading'             => [
+			'shadow'       => false,
 			'ploverShadow' => [
 				'text'            => true,
 				'defaultControls' => [
@@ -128,6 +107,7 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 			],
 		],
 		'core/post-title'          => [
+			'shadow'       => false,
 			'ploverShadow' => [
 				'text'            => true,
 				'defaultControls' => [
@@ -136,6 +116,7 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 			],
 		],
 		'core/post-excerpt'        => [
+			'shadow'       => false,
 			'ploverShadow' => [
 				'text'            => true,
 				'defaultControls' => [
@@ -144,6 +125,7 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 			],
 		],
 		'core/cover'               => [
+			'shadow'       => false,
 			'ploverShadow' => [
 				'box'             => true,
 				'defaultControls' => [
@@ -152,6 +134,7 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 			]
 		],
 		'core/group'               => [
+			'shadow'       => false,
 			'ploverSticky' => true,
 			'ploverShadow' => [
 				'box'             => true,
@@ -161,6 +144,7 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 			]
 		],
 		'core/row'                 => [
+			'shadow'       => false,
 			'ploverSticky' => true,
 			'ploverShadow' => [
 				'box'             => true,
@@ -170,6 +154,7 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 			]
 		],
 		'core/stack'               => [
+			'shadow'       => false,
 			'ploverSticky' => true,
 			'ploverShadow' => [
 				'box'             => true,
@@ -185,9 +170,11 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 	 */
 	public function register() {
 		$this->core->registered( function ( Blocks $blocks, Extensions $extensions ) {
-			// core extend blocks
+			// extend core blocks
 			$blocks->extend( new \Plover\Core\Blocks\SiteLogo() );
 			$blocks->extend( new \Plover\Core\Blocks\Code() );
+			$blocks->extend( new \Plover\Core\Blocks\CoreList() );
+			$blocks->extend( new \Plover\Core\Blocks\PageList() );
 			// extend block supports
 			foreach ( $this->block_supports as $block_name => $supports ) {
 				$blocks->extend_block_supports( $block_name, $supports );

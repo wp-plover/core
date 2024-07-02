@@ -63,8 +63,7 @@ class SiteLogo implements HasSupports, RenderableBlock {
 			array(
 				'color'  => \Plover\Core\Toolkits\StyleEngine::get_block_color_styles( $attrs ),
 				'border' => \Plover\Core\Toolkits\StyleEngine::get_block_border_styles( $attrs )
-			),
-			array( 'convert_vars_to_classnames' => true )
+			)
 		);
 
 		if ( ! empty( $block_styles['classnames'] ) ) {

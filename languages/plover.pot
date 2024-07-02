@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-01T09:43:09+00:00\n"
+"POT-Creation-Date: 2024-07-02T08:06:18+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: plover\n"
@@ -76,27 +76,27 @@ msgstr ""
 msgid "Default language"
 msgstr ""
 
-#: src/Extensions/Icon.php:64
+#: src/Extensions/Icon.php:65
 msgid "Plover"
 msgstr ""
 
-#: src/Extensions/Icon.php:68
+#: src/Extensions/Icon.php:69
 msgid "moon"
 msgstr ""
 
-#: src/Extensions/Icon.php:74
+#: src/Extensions/Icon.php:75
 msgid "sun"
 msgstr ""
 
-#: src/Extensions/Icon.php:80
+#: src/Extensions/Icon.php:81
 msgid "arrow-left"
 msgstr ""
 
-#: src/Extensions/Icon.php:86
+#: src/Extensions/Icon.php:87
 msgid "arrow-right"
 msgstr ""
 
-#: src/Extensions/Icon.php:239
+#: src/Extensions/Icon.php:284
 msgid "No such icon library."
 msgstr ""
 

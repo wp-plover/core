@@ -269,7 +269,7 @@ class Shadow extends Extension {
 	 */
 	protected function render_box_shadow( $html, $box_shadow ) {
 		$wrap = $html->get_root_element();
-		$tags = array( 'img', 'figure' );
+		$tags = array( 'figure', '*' );
 		foreach ( $tags as $tag ) {
 			$el = $html->get_element_by_tag_name( $tag );
 			if ( $el ) {
@@ -314,7 +314,7 @@ class Shadow extends Extension {
 	 */
 	protected function render_drop_shadow( $html, $drop_shadow ) {
 		$wrap = $html->get_root_element();
-		$tags = array( 'img', 'figure' );
+		$tags = array( 'figure', 'img' ); // Take care of Duoton effect
 		foreach ( $tags as $tag ) {
 			$el = $html->get_element_by_tag_name( $tag );
 			if ( $el ) {
