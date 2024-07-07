@@ -72,7 +72,7 @@ class EventHandler extends Extension {
 		}
 
 		add_filter( 'plover_core_filter_block_kses', [ $this, 'kses_block_attributes' ], 10, 3 );
-		add_filter( 'render_block', [ $this, 'render' ], 11, 2 );
+		add_filter( 'render_block', [ $this, 'render' ], 99, 2 );
 
 		if ( $this->current_user_can_add_event_handler() ) {
 			$this->scripts->enqueue_editor_asset( 'plover-block-event-handler', array(

@@ -50,7 +50,7 @@ class Icon extends Extension {
 		add_filter( 'wp_kses_allowed_html', [ $this, 'allow_safe_svg_in_post' ], 11, 2 );
 		// Send default icon attributes to JavaScript
 		add_filter( 'plover_core_editor_data', [ $this, 'localize_icon_attributes' ] );
-		add_filter( 'render_block_core/button', [ $this, 'render_button_with_icon' ], 11, 2 );
+		add_filter( 'render_block', [ $this, 'render_with_icon' ], 11, 2 );
 		// Add core icons
 		add_filter( 'plover_core_icon_primitive_libraries', [ $this, 'add_plover_icon_libraries' ] );
 	}
@@ -64,7 +64,7 @@ class Icon extends Extension {
 		$libraries[] = array(
 			'name'  => __( 'Plover', 'plover' ),
 			'slug'  => 'plover-core',
-			'icons' => array(
+			'icons' => apply_filters( 'plover_core_icon_collection', array(
 				array(
 					'name' => __( 'moon', 'plover' ),
 					'slug' => 'moon',
@@ -78,6 +78,30 @@ class Icon extends Extension {
 					'tags' => [ 'brightness', 'weather', 'light' ],
 				),
 				array(
+					'name' => __( 'search', 'plover' ),
+					'slug' => 'search',
+					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+					'tags' => [ 'find', 'magnifier', 'magnifying glass' ],
+				),
+				array(
+					'name' => __( 'arrow-down-left', 'plover' ),
+					'slug' => 'arrow-down-left',
+					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="17" y1="7" x2="7" y2="17"></line><polyline points="17 17 7 17 7 7"></polyline></svg>',
+					'tags' => [],
+				),
+				array(
+					'name' => __( 'arrow-down-right', 'plover' ),
+					'slug' => 'arrow-down-right',
+					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="7" x2="17" y2="17"></line><polyline points="17 7 17 17 7 17"></polyline></svg>',
+					'tags' => [],
+				),
+				array(
+					'name' => __( 'arrow-down', 'plover' ),
+					'slug' => 'arrow-down',
+					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>',
+					'tags' => [],
+				),
+				array(
 					'name' => __( 'arrow-left', 'plover' ),
 					'slug' => 'arrow-left',
 					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
@@ -88,8 +112,121 @@ class Icon extends Extension {
 					'slug' => 'arrow-right',
 					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>',
 					'tags' => [],
-				)
-			),
+				),
+				array(
+					'name' => __( 'arrow-up-left', 'plover' ),
+					'slug' => 'arrow-up-left',
+					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="17" y1="17" x2="7" y2="7"></line><polyline points="7 17 7 7 17 7"></polyline></svg>',
+					'tags' => [],
+				),
+				array(
+					'name' => __( 'arrow-up-right', 'plover' ),
+					'slug' => 'arrow-up-right',
+					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>',
+					'tags' => [],
+				),
+				array(
+					'name' => __( 'arrow-up', 'plover' ),
+					'slug' => 'arrow-up',
+					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>',
+					'tags' => [],
+				),
+				array(
+					'name' => __( 'alert-circle', 'plover' ),
+					'slug' => 'alert-circle',
+					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>',
+					'tags' => [ 'warning', 'alert', 'danger' ],
+				),
+				array(
+					'name' => __( 'alert-triangle', 'plover' ),
+					'slug' => 'alert-triangle',
+					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>',
+					'tags' => [ 'warning', 'alert', 'danger' ],
+				),
+				array(
+					'name' => __( 'check-circle', 'plover' ),
+					'slug' => 'check-circle',
+					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>',
+					'tags' => [],
+				),
+				array(
+					'name' => __( 'check-square', 'plover' ),
+					'slug' => 'check-square',
+					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>',
+					'tags' => [],
+				),
+				array(
+					'name' => __( 'check', 'plover' ),
+					'slug' => 'check',
+					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>',
+					'tags' => [],
+				),
+				array(
+					'name' => __( 'chevron-down', 'plover' ),
+					'slug' => 'chevron-down',
+					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>',
+					'tags' => [ 'expand' ],
+				),
+				array(
+					'name' => __( 'chevron-left', 'plover' ),
+					'slug' => 'chevron-left',
+					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>',
+					'tags' => [],
+				),
+				array(
+					'name' => __( 'chevron-right', 'plover' ),
+					'slug' => 'chevron-right',
+					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>',
+					'tags' => [],
+				),
+				array(
+					'name' => __( 'chevron-up', 'plover' ),
+					'slug' => 'chevron-up',
+					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>',
+					'tags' => [ 'collapse' ],
+				),
+				array(
+					'name' => __( 'heart', 'plover' ),
+					'slug' => 'heart',
+					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>',
+					'tags' => [ 'like', 'love', 'emotion' ],
+				),
+				array(
+					'name' => __( 'help-circle', 'plover' ),
+					'slug' => 'help-circle',
+					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>',
+					'tags' => [ 'question mark' ],
+				),
+				array(
+					'name' => __( 'map-pin', 'plover' ),
+					'slug' => 'map-pin',
+					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>',
+					'tags' => [ 'location', 'navigation', 'travel', 'marker' ],
+				),
+				array(
+					'name' => __( 'plus', 'plover' ),
+					'slug' => 'plus',
+					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>',
+					'tags' => [ 'plus', 'new' ],
+				),
+				array(
+					'name' => __( 'shopping-cart', 'plover' ),
+					'slug' => 'shopping-cart',
+					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>',
+					'tags' => [ 'ecommerce', 'cart', 'purchase', 'store' ],
+				),
+
+				array(
+					'name' => __( 'download-cloud', 'plover' ),
+					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 17 12 21 16 17"></polyline><line x1="12" y1="12" x2="12" y2="21"></line><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"></path></svg>',
+					'tags' => [],
+				),
+				array(
+					'name' => __( 'download', 'plover' ),
+					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>',
+					'tags' => [],
+				),
+			) ),
 		);
 
 		return $libraries;
@@ -125,7 +262,12 @@ class Icon extends Extension {
 	 *
 	 * @return string
 	 */
-	public function render_button_with_icon( $block_content, $block ): string {
+	public function render_with_icon( $block_content, $block ): string {
+		// support core/button block only
+		if ( $block['blockName'] !== 'core/button' ) {
+			return $block_content;
+		}
+
 		$attrs        = $block['attrs'] ?? [];
 		$icon_library = $attrs['iconLibrary'] ?? '';
 		$icon_slug    = $attrs['iconSlug'] ?? '';

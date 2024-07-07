@@ -68,7 +68,6 @@ class AssetsServiceProvider extends ServiceProvider {
 					'nf-form',
 					'wp-element-button',
 				],
-				'list'   => [ '<ul', '<ol' ],
 				'figure' => [ '<figure' ]
 			],
 			'block-styles' => Arr::from_entries( array_map( function ( $block_style_file ) {

@@ -84,7 +84,8 @@ abstract class Assets {
 		$fs = Filesystem::get();
 
 		$args = wp_parse_args( $args, array(
-			'raw'       => '', // inline code
+			'raw'       => '',      // inline code
+			'device'    => 'all',   // responsive option, css only
 			'src'       => '',
 			'path'      => '',
 			'deps'      => array(),

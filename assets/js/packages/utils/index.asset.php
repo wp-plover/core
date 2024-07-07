@@ -1,1 +1,1 @@
-<?php return array('dependencies' => array('wp-block-editor'), 'version' => '7b95e1c0938ffbcafd5a');
+<?php return array('dependencies' => array('lodash', 'wp-block-editor'), 'version' => 'c370065ea42b1c5cc81b');

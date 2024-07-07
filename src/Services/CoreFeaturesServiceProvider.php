@@ -183,6 +183,7 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 			// register core extensions
 			$extensions->register( 'block-shadow', \Plover\Core\Extensions\Shadow::class );
 			$extensions->register( 'block-sticky', \Plover\Core\Extensions\Sticky::class );
+			$extensions->register( 'block-dispay', \Plover\Core\Extensions\Display::class );
 			$extensions->register( 'code-highlight', \Plover\Core\Extensions\Highlight::class );
 			$extensions->register( 'block-event-handler', \Plover\Core\Extensions\EventHandler::class );
 			$extensions->register( 'icon', \Plover\Core\Extensions\Icon::class );

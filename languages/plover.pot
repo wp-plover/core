@@ -7,13 +7,21 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-02T08:06:18+00:00\n"
+"POT-Creation-Date: 2024-07-07T07:49:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: plover\n"
 
 #: src/Blocks/Code.php:26
 msgid "No Wrap"
+msgstr ""
+
+#: src/Extensions/Display.php:21
+msgid "CSS Display"
+msgstr ""
+
+#: src/Extensions/Display.php:22
+msgid "You can set display css properties for blocks, responsive!"
 msgstr ""
 
 #: src/Extensions/EventHandler.php:22
@@ -89,14 +97,106 @@ msgid "sun"
 msgstr ""
 
 #: src/Extensions/Icon.php:81
-msgid "arrow-left"
+msgid "search"
 msgstr ""
 
 #: src/Extensions/Icon.php:87
+msgid "arrow-down-left"
+msgstr ""
+
+#: src/Extensions/Icon.php:93
+msgid "arrow-down-right"
+msgstr ""
+
+#: src/Extensions/Icon.php:99
+msgid "arrow-down"
+msgstr ""
+
+#: src/Extensions/Icon.php:105
+msgid "arrow-left"
+msgstr ""
+
+#: src/Extensions/Icon.php:111
 msgid "arrow-right"
 msgstr ""
 
-#: src/Extensions/Icon.php:284
+#: src/Extensions/Icon.php:117
+msgid "arrow-up-left"
+msgstr ""
+
+#: src/Extensions/Icon.php:123
+msgid "arrow-up-right"
+msgstr ""
+
+#: src/Extensions/Icon.php:129
+msgid "arrow-up"
+msgstr ""
+
+#: src/Extensions/Icon.php:135
+msgid "alert-circle"
+msgstr ""
+
+#: src/Extensions/Icon.php:141
+msgid "alert-triangle"
+msgstr ""
+
+#: src/Extensions/Icon.php:147
+msgid "check-circle"
+msgstr ""
+
+#: src/Extensions/Icon.php:153
+msgid "check-square"
+msgstr ""
+
+#: src/Extensions/Icon.php:159
+msgid "check"
+msgstr ""
+
+#: src/Extensions/Icon.php:165
+msgid "chevron-down"
+msgstr ""
+
+#: src/Extensions/Icon.php:171
+msgid "chevron-left"
+msgstr ""
+
+#: src/Extensions/Icon.php:177
+msgid "chevron-right"
+msgstr ""
+
+#: src/Extensions/Icon.php:183
+msgid "chevron-up"
+msgstr ""
+
+#: src/Extensions/Icon.php:189
+msgid "heart"
+msgstr ""
+
+#: src/Extensions/Icon.php:195
+msgid "help-circle"
+msgstr ""
+
+#: src/Extensions/Icon.php:201
+msgid "map-pin"
+msgstr ""
+
+#: src/Extensions/Icon.php:207
+msgid "plus"
+msgstr ""
+
+#: src/Extensions/Icon.php:213
+msgid "shopping-cart"
+msgstr ""
+
+#: src/Extensions/Icon.php:220
+msgid "download-cloud"
+msgstr ""
+
+#: src/Extensions/Icon.php:225
+msgid "download"
+msgstr ""
+
+#: src/Extensions/Icon.php:426
 msgid "No such icon library."
 msgstr ""
 
@@ -122,8 +222,20 @@ msgid "Forbidden"
 msgstr ""
 
 #. translators: %s is the type of color property, e.g., "background"
-#: static/packages/components/color-popover/index.jsx:75
+#: static/packages/components/color-popover/index.jsx:76
 msgid "Color %s styles"
+msgstr ""
+
+#: static/packages/components/responsive-control/index.js:37
+msgid "Desktop mode"
+msgstr ""
+
+#: static/packages/components/responsive-control/index.js:46
+msgid "Tablet mode"
+msgstr ""
+
+#: static/packages/components/responsive-control/index.js:55
+msgid "Mobile mode"
 msgstr ""
 
 #: static/scripts/block-extensions/highlight/HighlightControls.jsx:25
@@ -135,8 +247,9 @@ msgid "Highlight"
 msgstr ""
 
 #: static/scripts/block-extensions/highlight/HighlightControls.jsx:32
-#: static/scripts/block-extensions/icon/IconControls.jsx:170
-#: static/scripts/block-extensions/icon/IconControls.jsx:171
+#: static/scripts/block-extensions/icon/IconControls.jsx:180
+#: static/scripts/block-extensions/icon/IconControls.jsx:181
+#: static/scripts/block-supports/display/DisplayPanel.jsx:51
 msgid "None"
 msgstr ""
 
@@ -152,40 +265,65 @@ msgstr ""
 msgid "Filter"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:104
+#: static/scripts/block-extensions/icon/IconControls.jsx:114
 msgid "No icons"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:146
+#: static/scripts/block-extensions/icon/IconControls.jsx:156
 msgid "Icon library"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:162
+#: static/scripts/block-extensions/icon/IconControls.jsx:172
 msgid "Select icon"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:196
+#: static/scripts/block-extensions/icon/IconControls.jsx:206
 msgid "Icon"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:206
+#: static/scripts/block-extensions/icon/IconControls.jsx:216
 msgid "Icon position"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:214
+#: static/scripts/block-extensions/icon/IconControls.jsx:224
 msgid "Left"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:215
+#: static/scripts/block-extensions/icon/IconControls.jsx:225
 msgid "Right"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:219
+#: static/scripts/block-extensions/icon/IconControls.jsx:229
 msgid "Icon Size"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:236
+#: static/scripts/block-extensions/icon/IconControls.jsx:246
 msgid "Clear icon"
+msgstr ""
+
+#: static/scripts/block-supports/display/DisplayPanel.jsx:35
+#: static/scripts/block-supports/display/DisplayPanel.jsx:38
+msgid "Display"
+msgstr ""
+
+#: static/scripts/block-supports/display/DisplayPanel.jsx:52
+msgid "Block"
+msgstr ""
+
+#: static/scripts/block-supports/display/DisplayPanel.jsx:53
+msgid "Inline"
+msgstr ""
+
+#: static/scripts/block-supports/display/DisplayPanel.jsx:54
+msgid "Inline Block"
+msgstr ""
+
+#: static/scripts/block-supports/display/DisplayPanel.jsx:55
+msgid "Inline Flex"
+msgstr ""
+
+#: static/scripts/block-supports/display/DisplayPanel.jsx:65
+msgid "Order"
 msgstr ""
 
 #: static/scripts/block-supports/event-handler/EventHandlerPanel.js:33
@@ -261,7 +399,7 @@ msgid "Drop shadow"
 msgstr ""
 
 #: static/scripts/block-supports/shadow/ShadowPanel.jsx:39
-#: static/scripts/block-supports/shadow/ShadowValues.jsx:64
+#: static/scripts/block-supports/shadow/ShadowValues.jsx:70
 msgid "Shadow"
 msgstr ""
 
@@ -277,7 +415,7 @@ msgstr ""
 msgid "Box Shadow"
 msgstr ""
 
-#: static/scripts/block-supports/shadow/ShadowValues.jsx:154
+#: static/scripts/block-supports/shadow/ShadowValues.jsx:160
 msgid "Add layer"
 msgstr ""
 

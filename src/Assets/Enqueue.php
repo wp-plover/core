@@ -5,6 +5,7 @@ namespace Plover\Core\Assets;
 use Plover\Core\Plover;
 use Plover\Core\Toolkits\Filesystem;
 use Plover\Core\Toolkits\Path;
+use Plover\Core\Toolkits\Responsive;
 use Plover\Core\Toolkits\Str;
 
 /**
@@ -17,7 +18,7 @@ class Enqueue {
 	/**
 	 * All core packages.
 	 */
-	protected const CORE_PACKAGES = [ 'utils', 'icons', 'components', 'api' ];
+	protected const CORE_PACKAGES = [ 'utils', 'icons', 'components', 'api', 'data' ];
 
 	/**
 	 * Plover core instance.
@@ -52,7 +53,7 @@ class Enqueue {
 
 		add_action( 'init', [ $this, 'register_core_packages' ] );
 		add_action( 'init', [ $this, 'enqueue_block_style' ] );
-		add_action( 'enqueue_block_assets', [ $this, 'enqueue_block_inline_assets' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_block_inline_assets' ] );
 		add_filter( 'block_editor_settings_all', [ $this, 'enqueue_block_editor_inline_assets' ], 10, 2 );
 		add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_editor_assets' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_dashboard_assets' ] );
@@ -206,81 +207,6 @@ class Enqueue {
 	}
 
 	/**
-	 * @param string $template_html
-	 * @param array $assets
-	 * @param array $args
-	 *
-	 * @return array
-	 */
-	protected function get_assets( $template_html, array $assets, array $args ) {
-		$args = wp_parse_args( $args, array(
-			'load_all' => false,
-			'mode'     => 'dynamic',
-		) );
-
-		$load_all = $args['load_all'];
-		$mode     = $args['mode'];
-
-		$inline_str  = ''; // Inline raw string.
-		$inline_deps = array();
-		$asset_files = []; // Shouldn't inline assets.
-
-		foreach ( $assets as $handle => $args ) {
-			// Skip if additional condition is not met.
-			$condition = $args['condition'] ?? true;
-			if ( is_callable( $condition ) ) { // support callback as condition.
-				$condition = call_user_func( $condition, $this->core );
-			}
-			if ( ! $condition ) {
-				continue;
-			}
-
-			$keywords = $args['keywords'] ?? [];
-
-			// Skip if no keywords is not met and web don't need to load all assets.
-			if ( ! $load_all && ( ! empty( $keywords ) && ! Str::contains_any( $template_html, ...$keywords ) ) ) {
-				continue;
-			}
-
-			$fs            = Filesystem::get();
-			$should_inline = ( $mode === 'inline' );
-			$asset_path    = $args['path'] ?? null;
-			if ( is_rtl() && $asset_path && ( $args['rtl'] ?? null ) ) {
-				$asset_path = Path::rtl_asset_path( $asset_path );
-			}
-
-			if ( $mode === 'dynamic' ) {
-				// Determine whether we should inline or enqueue the asset file direct.
-				if ( $asset_path && $fs->is_file( $asset_path ) ) {
-					$file_size = $fs->size( $asset_path );
-
-					$inline_size = apply_filters( 'plover_core_assets_inline_size', 500 );
-					if ( $file_size !== false && $file_size <= (int) $inline_size ) {
-						$should_inline = true;
-					}
-				}
-			}
-
-			if ( $should_inline ) {
-				if ( $asset_path && $fs->is_file( $asset_path ) ) {
-					$inline_str  .= Str::remove_line_breaks( $fs->get_contents( $asset_path ) );
-					$inline_deps = array_merge( $inline_deps, $args['deps'] ?? array() );
-				}
-			} elseif ( $args['src'] ) {
-				$asset_files[ $handle ] = $args;
-			}
-
-			// raw assets
-			if ( isset( $args['raw'] ) && $args['raw'] ) {
-				$inline_str  .= Str::remove_line_breaks( $args['raw'] );
-				$inline_deps = array_merge( $inline_deps, $args['deps'] ?? array() );
-			}
-		}
-
-		return [ $inline_str, array_unique( $inline_deps ), $asset_files ];
-	}
-
-	/**
 	 * Enqueue scripts.
 	 *
 	 * @param array $assets
@@ -326,8 +252,102 @@ class Enqueue {
 			wp_enqueue_script( $inline_handle );
 			wp_add_inline_script( $inline_handle, $inline_script );
 
-			$this->enqueue_core_styles_from_deps( $deps );
+			$this->enqueue_core_styles_from_deps( $inline_deps );
 		}
+	}
+
+	/**
+	 * @param string $template_html
+	 * @param array $assets
+	 * @param array $args
+	 *
+	 * @return array
+	 */
+	protected function get_assets( $template_html, array $assets, array $args ) {
+		$args = wp_parse_args( $args, array(
+			'load_all' => false,
+			'mode'     => 'dynamic',
+		) );
+
+		$load_all = $args['load_all'];
+		$mode     = $args['mode'];
+
+		// Inline raw string, responsive.
+		$inline_assets = [ 'all' => '', 'desktop' => '', 'tablet' => '', 'mobile' => '' ];
+		// Inline dependencies.
+		$inline_deps = array();
+		// Shouldn't inline assets.
+		$asset_files = [];
+
+		foreach ( $assets as $handle => $args ) {
+			// Skip if additional condition is not met.
+			$condition = $args['condition'] ?? true;
+			if ( is_callable( $condition ) ) { // support callback as condition.
+				$condition = call_user_func( $condition, $this->core );
+			}
+			if ( ! $condition ) {
+				continue;
+			}
+
+			$keywords = $args['keywords'] ?? [];
+
+			// Skip if no keywords is not met and web don't need to load all assets.
+			if ( ! $load_all && ( ! empty( $keywords ) && ! Str::contains_any( $template_html, ...$keywords ) ) ) {
+				continue;
+			}
+
+			$fs            = Filesystem::get();
+			$device        = $args['device'];
+			$should_inline = ( $mode === 'inline' || $device !== 'all' ); // Inline all responsive assets
+			$asset_path    = $args['path'] ?? null;
+			if ( is_rtl() && $asset_path && ( $args['rtl'] ?? null ) ) {
+				$asset_path = Path::rtl_asset_path( $asset_path );
+			}
+
+			if ( $mode === 'dynamic' ) {
+				// Determine whether we should inline or enqueue the asset file direct.
+				if ( $asset_path && $fs->is_file( $asset_path ) ) {
+					$file_size = $fs->size( $asset_path );
+
+					$inline_size = apply_filters( 'plover_core_assets_inline_size', 500 );
+					if ( $file_size !== false && $file_size <= (int) $inline_size ) {
+						$should_inline = true;
+					}
+				}
+			}
+
+			if ( $should_inline ) {
+				if ( $asset_path && $fs->is_file( $asset_path ) ) {
+					$inline_assets[ $device ] .= Str::remove_line_breaks( $fs->get_contents( $asset_path ) );
+					$inline_deps              = array_merge( $inline_deps, $args['deps'] ?? array() );
+				}
+			} elseif ( $args['src'] ) {
+				$asset_files[ $handle ] = $args;
+			}
+
+			// raw assets
+			if ( isset( $args['raw'] ) && $args['raw'] ) {
+				$inline_assets[ $device ] .= Str::remove_line_breaks( $args['raw'] );
+				$inline_deps              = array_merge( $inline_deps, $args['deps'] ?? array() );
+			}
+		}
+
+		$inline_str = '';
+
+		if ( isset( $inline_assets['all'] ) && $inline_assets['all'] ) {
+			$inline_str .= $inline_assets['all'];
+		}
+		if ( isset( $inline_assets['desktop'] ) && $inline_assets['mobile'] ) {
+			$inline_str .= Responsive::mobile_css( $inline_assets['mobile'] );
+		}
+		if ( isset( $inline_assets['tablet'] ) && $inline_assets['tablet'] ) {
+			$inline_str .= Responsive::tablet_css( $inline_assets['tablet'] );
+		}
+		if ( isset( $inline_assets['desktop'] ) && $inline_assets['desktop'] ) {
+			$inline_str .= Responsive::desktop_css( $inline_assets['desktop'] );
+		}
+
+		return [ $inline_str, array_unique( $inline_deps ), $asset_files ];
 	}
 
 	/**
