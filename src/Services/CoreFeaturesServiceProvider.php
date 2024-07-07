@@ -142,27 +142,7 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 					'box' => true,
 				]
 			]
-		],
-		'core/row'                 => [
-			'shadow'       => false,
-			'ploverSticky' => true,
-			'ploverShadow' => [
-				'box'             => true,
-				'defaultControls' => [
-					'box' => true,
-				]
-			]
-		],
-		'core/stack'               => [
-			'shadow'       => false,
-			'ploverSticky' => true,
-			'ploverShadow' => [
-				'box'             => true,
-				'defaultControls' => [
-					'box' => true,
-				]
-			]
-		],
+		]
 	];
 
 	/**

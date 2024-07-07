@@ -3,6 +3,7 @@
 namespace Plover\Core\Services;
 
 use Plover\Core\Assets\Enqueue;
+use Plover\Core\Assets\Scripts;
 use Plover\Core\Assets\Styles;
 use Plover\Core\Framework\ServiceProvider;
 use Plover\Core\Toolkits\Arr;
@@ -37,12 +38,29 @@ class AssetsServiceProvider extends ServiceProvider {
 	 * Bootstrap assets enqueue
 	 *
 	 * @param Styles $styles
+	 * @param Scripts $scripts
 	 *
 	 * @return void
 	 */
-	public function boot( Styles $styles ) {
+	public function boot( Styles $styles, Scripts $scripts ) {
 		$this->core->make( Enqueue::class );
 
+		// enqueue all block variations scripts
+		$block_variations = \Plover\Core\Toolkits\Filesystem::list_files(
+			$this->core->core_path( 'assets/js/block-variations' ), 1
+		);
+		foreach ( $block_variations as $block_variation ) {
+			$variation_name = basename( $block_variation );
+			$scripts->enqueue_editor_asset( "plover/{$variation_name}", array(
+				'ver'    => 'core',
+				'src'    => $this->core->core_url( "assets/js/block-variations/{$variation_name}/index.js" ),
+				'path'   => $this->core->core_path( "assets/js/block-variations/{$variation_name}/index.js" ),
+				'asset'  => $this->core->core_path( "assets/js/block-variations/{$variation_name}/index.asset.php" ),
+				'footer' => true,
+			) );
+		}
+
+		// enqueue all core block styles
 		$core_block_styles = \Plover\Core\Toolkits\Filesystem::list_files(
 			$this->core->core_path( 'assets/css/core-blocks' )
 		);
@@ -50,7 +68,7 @@ class AssetsServiceProvider extends ServiceProvider {
 		foreach ( $core_block_styles as $block_style ) {
 			$block_name = basename( $block_style, '.css' );
 			$styles->enqueue_block_style( "core/{$block_name}", array(
-				'var'    => 'core',
+				'ver'    => 'core',
 				'handle' => "plover-core-{$block_name}-block-style",
 				'src'    => $this->core->core_url( "assets/css/core-blocks/{$block_name}.css" ),
 				'path'   => $this->core->core_path( "assets/css/core-blocks/{$block_name}.css" )

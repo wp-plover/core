@@ -125,7 +125,7 @@ abstract class Assets {
 	}
 
 	/**
-	 * Enqueue the asset file in fronted and editor.
+	 * Enqueue the asset file in editor only.
 	 *
 	 * @param string $handle
 	 * @param array $args
