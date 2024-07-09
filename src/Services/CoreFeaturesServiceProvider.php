@@ -17,6 +17,9 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 	 * @var \array[][]
 	 */
 	protected $block_supports = [
+		'core/columns'             => [
+			'ploverSticky' => true,
+		],
 		'core/column'              => [
 			'shadow'               => false,
 			'__experimentalBorder' => [
