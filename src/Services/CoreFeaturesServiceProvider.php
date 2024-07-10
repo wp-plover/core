@@ -68,6 +68,11 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 			]
 		],
 		'core/image'               => [
+			'color'        => [
+				'gradients'  => true,
+				'background' => true,
+				'text'       => true, // For SVG currentColor.
+			],
 			'spacing'      => [
 				'margin'  => true,
 				'padding' => true,
@@ -95,8 +100,10 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 			'shadow'       => false,
 			'ploverShadow' => [
 				'text'            => true,
+				'drop'            => true,
 				'defaultControls' => [
 					'text' => true,
+					'drop' => true,
 				]
 			],
 		],

@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-09T03:56:25+00:00\n"
+"POT-Creation-Date: 2024-07-10T09:43:35+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: plover\n"
@@ -84,127 +84,131 @@ msgstr ""
 msgid "Default language"
 msgstr ""
 
-#: src/Extensions/Icon.php:65
+#: src/Extensions/Icon.php:71
 msgid "Plover"
 msgstr ""
 
-#: src/Extensions/Icon.php:69
-msgid "moon"
-msgstr ""
-
 #: src/Extensions/Icon.php:75
-msgid "sun"
+msgid "star"
 msgstr ""
 
 #: src/Extensions/Icon.php:81
-msgid "search"
+msgid "moon"
 msgstr ""
 
 #: src/Extensions/Icon.php:87
-msgid "arrow-down-left"
+msgid "sun"
 msgstr ""
 
 #: src/Extensions/Icon.php:93
-msgid "arrow-down-right"
+msgid "search"
 msgstr ""
 
 #: src/Extensions/Icon.php:99
-msgid "arrow-down"
+msgid "arrow-down-left"
 msgstr ""
 
 #: src/Extensions/Icon.php:105
-msgid "arrow-left"
+msgid "arrow-down-right"
 msgstr ""
 
 #: src/Extensions/Icon.php:111
-msgid "arrow-right"
+msgid "arrow-down"
 msgstr ""
 
 #: src/Extensions/Icon.php:117
-msgid "arrow-up-left"
+msgid "arrow-left"
 msgstr ""
 
 #: src/Extensions/Icon.php:123
-msgid "arrow-up-right"
+msgid "arrow-right"
 msgstr ""
 
 #: src/Extensions/Icon.php:129
-msgid "arrow-up"
+msgid "arrow-up-left"
 msgstr ""
 
 #: src/Extensions/Icon.php:135
-msgid "alert-circle"
+msgid "arrow-up-right"
 msgstr ""
 
 #: src/Extensions/Icon.php:141
-msgid "alert-triangle"
+msgid "arrow-up"
 msgstr ""
 
 #: src/Extensions/Icon.php:147
-msgid "check-circle"
+msgid "alert-circle"
 msgstr ""
 
 #: src/Extensions/Icon.php:153
-msgid "check-square"
+msgid "alert-triangle"
 msgstr ""
 
 #: src/Extensions/Icon.php:159
-msgid "check"
+msgid "check-circle"
 msgstr ""
 
 #: src/Extensions/Icon.php:165
-msgid "chevron-down"
+msgid "check-square"
 msgstr ""
 
 #: src/Extensions/Icon.php:171
-msgid "chevron-left"
+msgid "check"
 msgstr ""
 
 #: src/Extensions/Icon.php:177
-msgid "chevron-right"
+msgid "chevron-down"
 msgstr ""
 
 #: src/Extensions/Icon.php:183
-msgid "chevron-up"
+msgid "chevron-left"
 msgstr ""
 
 #: src/Extensions/Icon.php:189
-msgid "heart"
+msgid "chevron-right"
 msgstr ""
 
 #: src/Extensions/Icon.php:195
-msgid "help-circle"
+msgid "chevron-up"
 msgstr ""
 
 #: src/Extensions/Icon.php:201
-msgid "map-pin"
+msgid "heart"
 msgstr ""
 
 #: src/Extensions/Icon.php:207
-msgid "plus"
+msgid "help-circle"
 msgstr ""
 
 #: src/Extensions/Icon.php:213
-msgid "shopping-cart"
+msgid "map-pin"
 msgstr ""
 
-#: src/Extensions/Icon.php:220
-msgid "download-cloud"
+#: src/Extensions/Icon.php:219
+msgid "plus"
 msgstr ""
 
 #: src/Extensions/Icon.php:225
+msgid "shopping-cart"
+msgstr ""
+
+#: src/Extensions/Icon.php:231
+msgid "download-cloud"
+msgstr ""
+
+#: src/Extensions/Icon.php:237
 msgid "download"
 msgstr ""
 
-#: src/Extensions/Icon.php:426
+#: src/Extensions/Icon.php:436
 msgid "No such icon library."
 msgstr ""
 
-#: src/Extensions/Shadow.php:20
+#: src/Extensions/Shadow.php:26
 msgid "Block shadow"
 msgstr ""
 
-#: src/Extensions/Shadow.php:21
+#: src/Extensions/Shadow.php:27
 msgid "Extra text-shadow, drop-shadow, and box-shadow support for code blocks."
 msgstr ""
 
@@ -281,24 +285,32 @@ msgstr ""
 msgid "Icon"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:216
+#: static/scripts/block-extensions/icon/IconControls.jsx:217
 msgid "Icon position"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:224
+#: static/scripts/block-extensions/icon/IconControls.jsx:225
 msgid "Left"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:225
+#: static/scripts/block-extensions/icon/IconControls.jsx:226
 msgid "Right"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:229
+#: static/scripts/block-extensions/icon/IconControls.jsx:231
 msgid "Icon Size"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:246
+#: static/scripts/block-extensions/icon/IconControls.jsx:248
 msgid "Clear icon"
+msgstr ""
+
+#: static/scripts/block-extensions/icon/index.jsx:152
+msgid "Plover: Icon"
+msgstr ""
+
+#: static/scripts/block-extensions/icon/index.jsx:154
+msgid "Insert a SVG icon."
 msgstr ""
 
 #: static/scripts/block-supports/display/DisplayPanel.jsx:35
@@ -464,7 +476,7 @@ msgid "Sticky"
 msgstr ""
 
 #: static/scripts/block-variations/group-grid/index.js:11
-msgid "Grid"
+msgid "Plover: Grid"
 msgstr ""
 
 #: static/scripts/block-variations/group-grid/index.js:13

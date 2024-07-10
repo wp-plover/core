@@ -22,6 +22,11 @@ class Icon extends Extension {
 	protected $icons;
 
 	/**
+	 * Supported blocks.
+	 */
+	protected const SUPPORTED_BLOCKS = [ 'core/paragraph', 'core/button' ];
+
+	/**
 	 * Bootstrap the extension.
 	 *
 	 * @return void
@@ -34,10 +39,11 @@ class Icon extends Extension {
 
 		// Enqueue icon extension assets
 		$this->scripts->enqueue_editor_asset( 'plover-icon-extension', array(
-			'ver'   => 'core',
-			'src'   => $this->core->core_url( 'assets/js/block-extensions/icon/index.js' ),
-			'path'  => $this->core->core_path( 'assets/js/block-extensions/icon/index.js' ),
-			'asset' => $this->core->core_path( 'assets/js/block-extensions/icon/index.asset.php' ),
+			'ver'    => 'core',
+			'src'    => $this->core->core_url( 'assets/js/block-extensions/icon/index.js' ),
+			'path'   => $this->core->core_path( 'assets/js/block-extensions/icon/index.js' ),
+			'asset'  => $this->core->core_path( 'assets/js/block-extensions/icon/index.asset.php' ),
+			'footer' => true,
 		) );
 		$this->styles->enqueue_editor_asset( 'plover-icon-extension', array(
 			'ver'  => 'core',
@@ -65,6 +71,12 @@ class Icon extends Extension {
 			'name'  => __( 'Plover', 'plover' ),
 			'slug'  => 'plover-core',
 			'icons' => apply_filters( 'plover_core_icon_collection', array(
+				array(
+					'name' => __( 'star', 'plover' ),
+					'slug' => 'star',
+					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"></path></svg>',
+					'tags' => [ 'bookmark', 'favorite', 'like' ],
+				),
 				array(
 					'name' => __( 'moon', 'plover' ),
 					'slug' => 'moon',
@@ -215,14 +227,15 @@ class Icon extends Extension {
 					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>',
 					'tags' => [ 'ecommerce', 'cart', 'purchase', 'store' ],
 				),
-
 				array(
 					'name' => __( 'download-cloud', 'plover' ),
+					'slug' => 'download-cloud',
 					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 17 12 21 16 17"></polyline><line x1="12" y1="12" x2="12" y2="21"></line><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"></path></svg>',
 					'tags' => [],
 				),
 				array(
 					'name' => __( 'download', 'plover' ),
+					'slug' => 'download',
 					'svg'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>',
 					'tags' => [],
 				),
@@ -263,8 +276,7 @@ class Icon extends Extension {
 	 * @return string
 	 */
 	public function render_with_icon( $block_content, $block ): string {
-		// support core/button block only
-		if ( $block['blockName'] !== 'core/button' ) {
+		if ( ! in_array( $block['blockName'], self::SUPPORTED_BLOCKS ) ) {
 			return $block_content;
 		}
 
@@ -368,9 +380,7 @@ class Icon extends Extension {
 	 */
 	public function localize_icon_attributes( $data ) {
 		$data['extensions']['icon'] = [
-			'blocks'     => [
-				'core/button'
-			],
+			'blocks'     => self::SUPPORTED_BLOCKS,
 			'libraries'  => $this->icons->get_libraries(),
 			'attributes' => [
 				'iconLibrary'   => [

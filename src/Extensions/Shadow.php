@@ -4,6 +4,7 @@ namespace Plover\Core\Extensions;
 
 use Plover\Core\Services\Extensions\Contract\Extension;
 use Plover\Core\Toolkits\Arr;
+use Plover\Core\Toolkits\Html\Document;
 
 /**
  * @since 1.0.0
@@ -11,6 +12,11 @@ use Plover\Core\Toolkits\Arr;
 class Shadow extends Extension {
 
 	const MODULE_NAME = 'plover_block_shadow';
+
+	private const IMAGE_BLOCKS = array(
+		'core/image',
+		'core/featured-image',
+	);
 
 	/**
 	 * @return void
@@ -223,10 +229,10 @@ class Shadow extends Extension {
 			$this->render_text_shadow( $html, $text_shadow );
 		}
 		if ( $box_shadow ) {
-			$this->render_box_shadow( $html, $box_shadow );
+			$this->render_box_shadow( $block['blockName'] ?? '', $html, $box_shadow );
 		}
 		if ( $drop_shadow ) {
-			$this->render_drop_shadow( $html, $drop_shadow );
+			$this->render_drop_shadow( $block['blockName'] ?? '', $html, $drop_shadow );
 		}
 
 		return $html->save_html();
@@ -235,7 +241,7 @@ class Shadow extends Extension {
 	/**
 	 * Render text shadow styles.
 	 *
-	 * @param $html
+	 * @param Document $html
 	 * @param $text_shadow
 	 *
 	 * @return void
@@ -262,22 +268,19 @@ class Shadow extends Extension {
 	/**
 	 * Render box shadow styles.
 	 *
-	 * @param $html
+	 * @param $block_name
+	 * @param Document $html
 	 * @param $box_shadow
 	 *
 	 * @return void
 	 */
-	protected function render_box_shadow( $html, $box_shadow ) {
-		$wrap = $html->get_root_element();
-		$tags = array( 'figure', '*' );
-		foreach ( $tags as $tag ) {
-			$el = $html->get_element_by_tag_name( $tag );
-			if ( $el ) {
-				$wrap = $el;
-
-				break;
-			}
+	protected function render_box_shadow( $block_name, $html, $box_shadow ) {
+		$tags = array( '*' );
+		if ( in_array( $block_name, self::IMAGE_BLOCKS ) ) { // If the block is image-based, add the shadow to the figure/image tag.
+			$tags = array( 'figure', '*' );
 		}
+
+		$wrap = $html->get_element_by_tags_priority( $tags );
 
 		if ( ! $wrap ) {
 			return;
@@ -307,23 +310,19 @@ class Shadow extends Extension {
 	/**
 	 * Render drop shadow styles.
 	 *
-	 * @param $html
+	 * @param $block_name
+	 * @param Document $html
 	 * @param $drop_shadow
 	 *
 	 * @return void
 	 */
-	protected function render_drop_shadow( $html, $drop_shadow ) {
-		$wrap = $html->get_root_element();
-		$tags = array( 'figure', 'img' ); // Take care of Duoton effect
-		foreach ( $tags as $tag ) {
-			$el = $html->get_element_by_tag_name( $tag );
-			if ( $el ) {
-				$wrap = $el;
-
-				break;
-			}
+	protected function render_drop_shadow( $block_name, $html, $drop_shadow ) {
+		$tags = array( '*' );
+		if ( in_array( $block_name, self::IMAGE_BLOCKS ) ) { // If the block is image-based, add the shadow to the figure/image tag.
+			$tags = array( 'figure', 'img', '*' ); // Take care of Duoton effect
 		}
 
+		$wrap = $html->get_element_by_tags_priority( $tags ); // Take care of Duoton effect
 		if ( ! $wrap ) {
 			return;
 		}

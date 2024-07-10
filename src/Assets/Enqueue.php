@@ -53,8 +53,9 @@ class Enqueue {
 
 		add_action( 'init', [ $this, 'register_core_packages' ] );
 		add_action( 'init', [ $this, 'enqueue_block_style' ] );
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_block_inline_assets' ] );
-		add_filter( 'block_editor_settings_all', [ $this, 'enqueue_block_editor_inline_assets' ], 10, 2 );
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_block_content_assets' ] );
+		add_action( 'enqueue_block_assets', [ $this, 'enqueue_block_content_editor_scripts' ] );
+		add_filter( 'block_editor_settings_all', [ $this, 'enqueue_block_content_editor_styles' ], 10, 2 );
 		add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_editor_assets' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_dashboard_assets' ] );
 	}
@@ -134,7 +135,7 @@ class Enqueue {
 	 *
 	 * @return void
 	 */
-	public function enqueue_block_inline_assets() {
+	public function enqueue_block_content_assets() {
 		if ( is_admin() ) {
 			return;
 		}
@@ -351,15 +352,19 @@ class Enqueue {
 	}
 
 	/**
-	 *  Enqueue user-generated content (blocks) assets for all blocks, editor only.
+	 *  Enqueue user-generated content (blocks) scripts for all blocks, editor only.
 	 *
 	 * @param $editor_settings
 	 * @param $editor_context
 	 *
-	 * @return array
+	 * @return void
 	 * @see https://developer.wordpress.org/block-editor/how-to-guides/enqueueing-assets-in-the-editor/#editor-content-scripts-and-styles
 	 */
-	public function enqueue_block_editor_inline_assets( $editor_settings, $editor_context ) {
+	public function enqueue_block_content_editor_scripts() {
+		if ( ! is_admin() ) {
+			return;
+		}
+
 		// Enqueue editor scripts.
 		$this->enqueue_scripts(
 			$this->scripts->get_assets(),
@@ -369,7 +374,18 @@ class Enqueue {
 				'inline_handle' => 'plover-block-editor-inline-scripts'
 			)
 		);
+	}
 
+	/**
+	 *  Enqueue user-generated content (blocks) styles for all blocks, editor only.
+	 *
+	 * @param $editor_settings
+	 * @param $editor_context
+	 *
+	 * @return array
+	 * @see https://developer.wordpress.org/block-editor/how-to-guides/enqueueing-assets-in-the-editor/#editor-content-scripts-and-styles
+	 */
+	public function enqueue_block_content_editor_styles( $editor_settings, $editor_context ) {
 		// handle inline styles.
 		list( $inline_style, $inline_deps, $style_files ) = $this->get_assets(
 			'',
