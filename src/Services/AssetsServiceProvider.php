@@ -61,17 +61,19 @@ class AssetsServiceProvider extends ServiceProvider {
 		}
 
 		// enqueue all core block styles
-		$core_block_styles = \Plover\Core\Toolkits\Filesystem::list_files(
-			$this->core->core_path( 'assets/css/core-blocks' )
+		$blocks = \Plover\Core\Toolkits\Filesystem::list_files(
+			$this->core->core_path( 'assets/css/blocks' )
 		);
 
-		foreach ( $core_block_styles as $block_style ) {
-			$block_name = basename( $block_style, '.css' );
-			$styles->enqueue_block_style( "core/{$block_name}", array(
+		foreach ( $blocks as $block_style ) {
+			$base_name = basename( $block_style, '.css' );
+			list( $scope, $name ) = array_pad( explode( '__', $base_name ) ?? [], - 2, '' );
+
+			$styles->enqueue_block_style( $scope ? "{$scope}/{$name}" : $name, array(
 				'ver'    => 'core',
-				'handle' => "plover-core-{$block_name}-block-style",
-				'src'    => $this->core->core_url( "assets/css/core-blocks/{$block_name}.css" ),
-				'path'   => $this->core->core_path( "assets/css/core-blocks/{$block_name}.css" )
+				'handle' => "plover-{$scope}-{$name}-block-style",
+				'src'    => $this->core->core_url( "assets/css/blocks/{$base_name}.css" ),
+				'path'   => $this->core->core_path( "assets/css/blocks/{$base_name}.css" )
 			) );
 		}
 

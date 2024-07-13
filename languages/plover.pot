@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-10T09:43:35+00:00\n"
+"POT-Creation-Date: 2024-07-13T03:23:09+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: plover\n"
@@ -311,6 +311,19 @@ msgstr ""
 
 #: static/scripts/block-extensions/icon/index.jsx:154
 msgid "Insert a SVG icon."
+msgstr ""
+
+#: static/scripts/block-extensions/search/SearchControls.jsx:39
+msgid "All"
+msgstr ""
+
+#: static/scripts/block-extensions/search/SearchControls.jsx:48
+#: static/scripts/block-extensions/search/SearchControls.jsx:63
+msgid "Post Type"
+msgstr ""
+
+#: static/scripts/block-extensions/search/SearchControls.jsx:86
+msgid "Filters"
 msgstr ""
 
 #: static/scripts/block-supports/display/DisplayPanel.jsx:35

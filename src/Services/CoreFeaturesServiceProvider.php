@@ -40,6 +40,53 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 				]
 			]
 		],
+		'core/list'                => [
+			'spacing'              => [
+				'padding'  => true,
+				'margin'   => true,
+				'blockGap' => true,
+			],
+			'__experimentalLayout' => [
+				'allowSwitching'  => false,
+				'allowInheriting' => false,
+				'default'         => [
+					'type'        => 'flex',
+					'orientation' => 'vertical',
+				],
+			],
+			'__experimentalBorder' => [
+				'radius'                        => true,
+				'width'                         => true,
+				'color'                         => true,
+				'style'                         => true,
+				'__experimentalDefaultControls' => [
+					'width' => true,
+					'color' => true,
+				],
+			],
+		],
+		'core/list-item'           => [
+			'color'                => [
+				'text'       => true,
+				'background' => true,
+				'link'       => true,
+				'gradient'   => true,
+			],
+			'spacing'              => [
+				'padding' => true,
+				'margin'  => true,
+			],
+			'__experimentalBorder' => [
+				'radius'                        => true,
+				'width'                         => true,
+				'color'                         => true,
+				'style'                         => true,
+				'__experimentalDefaultControls' => [
+					'width' => true,
+					'color' => true,
+				],
+			],
+		],
 		'core/button'              => [
 			'spacing'            => [
 				'margin'                          => true,
@@ -165,6 +212,7 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 			$blocks->extend( new \Plover\Core\Blocks\Code() );
 			$blocks->extend( new \Plover\Core\Blocks\CoreList() );
 			$blocks->extend( new \Plover\Core\Blocks\PageList() );
+			$blocks->extend( new \Plover\Core\Blocks\PloverDocList() );
 			// extend block supports
 			foreach ( $this->block_supports as $block_name => $supports ) {
 				$blocks->extend_block_supports( $block_name, $supports );
@@ -175,6 +223,7 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 			$extensions->register( 'block-sticky', \Plover\Core\Extensions\Sticky::class );
 			$extensions->register( 'block-dispay', \Plover\Core\Extensions\Display::class );
 			$extensions->register( 'code-highlight', \Plover\Core\Extensions\Highlight::class );
+			$extensions->register( 'search-enhancement', \Plover\Core\Extensions\Search::class );
 			$extensions->register( 'block-event-handler', \Plover\Core\Extensions\EventHandler::class );
 			$extensions->register( 'icon', \Plover\Core\Extensions\Icon::class );
 		}, 5 );
