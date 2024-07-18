@@ -19,6 +19,8 @@ class Sticky extends Extension {
 		$this->modules->register( self::MODULE_NAME, array(
 			'label'   => __( 'Block Sticky', 'plover' ),
 			'excerpt' => __( 'Make your content in the page visible at all times, making it permanently visible while scrolling.', 'plover' ),
+			'icon'    => esc_url( $this->core->core_url( 'assets/images/block-sticky.png' ) ),
+			'group'   => 'supports',
 		) );
 	}
 

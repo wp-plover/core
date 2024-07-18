@@ -16,6 +16,9 @@ use Plover\Core\Toolkits\StyleEngine;
  */
 class Icon extends Extension {
 
+	const ICON_BUTTON_MODULE_NAME = 'plover_icon_button';
+	const ICON_BLOCK_MODULE_NAME = 'plover_icon_block';
+
 	/**
 	 * @var Icons
 	 */
@@ -24,7 +27,26 @@ class Icon extends Extension {
 	/**
 	 * Supported blocks.
 	 */
-	protected const SUPPORTED_BLOCKS = [ 'core/paragraph', 'core/button' ];
+	protected $supported_blocks = [];
+
+	/**
+	 * @return void
+	 */
+	public function register() {
+		$this->modules->register( self::ICON_BUTTON_MODULE_NAME, array(
+			'group'   => 'extensions',
+			'label'   => __( 'Icon Button', 'plover' ),
+			'excerpt' => __( 'Add icon to boring buttons! 2000+ free icons available!', 'plover' ),
+			'icon'    => esc_url( $this->core->core_url( 'assets/images/icon-button.png' ) ),
+			'fields'  => array()
+		) );
+		$this->modules->register( self::ICON_BLOCK_MODULE_NAME, array(
+			'label'   => __( 'Icon Block', 'plover' ),
+			'excerpt' => __( 'Add icons to your design! 2000+ free icons available!', 'plover' ),
+			'icon'    => esc_url( $this->core->core_url( 'assets/images/icon-block.png' ) ),
+			'fields'  => array()
+		) );
+	}
 
 	/**
 	 * Bootstrap the extension.
@@ -33,6 +55,16 @@ class Icon extends Extension {
 	 */
 	public function boot( Icons $icons ) {
 		$this->icons = $icons;
+		if ( $this->settings->checked( self::ICON_BUTTON_MODULE_NAME ) ) {
+			$this->supported_blocks[] = 'core/button';
+		}
+		if ( $this->settings->checked( self::ICON_BLOCK_MODULE_NAME ) ) {
+			$this->supported_blocks[] = 'core/paragraph';
+		}
+
+		if ( empty( $this->supported_blocks ) ) {
+			return;
+		}
 
 		// Register rest api for retrieve icons
 		add_action( 'rest_api_init', [ $this, 'register_reset_api' ] );
@@ -276,7 +308,7 @@ class Icon extends Extension {
 	 * @return string
 	 */
 	public function render_with_icon( $block_content, $block ): string {
-		if ( ! in_array( $block['blockName'], self::SUPPORTED_BLOCKS ) ) {
+		if ( ! in_array( $block['blockName'], $this->supported_blocks ) ) {
 			return $block_content;
 		}
 
@@ -380,7 +412,7 @@ class Icon extends Extension {
 	 */
 	public function localize_icon_attributes( $data ) {
 		$data['extensions']['icon'] = [
-			'blocks'     => self::SUPPORTED_BLOCKS,
+			'blocks'     => $this->supported_blocks,
 			'libraries'  => $this->icons->get_libraries(),
 			'attributes' => [
 				'iconLibrary'   => [

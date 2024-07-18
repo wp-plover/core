@@ -21,6 +21,8 @@ class EventHandler extends Extension {
 		$this->modules->register( self::MODULE_NAME, array(
 			'label'   => __( 'Block event handler', 'plover' ),
 			'excerpt' => __( 'Adding event handler to blocks to execute custom JavaScript snippets.', 'plover' ),
+			'icon'    => esc_url( $this->core->core_url( 'assets/images/block-event-handler.png' ) ),
+			'group'   => 'supports',
 			'fields'  => array(
 				'allowed_roles'  => array(
 					'label'        => __( 'Allowed roles', 'plover' ),

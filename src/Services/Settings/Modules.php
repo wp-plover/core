@@ -16,6 +16,13 @@ class Modules {
 	protected $modules = [];
 
 	/**
+	 * All registered module groups.
+	 *
+	 * @var array
+	 */
+	protected $groups = [];
+
+	/**
 	 * @var Plover
 	 */
 	protected $core;
@@ -34,12 +41,62 @@ class Modules {
 		$this->core     = $core;
 		$this->settings = $settings;
 
+		$this->register_group( 'default', array(
+			'label'       => __( 'Modules', 'plover' ),
+			'description' => __( 'Standalone feature extensions, similar to a WordPress plugin.', 'plover' ),
+		) );
+		$this->register_group( 'blocks', array(
+			'label'       => __( 'Blocks', 'plover' ),
+			'description' => __( 'Blocks or block variations provided by this plugin.', 'plover' ),
+		) );
+		$this->register_group( 'extensions', array(
+			'label'       => __( 'Block Extensions', 'plover' ),
+			'description' => __( 'Extensions to specific core blocks.', 'plover' ),
+		) );
+		$this->register_group( 'supports', array(
+			'label'       => __( 'Block Supports', 'plover' ),
+			'description' => __( 'Features that can be shared by multiple block types.', 'plover' ),
+		) );
+
 		add_filter( 'plover_core_dashboard_data', function ( $data ) {
-			// TODO: escape label, icon, excerpt, description.
-			$data['modules'] = $this->modules;
+			$data['modules']       = array_map( function ( $module ) {
+				$module['label']       = esc_html( $module['label'] );
+				$module['excerpt']     = esc_html( $module['excerpt'] );
+				$module['order']       = absint( $module['order'] );
+				$module['description'] = wp_kses_post( $module['description'] );
+
+				return $module;
+			}, $this->modules );
+			$data['module_groups'] = $this->groups;
 
 			return $data;
 		} );
+	}
+
+	/**
+	 * Register a module group.
+	 *
+	 * @param $slug
+	 * @param array $args
+	 *
+	 * @return void
+	 */
+	public function register_group( $slug, $args = array() ) {
+		static $order = 0;
+
+		$args = wp_parse_args( $args, array(
+			'label'       => '',
+			'description' => '',
+			'order'       => $order ++,
+		) );
+
+		if ( ! empty( $args['label'] ) ) {
+			$this->groups[ $slug ] = array(
+				'label'       => esc_html( $args['label'] ),
+				'description' => esc_html( $args['description'] ),
+				'order'       => absint( $args['order'] ),
+			);
+		}
 	}
 
 	/**
@@ -56,13 +113,17 @@ class Modules {
 			return;
 		}
 
+		static $order = 0;
+
 		$args = wp_parse_args( $args, array(
+			'group'       => 'default',
 			'label'       => '',
 			'enabled'     => 'yes',
 			'excerpt'     => '',
 			'icon'        => '',
 			'description' => '',
 			'fields'      => array(),
+			'order'       => $order ++,
 		) );
 
 		$this->settings->add_group( $id, array(

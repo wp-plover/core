@@ -20,7 +20,9 @@ class Display extends Extension {
 		$this->modules->register( self::MODULE_NAME, array(
 			'label'   => __( 'CSS Display', 'plover' ),
 			'excerpt' => __( 'You can set display css properties for blocks, responsive!', 'plover' ),
-			'fields'  => array()
+			'icon'    => esc_url( $this->core->core_url( 'assets/images/css-display.png' ) ),
+			'fields'  => array(),
+			'group'   => 'supports',
 		) );
 	}
 

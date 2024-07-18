@@ -23,8 +23,10 @@ class Shadow extends Extension {
 	 */
 	public function register() {
 		$this->modules->register( self::MODULE_NAME, array(
+			'group'   => 'supports',
 			'label'   => __( 'Block shadow', 'plover' ),
 			'excerpt' => __( 'Extra text-shadow, drop-shadow, and box-shadow support for code blocks.', 'plover' ),
+			'icon'    => esc_url( $this->core->core_url( 'assets/images/block-shadow.png' ) ),
 			'fields'  => array()
 		) );
 	}
