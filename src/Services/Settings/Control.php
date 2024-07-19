@@ -8,6 +8,8 @@ use Plover\Core\Toolkits\Format;
  * @since 1.0.0
  */
 class Control {
+
+	const T_PLACEHOLDER = 'placeholder';
 	const T_TEXT = 'text';
 	const T_SELECT = 'select';
 	const T_SWITCH = 'switch';
