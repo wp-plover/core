@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-19T06:45:07+00:00\n"
+"POT-Creation-Date: 2024-07-20T01:42:15+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: plover\n"
@@ -32,27 +32,27 @@ msgstr ""
 msgid "Adding event handler to blocks to execute custom JavaScript snippets."
 msgstr ""
 
-#: src/Extensions/EventHandler.php:28
+#: src/Extensions/EventHandler.php:29
 msgid "Allowed roles"
 msgstr ""
 
-#: src/Extensions/EventHandler.php:29
+#: src/Extensions/EventHandler.php:30
 msgid "Only users who are granted the allowed roles can add event handlers."
 msgstr ""
 
-#: src/Extensions/EventHandler.php:40
+#: src/Extensions/EventHandler.php:41
 msgid "Allowed events"
 msgstr ""
 
-#: src/Extensions/EventHandler.php:59
+#: src/Extensions/EventHandler.php:60
 msgid "on click event"
 msgstr ""
 
-#: src/Extensions/EventHandler.php:60
+#: src/Extensions/EventHandler.php:61
 msgid "on db click event"
 msgstr ""
 
-#: src/Extensions/EventHandler.php:61
+#: src/Extensions/EventHandler.php:62
 msgid "on mouse over event"
 msgstr ""
 
@@ -64,23 +64,23 @@ msgstr ""
 msgid "Add out-of-the-box code highlighting features for core/code block."
 msgstr ""
 
-#: src/Extensions/Highlight.php:40
+#: src/Extensions/Highlight.php:38
 msgid "Enabled by default"
 msgstr ""
 
-#: src/Extensions/Highlight.php:45
+#: src/Extensions/Highlight.php:43
 msgid "No"
 msgstr ""
 
-#: src/Extensions/Highlight.php:46
+#: src/Extensions/Highlight.php:44
 msgid "Yes"
 msgstr ""
 
-#: src/Extensions/Highlight.php:51
+#: src/Extensions/Highlight.php:49
 msgid "Default theme"
 msgstr ""
 
-#: src/Extensions/Highlight.php:59
+#: src/Extensions/Highlight.php:57
 msgid "Default language"
 msgstr ""
 
@@ -92,131 +92,131 @@ msgstr ""
 msgid "Add icon to boring buttons! 2000+ free icons available!"
 msgstr ""
 
-#: src/Extensions/Icon.php:44
+#: src/Extensions/Icon.php:45
 msgid "Icon Block"
 msgstr ""
 
-#: src/Extensions/Icon.php:45
+#: src/Extensions/Icon.php:46
 msgid "Add icons to your design! 2000+ free icons available!"
 msgstr ""
 
-#: src/Extensions/Icon.php:103
+#: src/Extensions/Icon.php:105
 msgid "Plover"
 msgstr ""
 
-#: src/Extensions/Icon.php:107
+#: src/Extensions/Icon.php:109
 msgid "star"
 msgstr ""
 
-#: src/Extensions/Icon.php:113
+#: src/Extensions/Icon.php:115
 msgid "moon"
 msgstr ""
 
-#: src/Extensions/Icon.php:119
+#: src/Extensions/Icon.php:121
 msgid "sun"
 msgstr ""
 
-#: src/Extensions/Icon.php:125
+#: src/Extensions/Icon.php:127
 msgid "search"
 msgstr ""
 
-#: src/Extensions/Icon.php:131
+#: src/Extensions/Icon.php:133
 msgid "arrow-down-left"
 msgstr ""
 
-#: src/Extensions/Icon.php:137
+#: src/Extensions/Icon.php:139
 msgid "arrow-down-right"
 msgstr ""
 
-#: src/Extensions/Icon.php:143
+#: src/Extensions/Icon.php:145
 msgid "arrow-down"
 msgstr ""
 
-#: src/Extensions/Icon.php:149
+#: src/Extensions/Icon.php:151
 msgid "arrow-left"
 msgstr ""
 
-#: src/Extensions/Icon.php:155
+#: src/Extensions/Icon.php:157
 msgid "arrow-right"
 msgstr ""
 
-#: src/Extensions/Icon.php:161
+#: src/Extensions/Icon.php:163
 msgid "arrow-up-left"
 msgstr ""
 
-#: src/Extensions/Icon.php:167
+#: src/Extensions/Icon.php:169
 msgid "arrow-up-right"
 msgstr ""
 
-#: src/Extensions/Icon.php:173
+#: src/Extensions/Icon.php:175
 msgid "arrow-up"
 msgstr ""
 
-#: src/Extensions/Icon.php:179
+#: src/Extensions/Icon.php:181
 msgid "alert-circle"
 msgstr ""
 
-#: src/Extensions/Icon.php:185
+#: src/Extensions/Icon.php:187
 msgid "alert-triangle"
 msgstr ""
 
-#: src/Extensions/Icon.php:191
+#: src/Extensions/Icon.php:193
 msgid "check-circle"
 msgstr ""
 
-#: src/Extensions/Icon.php:197
+#: src/Extensions/Icon.php:199
 msgid "check-square"
 msgstr ""
 
-#: src/Extensions/Icon.php:203
+#: src/Extensions/Icon.php:205
 msgid "check"
 msgstr ""
 
-#: src/Extensions/Icon.php:209
+#: src/Extensions/Icon.php:211
 msgid "chevron-down"
 msgstr ""
 
-#: src/Extensions/Icon.php:215
+#: src/Extensions/Icon.php:217
 msgid "chevron-left"
 msgstr ""
 
-#: src/Extensions/Icon.php:221
+#: src/Extensions/Icon.php:223
 msgid "chevron-right"
 msgstr ""
 
-#: src/Extensions/Icon.php:227
+#: src/Extensions/Icon.php:229
 msgid "chevron-up"
 msgstr ""
 
-#: src/Extensions/Icon.php:233
+#: src/Extensions/Icon.php:235
 msgid "heart"
 msgstr ""
 
-#: src/Extensions/Icon.php:239
+#: src/Extensions/Icon.php:241
 msgid "help-circle"
 msgstr ""
 
-#: src/Extensions/Icon.php:245
+#: src/Extensions/Icon.php:247
 msgid "map-pin"
 msgstr ""
 
-#: src/Extensions/Icon.php:251
+#: src/Extensions/Icon.php:253
 msgid "plus"
 msgstr ""
 
-#: src/Extensions/Icon.php:257
+#: src/Extensions/Icon.php:259
 msgid "shopping-cart"
 msgstr ""
 
-#: src/Extensions/Icon.php:263
+#: src/Extensions/Icon.php:265
 msgid "download-cloud"
 msgstr ""
 
-#: src/Extensions/Icon.php:269
+#: src/Extensions/Icon.php:271
 msgid "download"
 msgstr ""
 
-#: src/Extensions/Icon.php:468
+#: src/Extensions/Icon.php:470
 msgid "No such icon library."
 msgstr ""
 

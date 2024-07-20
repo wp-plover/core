@@ -21,6 +21,7 @@ class Display extends Extension {
 			'label'   => __( 'CSS Display', 'plover' ),
 			'excerpt' => __( 'You can set display css properties for blocks, responsive!', 'plover' ),
 			'icon'    => esc_url( $this->core->core_url( 'assets/images/css-display.png' ) ),
+			'doc'     => 'https://wpplover.com/docs/plover-kit/modules/css-display/',
 			'fields'  => array(),
 			'group'   => 'supports',
 		) );

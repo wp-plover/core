@@ -27,6 +27,7 @@ class Shadow extends Extension {
 			'label'   => __( 'Block shadow', 'plover' ),
 			'excerpt' => __( 'Extra text-shadow, drop-shadow, and box-shadow support for code blocks.', 'plover' ),
 			'icon'    => esc_url( $this->core->core_url( 'assets/images/block-shadow.png' ) ),
+			'doc'     => 'https://wpplover.com/docs/plover-kit/modules/block-shadow/',
 			'fields'  => array()
 		) );
 	}

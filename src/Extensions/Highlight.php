@@ -28,14 +28,12 @@ class Highlight extends Extension {
 	 */
 	public function register() {
 		$this->modules->register( self::MODULE_NAME, array(
-			'label'       => __( 'Code highlight', 'plover' ),
-			'excerpt'     => __( 'Add out-of-the-box code highlighting features for core/code block.', 'plover' ),
-			'icon'        => esc_url( $this->core->core_url( 'assets/images/code-highlight.png' ) ),
-			'description' => Filesystem::get()->get_contents(
-				$this->core->core_path( 'templates/highlight/description.php' )
-			),
-			'group'       => 'extensions',
-			'fields'      => array(
+			'label'   => __( 'Code highlight', 'plover' ),
+			'excerpt' => __( 'Add out-of-the-box code highlighting features for core/code block.', 'plover' ),
+			'icon'    => esc_url( $this->core->core_url( 'assets/images/code-highlight.png' ) ),
+			'doc'     => 'https://wpplover.com/docs/plover-kit/modules/code-highlight/',
+			'group'   => 'extensions',
+			'fields'  => array(
 				'default_style'    => array(
 					'label'        => __( 'Enabled by default', 'plover' ),
 					'default'      => 'highlight',

@@ -38,12 +38,14 @@ class Icon extends Extension {
 			'label'   => __( 'Icon Button', 'plover' ),
 			'excerpt' => __( 'Add icon to boring buttons! 2000+ free icons available!', 'plover' ),
 			'icon'    => esc_url( $this->core->core_url( 'assets/images/icon-button.png' ) ),
+			'doc'     => 'https://wpplover.com/docs/plover-kit/modules/icon-button/',
 			'fields'  => array()
 		) );
 		$this->modules->register( self::ICON_BLOCK_MODULE_NAME, array(
 			'label'   => __( 'Icon Block', 'plover' ),
 			'excerpt' => __( 'Add icons to your design! 2000+ free icons available!', 'plover' ),
 			'icon'    => esc_url( $this->core->core_url( 'assets/images/icon-block.png' ) ),
+			'doc'     => 'https://wpplover.com/docs/plover-kit/modules/icon-block/',
 			'fields'  => array()
 		) );
 	}

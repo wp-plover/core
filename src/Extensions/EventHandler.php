@@ -22,6 +22,7 @@ class EventHandler extends Extension {
 			'label'   => __( 'Block event handler', 'plover' ),
 			'excerpt' => __( 'Adding event handler to blocks to execute custom JavaScript snippets.', 'plover' ),
 			'icon'    => esc_url( $this->core->core_url( 'assets/images/block-event-handler.png' ) ),
+			'doc'     => 'https://wpplover.com/docs/plover-kit/modules/block-event-handler/',
 			'group'   => 'supports',
 			'fields'  => array(
 				'allowed_roles'  => array(

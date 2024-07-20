@@ -20,6 +20,7 @@ class Sticky extends Extension {
 			'label'   => __( 'Block Sticky', 'plover' ),
 			'excerpt' => __( 'Make your content in the page visible at all times, making it permanently visible while scrolling.', 'plover' ),
 			'icon'    => esc_url( $this->core->core_url( 'assets/images/block-sticky.png' ) ),
+			'doc'     => 'https://wpplover.com/docs/plover-kit/modules/block-sticky/',
 			'group'   => 'supports',
 		) );
 	}
