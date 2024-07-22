@@ -21,12 +21,21 @@ class Highlight extends Extension {
 	const MODULE_NAME = 'plover_code_highlight';
 
 	/**
+	 * All prism theme files
+	 *
+	 * @var array
+	 */
+	protected $prism_theme_files = [];
+
+	/**
 	 * Register extension as module.
 	 *
 	 * @return void
 	 * @throws \Exception
 	 */
 	public function register() {
+		$this->prism_theme_files = Filesystem::list_files( $this->core->core_path( 'assets/css/prism-themes' ) );
+
 		$this->modules->register( self::MODULE_NAME, array(
 			'label'   => __( 'Code highlight', 'plover' ),
 			'excerpt' => __( 'Add out-of-the-box code highlighting features for core/code block.', 'plover' ),
@@ -47,10 +56,10 @@ class Highlight extends Extension {
 				),
 				'default_theme'    => array(
 					'label'        => __( 'Default theme', 'plover' ),
-					'default'      => 'github-copilot',
+					'default'      => 'github-dark',
 					'control'      => Control::T_SELECT,
 					'control_args' => array(
-						'options' => $this->support_themes()
+						'options' => $this->get_support_themes()
 					)
 				),
 				'default_language' => array(
@@ -60,6 +69,9 @@ class Highlight extends Extension {
 					'control_args' => array(
 						'options' => $this->support_languages()
 					)
+				),
+				'upsell'           => array(
+					'control' => Control::T_PLACEHOLDER,
 				),
 			)
 		) );
@@ -77,8 +89,7 @@ class Highlight extends Extension {
 		}
 
 		// Enqueue all prism themes
-		$prism_theme_files = Filesystem::list_files( $this->core->core_path( 'assets/css/prism-themes' ) );
-		foreach ( $prism_theme_files as $theme_file ) {
+		foreach ( $this->prism_theme_files as $theme_file ) {
 			$theme = basename( $theme_file, '.css' );
 
 			$this->styles->enqueue_asset( "plover-prism-{$theme}-theme", array(
@@ -116,10 +127,9 @@ class Highlight extends Extension {
 	 *
 	 * @return mixed|null
 	 */
-	protected function support_themes() {
-		$prism_themes      = [];
-		$prism_theme_files = Filesystem::list_files( $this->core->core_path( 'assets/css/prism-themes' ) );
-		foreach ( $prism_theme_files as $theme_file ) {
+	protected function get_support_themes() {
+		$prism_themes = [];
+		foreach ( $this->prism_theme_files as $theme_file ) {
 			$theme          = basename( $theme_file, '.css' );
 			$prism_themes[] = [ 'label' => Str::to_title_case( $theme ), 'value' => $theme ];
 		}
@@ -180,7 +190,7 @@ class Highlight extends Extension {
 					'default' => $this->settings->get( self::MODULE_NAME, 'default_language' ),
 				],
 			] ),
-			'support_themes'    => $this->support_themes(),
+			'support_themes'    => $this->get_support_themes(),
 			'support_languages' => $this->support_languages(),
 		];
 

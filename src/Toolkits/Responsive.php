@@ -60,6 +60,20 @@ class Responsive {
 	}
 
 	/**
+	 * Get tablet breakpoint
+	 *
+	 * @return mixed|null
+	 */
+	public static function tablet_breakpoint( $mobileFirst = false ) {
+		$breakpoint = apply_filters( 'plover_css_tablet_breakpoint', 782 );
+		if ( ! $mobileFirst ) {
+			$breakpoint --;
+		}
+
+		return $breakpoint . 'px';
+	}
+
+	/**
 	 * Wrap tablet only css with media query.
 	 *
 	 * @param $css
@@ -67,9 +81,21 @@ class Responsive {
 	 * @return string
 	 */
 	public static function tablet_css( $css ) {
-		$tablet_breakpoint = apply_filters( 'plover_css_tablet_breakpoint', '781px' );
+		return '@media (max-width: ' . self::tablet_breakpoint() . ') {' . $css . '}';
+	}
 
-		return '@media (max-width: ' . $tablet_breakpoint . ') {' . $css . '}';
+	/**
+	 * Get mobile breakpoint
+	 *
+	 * @return mixed|null
+	 */
+	public static function mobile_breakpoint( $mobileFirst = false ) {
+		$breakpoint = apply_filters( 'plover_css_mobile_breakpoint', 600 );
+		if ( ! $mobileFirst ) {
+			$breakpoint --;
+		}
+
+		return $breakpoint . 'px';
 	}
 
 	/**
@@ -80,8 +106,6 @@ class Responsive {
 	 * @return string
 	 */
 	public static function mobile_css( $css ) {
-		$mobile_breakpoint = apply_filters( 'plover_css_mobile_breakpoint', '599px' );
-
-		return '@media (max-width: ' . $mobile_breakpoint . ') {' . $css . '}';
+		return '@media (max-width: ' . self::mobile_breakpoint() . ') {' . $css . '}';
 	}
 }

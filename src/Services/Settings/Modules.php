@@ -178,6 +178,18 @@ class Modules {
 	}
 
 	/**
+	 * Get registered field args
+	 *
+	 * @param $module
+	 * @param $field
+	 *
+	 * @return mixed|null
+	 */
+	public function get_field( $module, $field ) {
+		return $this->modules[ $module ]['fields'][ $field ] ?? null;
+	}
+
+	/**
 	 * Unregister exists module.
 	 *
 	 * @param $slug

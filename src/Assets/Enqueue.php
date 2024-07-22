@@ -420,7 +420,9 @@ class Enqueue {
 		wp_localize_script(
 			$localize_handle,
 			'PloverEditor',
-			apply_filters( 'plover_core_editor_data', array() )
+			apply_filters( 'plover_core_editor_data', array(
+				'upsell' => 'https://wpplover.com/plugins/plover-kit',
+			) )
 		);
 		wp_enqueue_script( $localize_handle );
 

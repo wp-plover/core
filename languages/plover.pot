@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-20T01:42:15+00:00\n"
+"POT-Creation-Date: 2024-07-22T07:44:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: plover\n"
@@ -56,31 +56,31 @@ msgstr ""
 msgid "on mouse over event"
 msgstr ""
 
-#: src/Extensions/Highlight.php:31
+#: src/Extensions/Highlight.php:40
 msgid "Code highlight"
 msgstr ""
 
-#: src/Extensions/Highlight.php:32
+#: src/Extensions/Highlight.php:41
 msgid "Add out-of-the-box code highlighting features for core/code block."
 msgstr ""
 
-#: src/Extensions/Highlight.php:38
+#: src/Extensions/Highlight.php:47
 msgid "Enabled by default"
 msgstr ""
 
-#: src/Extensions/Highlight.php:43
+#: src/Extensions/Highlight.php:52
 msgid "No"
 msgstr ""
 
-#: src/Extensions/Highlight.php:44
+#: src/Extensions/Highlight.php:53
 msgid "Yes"
 msgstr ""
 
-#: src/Extensions/Highlight.php:49
+#: src/Extensions/Highlight.php:58
 msgid "Default theme"
 msgstr ""
 
-#: src/Extensions/Highlight.php:57
+#: src/Extensions/Highlight.php:66
 msgid "Default language"
 msgstr ""
 
@@ -290,27 +290,58 @@ msgstr ""
 msgid "Mobile mode"
 msgstr ""
 
-#: static/scripts/block-extensions/highlight/HighlightControls.jsx:25
+#: static/scripts/block-extensions/highlight/HighlightControls.jsx:26
 msgid "Style"
 msgstr ""
 
-#: static/scripts/block-extensions/highlight/HighlightControls.jsx:31
+#: static/scripts/block-extensions/highlight/HighlightControls.jsx:32
 msgid "Highlight"
 msgstr ""
 
-#: static/scripts/block-extensions/highlight/HighlightControls.jsx:32
+#: static/scripts/block-extensions/highlight/HighlightControls.jsx:33
 #: static/scripts/block-extensions/icon/IconControls.jsx:180
 #: static/scripts/block-extensions/icon/IconControls.jsx:181
 #: static/scripts/block-supports/display/DisplayPanel.jsx:51
 msgid "None"
 msgstr ""
 
-#: static/scripts/block-extensions/highlight/HighlightControls.jsx:37
+#: static/scripts/block-extensions/highlight/HighlightControls.jsx:38
 msgid "Theme"
 msgstr ""
 
-#: static/scripts/block-extensions/highlight/HighlightControls.jsx:44
+#: static/scripts/block-extensions/highlight/HighlightControls.jsx:45
 msgid "Language"
+msgstr ""
+
+#: static/scripts/block-extensions/highlight/HighlightControls.jsx:71
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:132
+msgid "Upgrade to %s to access these features:"
+msgstr ""
+
+#: static/scripts/block-extensions/highlight/HighlightControls.jsx:72
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:133
+msgid "Premium"
+msgstr ""
+
+#: static/scripts/block-extensions/highlight/HighlightControls.jsx:77
+msgid "Line numbers"
+msgstr ""
+
+#: static/scripts/block-extensions/highlight/HighlightControls.jsx:78
+msgid "Show languages"
+msgstr ""
+
+#: static/scripts/block-extensions/highlight/HighlightControls.jsx:79
+msgid "Show copy button"
+msgstr ""
+
+#: static/scripts/block-extensions/highlight/HighlightControls.jsx:80
+msgid "More highlight themes"
+msgstr ""
+
+#: static/scripts/block-extensions/highlight/HighlightControls.jsx:83
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:142
+msgid "Learn More ↗"
 msgstr ""
 
 #: static/scripts/block-extensions/icon/IconControls.jsx:59
@@ -333,23 +364,38 @@ msgstr ""
 msgid "Icon"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:217
-msgid "Icon position"
+#: static/scripts/block-extensions/icon/IconControls.jsx:218
+msgid "Use the %s plugin to get more icons from the Icon Library."
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:225
-msgid "Left"
+#: static/scripts/block-extensions/icon/IconControls.jsx:219
+msgid "Plover Kit"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:226
-msgid "Right"
+#: static/scripts/block-extensions/icon/IconControls.jsx:223
+#: static/scripts/block-supports/display/DisplayPanel.jsx:84
+#: static/scripts/block-supports/event-handler/EventHandlerPanel.js:81
+#: static/scripts/block-supports/shadow/ShadowPanel.jsx:86
+msgid "Documentation ↗"
 msgstr ""
 
 #: static/scripts/block-extensions/icon/IconControls.jsx:231
+msgid "Icon position"
+msgstr ""
+
+#: static/scripts/block-extensions/icon/IconControls.jsx:239
+msgid "Left"
+msgstr ""
+
+#: static/scripts/block-extensions/icon/IconControls.jsx:240
+msgid "Right"
+msgstr ""
+
+#: static/scripts/block-extensions/icon/IconControls.jsx:245
 msgid "Icon Size"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:248
+#: static/scripts/block-extensions/icon/IconControls.jsx:263
 msgid "Clear icon"
 msgstr ""
 
@@ -407,11 +453,11 @@ msgstr ""
 msgid "JavaScript Event Handler"
 msgstr ""
 
-#: static/scripts/block-supports/event-handler/EventHandlerPanel.js:77
+#: static/scripts/block-supports/event-handler/EventHandlerPanel.js:78
 msgid "Add custom JavaScript snippet to the event handlers in this block."
 msgstr ""
 
-#: static/scripts/block-supports/event-handler/EventHandlerPanel.js:89
+#: static/scripts/block-supports/event-handler/EventHandlerPanel.js:94
 msgid "Edit"
 msgstr ""
 
@@ -471,20 +517,20 @@ msgstr ""
 msgid "Drop shadow"
 msgstr ""
 
-#: static/scripts/block-supports/shadow/ShadowPanel.jsx:39
+#: static/scripts/block-supports/shadow/ShadowPanel.jsx:40
 #: static/scripts/block-supports/shadow/ShadowValues.jsx:70
 msgid "Shadow"
 msgstr ""
 
-#: static/scripts/block-supports/shadow/ShadowPanel.jsx:43
+#: static/scripts/block-supports/shadow/ShadowPanel.jsx:44
 msgid "Text Shadow"
 msgstr ""
 
-#: static/scripts/block-supports/shadow/ShadowPanel.jsx:57
+#: static/scripts/block-supports/shadow/ShadowPanel.jsx:58
 msgid "Drop Shadow"
 msgstr ""
 
-#: static/scripts/block-supports/shadow/ShadowPanel.jsx:71
+#: static/scripts/block-supports/shadow/ShadowPanel.jsx:72
 msgid "Box Shadow"
 msgstr ""
 
@@ -500,39 +546,47 @@ msgstr ""
 msgid "Custom"
 msgstr ""
 
-#: static/scripts/block-supports/sticky/StickyPanel.jsx:25
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:27
 msgid "Parent Element"
 msgstr ""
 
-#: static/scripts/block-supports/sticky/StickyPanel.jsx:26
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:28
 msgid "Document"
 msgstr ""
 
-#: static/scripts/block-supports/sticky/StickyPanel.jsx:36
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:38
 msgid "Sticky this block while scrolling"
 msgstr ""
 
-#: static/scripts/block-supports/sticky/StickyPanel.jsx:48
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:50
 msgid "Offset top"
 msgstr ""
 
-#: static/scripts/block-supports/sticky/StickyPanel.jsx:58
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:60
 msgid "Z-Index"
 msgstr ""
 
-#: static/scripts/block-supports/sticky/StickyPanel.jsx:59
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:61
 msgid "If your sticky block is covered by other elements, try increasing the z-index value"
 msgstr ""
 
-#: static/scripts/block-supports/sticky/StickyPanel.jsx:72
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:74
 msgid "Sticky container"
 msgstr ""
 
-#: static/scripts/block-supports/sticky/StickyPanel.jsx:74
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:76
 msgid "Set custom container"
 msgstr ""
 
-#: static/scripts/block-supports/sticky/StickyPanel.jsx:130
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:138
+msgid "Disable Sticky effect based on screen size"
+msgstr ""
+
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:139
+msgid "Customize the Sticky style using CSS"
+msgstr ""
+
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:152
 msgid "Sticky"
 msgstr ""
 
