@@ -3,7 +3,7 @@
         'name' => 'plover/plover-core',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '4b5094aa9270c3b56cd822cb54fec8eef12c3ae1',
+        'reference' => '0b8cf29a19a323f793983e4cee391f0c2b6ddfe0',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'plover/plover-core' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '4b5094aa9270c3b56cd822cb54fec8eef12c3ae1',
+            'reference' => '0b8cf29a19a323f793983e4cee391f0c2b6ddfe0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
