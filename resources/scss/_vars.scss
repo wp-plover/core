@@ -1,0 +1,29 @@
+// wp vars
+$wp-foreground: var(--wp-components-color-foreground, #1e1e1e);
+$wp-primary: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
+$wp-border-color: #dedede;
+
+// dashboard vars
+$background: #ffffff;
+$text: #27272a;
+$heading: #09090b;
+$primary: #0f766e;
+$primary-active: #0d9488;
+$border-color: #d4d4d8;
+$neutral-400: #a1a1aa;
+$neutral-300: #d4d4d8;
+$neutral-200: #e4e4e7;
+$neutral-100: #f4f4f5;
+$neutral-50: #fafafa;
+$neutral-0: #ffffff;
+$spacing-sm: 12px;
+$spacing: 24px;
+$spacing-lg: 36px;
+$spacing-x-lg: 48px;
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+$border-radius-sm: 4px;
+$border-radius: 6px;
+$border-radius-lg: 12px;

@@ -1,0 +1,27 @@
+// Hide button placeholder when icon set
+div [class*=has-icon__] {
+
+  &.wp-block-button {
+
+    [data-rich-text-placeholder] {
+      display: none;
+    }
+  }
+
+  .components-placeholder__illustration,
+  img,
+  figcaption,
+  iframe,
+  fieldset,
+  .components-placeholder__label {
+    display: none !important;
+  }
+}
+
+.wp-block-list {
+  &, ul, ol {
+    > * {
+      margin-block-start: 0;
+    }
+  }
+}

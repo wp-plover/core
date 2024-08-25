@@ -1,0 +1,9 @@
+.wp-block-site-logo {
+  // fix blank space between border-radius and border
+  overflow: hidden;
+
+  a,
+  img {
+    border-radius: initial;
+  }
+}

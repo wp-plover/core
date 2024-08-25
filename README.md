@@ -2,6 +2,6 @@
 
 Framework for Plover kit.
 
-License: [ GPLv2 or later](./LICENSE)
-
-[Changelog](./CHANGELOG)
+- [Github Repo](https://github.com/wp-plover/core)
+- [License: GPLv2 or later](./LICENSE)
+- [Changelog](./CHANGELOG)

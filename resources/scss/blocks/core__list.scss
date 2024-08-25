@@ -1,0 +1,7 @@
+.wp-block-list {
+  &, ul, ol {
+    display: flex;
+    flex-direction: column;
+    gap: var(--plover--style--block-gap);
+  }
+}

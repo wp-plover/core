@@ -1,0 +1,7 @@
+.is-style-text-nowrap {
+  overflow-x: auto;
+
+  > * {
+    white-space: unset !important;
+  }
+}

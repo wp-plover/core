@@ -1,0 +1,28 @@
+.wp-block-button {
+  --plover--style--block-gap: var(--wp--custom--element--button--gap, 0.5em);
+  line-height: 1;
+  padding: 0 !important
+}
+
+.wp-block-button button[type=submit],
+.wp-block-button input[type=button],
+.wp-block-button input[type=submit],
+.wp-block-button .wp-block-button__link,
+.wp-element-button,
+.is-style-button,
+.button:not(.components-button),
+[type="submit"] {
+  display: inline-flex;
+  gap: var(--plover--style--block-gap);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  &.has-text-align-left {
+    justify-content: flex-start
+  }
+
+  &.has-text-align-right {
+    justify-content: flex-end
+  }
+}
