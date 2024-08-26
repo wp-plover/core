@@ -151,7 +151,8 @@ function StickyPanel({
     label: stickyContainerPresets[preset]
   }))))), !(0,_plover_utils__WEBPACK_IMPORTED_MODULE_5__.is_premium)() && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_plover_components__WEBPACK_IMPORTED_MODULE_6__.Tips, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
     dangerouslySetInnerHTML: {
-      __html: sprintf((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Upgrade to %s to access these features:', 'plover'), '<a href="' + (0,_plover_utils__WEBPACK_IMPORTED_MODULE_5__.upsell_url)() + '">' + (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Premium', 'plover') + '</a>')
+      __html: sprintf( /* translators: %s is the premium text and link. */
+      (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Upgrade to %s to access these features:', 'plover'), '<a href="' + (0,_plover_utils__WEBPACK_IMPORTED_MODULE_5__.upsell_url)() + '">' + (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Premium', 'plover') + '</a>')
     }
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Disable Sticky effect based on screen size', 'plover')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Customize the Sticky style using CSS', 'plover'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "https://wpplover.com/docs/plover-kit/modules/block-sticky/",

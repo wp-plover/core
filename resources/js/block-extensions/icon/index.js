@@ -233,7 +233,8 @@ function IconControls({
     setAttributes: setAttributes
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_plover_components__WEBPACK_IMPORTED_MODULE_6__.Tips, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     dangerouslySetInnerHTML: {
-      __html: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Use the %s plugin to get more icons from the Icon Library.', 'plover'), '<a href="https://wpplover.com/plugins/plover-kit/" target="_blank">' + (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Plover Kit', 'plover') + '</a>')
+      __html: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.sprintf)( /* translators: %s is the plover kit plugin name */
+      (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Use the %s plugin to get more icons from the Icon Library.', 'plover'), '<a href="https://wpplover.com/plugins/plover-kit/" target="_blank">' + (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Plover Kit', 'plover') + '</a>')
     }
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "https://wpplover.com/docs/plover-kit/modules/icon-library/",

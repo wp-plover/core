@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-08-25T03:54:25+00:00\n"
+"POT-Creation-Date: 2024-08-26T08:28:06+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: plover\n"
@@ -313,34 +313,35 @@ msgstr ""
 msgid "Language"
 msgstr ""
 
-#: static/scripts/block-extensions/highlight/HighlightControls.jsx:71
-#: static/scripts/block-supports/sticky/StickyPanel.jsx:132
+#. translators: %s is the premium text and link.
+#: static/scripts/block-extensions/highlight/HighlightControls.jsx:72
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:133
 msgid "Upgrade to %s to access these features:"
 msgstr ""
 
-#: static/scripts/block-extensions/highlight/HighlightControls.jsx:72
-#: static/scripts/block-supports/sticky/StickyPanel.jsx:133
+#: static/scripts/block-extensions/highlight/HighlightControls.jsx:73
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:134
 msgid "Premium"
 msgstr ""
 
-#: static/scripts/block-extensions/highlight/HighlightControls.jsx:77
+#: static/scripts/block-extensions/highlight/HighlightControls.jsx:78
 msgid "Line numbers"
 msgstr ""
 
-#: static/scripts/block-extensions/highlight/HighlightControls.jsx:78
+#: static/scripts/block-extensions/highlight/HighlightControls.jsx:79
 msgid "Show languages"
 msgstr ""
 
-#: static/scripts/block-extensions/highlight/HighlightControls.jsx:79
+#: static/scripts/block-extensions/highlight/HighlightControls.jsx:80
 msgid "Show copy button"
 msgstr ""
 
-#: static/scripts/block-extensions/highlight/HighlightControls.jsx:80
+#: static/scripts/block-extensions/highlight/HighlightControls.jsx:81
 msgid "More highlight themes"
 msgstr ""
 
-#: static/scripts/block-extensions/highlight/HighlightControls.jsx:83
-#: static/scripts/block-supports/sticky/StickyPanel.jsx:142
+#: static/scripts/block-extensions/highlight/HighlightControls.jsx:84
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:143
 msgid "Learn More ↗"
 msgstr ""
 
@@ -364,38 +365,39 @@ msgstr ""
 msgid "Icon"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:218
+#. translators: %s is the plover kit plugin name
+#: static/scripts/block-extensions/icon/IconControls.jsx:219
 msgid "Use the %s plugin to get more icons from the Icon Library."
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:219
+#: static/scripts/block-extensions/icon/IconControls.jsx:220
 msgid "Plover Kit"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:223
+#: static/scripts/block-extensions/icon/IconControls.jsx:224
 #: static/scripts/block-supports/display/DisplayPanel.jsx:84
 #: static/scripts/block-supports/event-handler/EventHandlerPanel.js:81
 #: static/scripts/block-supports/shadow/ShadowPanel.jsx:86
 msgid "Documentation ↗"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:231
+#: static/scripts/block-extensions/icon/IconControls.jsx:232
 msgid "Icon position"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:239
+#: static/scripts/block-extensions/icon/IconControls.jsx:240
 msgid "Left"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:240
+#: static/scripts/block-extensions/icon/IconControls.jsx:241
 msgid "Right"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:245
+#: static/scripts/block-extensions/icon/IconControls.jsx:246
 msgid "Icon Size"
 msgstr ""
 
-#: static/scripts/block-extensions/icon/IconControls.jsx:263
+#: static/scripts/block-extensions/icon/IconControls.jsx:264
 msgid "Clear icon"
 msgstr ""
 
@@ -578,15 +580,15 @@ msgstr ""
 msgid "Set custom container"
 msgstr ""
 
-#: static/scripts/block-supports/sticky/StickyPanel.jsx:138
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:139
 msgid "Disable Sticky effect based on screen size"
 msgstr ""
 
-#: static/scripts/block-supports/sticky/StickyPanel.jsx:139
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:140
 msgid "Customize the Sticky style using CSS"
 msgstr ""
 
-#: static/scripts/block-supports/sticky/StickyPanel.jsx:152
+#: static/scripts/block-supports/sticky/StickyPanel.jsx:153
 msgid "Sticky"
 msgstr ""
 

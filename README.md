@@ -1,7 +1,7 @@
 # Plover Core
 
-Framework for Plover kit.
+Framework for Plover Kit & Plover Theme.
 
-- [Github Repo](https://github.com/wp-plover/core)
+- [GitHub Repo](https://github.com/wp-plover/core)
 - [License: GPLv2 or later](./LICENSE)
 - [Changelog](./CHANGELOG)

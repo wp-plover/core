@@ -206,6 +206,8 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	public function register() {
+		add_action( 'init', array( $this, 'load_textdomain' ) );
+
 		$this->core->registered( function ( Blocks $blocks, Extensions $extensions ) {
 			// extend core blocks
 			$blocks->extend( new \Plover\Core\Blocks\SiteLogo() );
@@ -227,5 +229,14 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 			$extensions->register( 'block-event-handler', \Plover\Core\Extensions\EventHandler::class );
 			$extensions->register( 'icon', \Plover\Core\Extensions\Icon::class );
 		}, 5 );
+	}
+
+	/**
+	 * Load core text domain
+	 *
+	 * @return void
+	 */
+	public function load_textdomain() {
+		load_theme_textdomain( 'plover', $this->core->core_path( 'languages' ) );
 	}
 }
