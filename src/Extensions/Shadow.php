@@ -45,16 +45,16 @@ class Shadow extends Extension {
 
 		$this->scripts->enqueue_editor_asset( 'plover-block-shadow', array(
 			'ver'   => 'core',
-			'src'   => $this->core->core_url( 'assets/js/block-supports/shadow/index.js' ),
-			'path'  => $this->core->core_path( 'assets/js/block-supports/shadow/index.js' ),
-			'asset' => $this->core->core_path( 'assets/js/block-supports/shadow/index.asset.php' )
+			'src'   => $this->core->core_url( 'assets/js/block-supports/shadow/index.min.js' ),
+			'path'  => $this->core->core_path( 'assets/js/block-supports/shadow/index.min.js' ),
+			'asset' => $this->core->core_path( 'assets/js/block-supports/shadow/index.min.asset.php' )
 		) );
 
 		$this->styles->enqueue_editor_asset( 'plover-block-shadow', array(
 			'ver'  => 'core',
 			'rtl'  => 'replace',
-			'src'  => $this->core->core_url( 'assets/js/block-supports/shadow/style.css' ),
-			'path' => $this->core->core_path( 'assets/js/block-supports/shadow/style.css' )
+			'src'  => $this->core->core_url( 'assets/js/block-supports/shadow/style.min.css' ),
+			'path' => $this->core->core_path( 'assets/js/block-supports/shadow/style.min.css' )
 		) );
 
 		add_filter( 'render_block', [ $this, 'render' ], 11, 2 );

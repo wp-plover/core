@@ -38,9 +38,9 @@ class Blocks {
 
 		$scripts->enqueue_editor_asset( 'plover-block-supports', array(
 			'ver'   => 'core',
-			'src'   => $core->core_url( 'assets/js/block-supports/index.js' ),
-			'path'  => $core->core_path( 'assets/js/block-supports/index.js' ),
-			'asset' => $core->core_path( 'assets/js/block-supports/index.asset.php' )
+			'src'   => $core->core_url( 'assets/js/block-supports/index.min.js' ),
+			'path'  => $core->core_path( 'assets/js/block-supports/index.min.js' ),
+			'asset' => $core->core_path( 'assets/js/block-supports/index.min.asset.php' )
 		) );
 
 		add_filter( 'plover_core_editor_data', function ( $data ) {

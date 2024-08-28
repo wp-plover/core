@@ -80,17 +80,17 @@ class EventHandler extends Extension {
 		if ( $this->current_user_can_add_event_handler() ) {
 			$this->scripts->enqueue_editor_asset( 'plover-block-event-handler', array(
 				'ver'   => 'core',
-				'src'   => $this->core->core_url( 'assets/js/block-supports/event-handler/index.js' ),
-				'path'  => $this->core->core_path( 'assets/js/block-supports/event-handler/index.js' ),
-				'asset' => $this->core->core_path( 'assets/js/block-supports/event-handler/index.asset.php' ),
+				'src'   => $this->core->core_url( 'assets/js/block-supports/event-handler/index.min.js' ),
+				'path'  => $this->core->core_path( 'assets/js/block-supports/event-handler/index.min.js' ),
+				'asset' => $this->core->core_path( 'assets/js/block-supports/event-handler/index.min.asset.php' ),
 				'deps'  => array( 'wp-codemirror' )
 			) );
 
 			$this->styles->enqueue_editor_asset( 'plover-block-event-handler', array(
 				'ver'  => 'core',
 				'rtl'  => 'replace',
-				'src'  => $this->core->core_url( 'assets/js/block-supports/event-handler/style.css' ),
-				'path' => $this->core->core_path( 'assets/js/block-supports/event-handler/style.css' )
+				'src'  => $this->core->core_url( 'assets/js/block-supports/event-handler/style.min.css' ),
+				'path' => $this->core->core_path( 'assets/js/block-supports/event-handler/style.min.css' )
 			) );
 
 			add_filter( 'plover_core_editor_data', [ $this, 'localize_allowed_event_handler' ] );

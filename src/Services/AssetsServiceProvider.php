@@ -53,9 +53,9 @@ class AssetsServiceProvider extends ServiceProvider {
 			$variation_name = basename( $block_variation );
 			$scripts->enqueue_editor_asset( "plover/{$variation_name}", array(
 				'ver'    => 'core',
-				'src'    => $this->core->core_url( "assets/js/block-variations/{$variation_name}/index.js" ),
-				'path'   => $this->core->core_path( "assets/js/block-variations/{$variation_name}/index.js" ),
-				'asset'  => $this->core->core_path( "assets/js/block-variations/{$variation_name}/index.asset.php" ),
+				'src'    => $this->core->core_url( "assets/js/block-variations/{$variation_name}/index.min.js" ),
+				'path'   => $this->core->core_path( "assets/js/block-variations/{$variation_name}/index.min.js" ),
+				'asset'  => $this->core->core_path( "assets/js/block-variations/{$variation_name}/index.min.asset.php" ),
 				'footer' => true,
 			) );
 		}

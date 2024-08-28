@@ -60,9 +60,9 @@ class Display extends Extension {
 
 		$this->scripts->enqueue_editor_asset( 'plover-block-display', array(
 			'ver'   => 'core',
-			'src'   => $this->core->core_url( 'assets/js/block-supports/display/index.js' ),
-			'path'  => $this->core->core_path( 'assets/js/block-supports/display/index.js' ),
-			'asset' => $this->core->core_path( 'assets/js/block-supports/display/index.asset.php' )
+			'src'   => $this->core->core_url( 'assets/js/block-supports/display/index.min.js' ),
+			'path'  => $this->core->core_path( 'assets/js/block-supports/display/index.min.js' ),
+			'asset' => $this->core->core_path( 'assets/js/block-supports/display/index.min.asset.php' )
 		) );
 
 		add_filter( 'render_block', [ $this, 'render' ], 11, 2 );

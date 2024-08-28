@@ -111,9 +111,9 @@ class Highlight extends Extension {
 		// Enqueue highlight extension assets
 		$this->scripts->enqueue_editor_asset( 'plover-highlight-extension', array(
 			'ver'   => 'core',
-			'src'   => $this->core->core_url( 'assets/js/block-extensions/highlight/index.js' ),
-			'path'  => $this->core->core_path( 'assets/js/block-extensions/highlight/index.js' ),
-			'asset' => $this->core->core_path( 'assets/js/block-extensions/highlight/index.asset.php' ),
+			'src'   => $this->core->core_url( 'assets/js/block-extensions/highlight/index.min.js' ),
+			'path'  => $this->core->core_path( 'assets/js/block-extensions/highlight/index.min.js' ),
+			'asset' => $this->core->core_path( 'assets/js/block-extensions/highlight/index.min.asset.php' ),
 		) );
 
 		// Render highlight attrs for core/code block

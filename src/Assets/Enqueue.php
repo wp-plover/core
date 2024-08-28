@@ -70,18 +70,18 @@ class Enqueue {
 
 		foreach ( self::CORE_PACKAGES as $package ) {
 			$asset      = array();
-			$asset_file = $this->core->core_path( "assets/js/packages/{$package}/index.asset.php" );
+			$asset_file = $this->core->core_path( "assets/js/packages/{$package}/index.min.asset.php" );
 			if ( $fs->is_file( $asset_file ) ) {
 				$asset = require $asset_file;
 			}
 
 			$ver = $asset['version'] ?? ( $this->core->is_debug() ? time() : $this->core->get( 'core.version' ) );
 
-			$style_file = $this->core->core_path( "assets/js/packages/{$package}/style.css" );
+			$style_file = $this->core->core_path( "assets/js/packages/{$package}/style.min.css" );
 			if ( $fs->is_file( $style_file ) ) {
 				wp_register_style(
 					"plover-{$package}",
-					$this->core->core_url( "assets/js/packages/{$package}/style.css" ),
+					$this->core->core_url( "assets/js/packages/{$package}/style.min.css" ),
 					[],
 					$ver
 				);
@@ -90,7 +90,7 @@ class Enqueue {
 
 			wp_register_script(
 				"plover-{$package}",
-				$this->core->core_url( "assets/js/packages/{$package}/index.js" ),
+				$this->core->core_url( "assets/js/packages/{$package}/index.min.js" ),
 				$asset['dependencies'] ?? array(),
 				$ver,
 				false

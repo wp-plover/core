@@ -37,16 +37,16 @@ class Sticky extends Extension {
 		// Enqueue sticky editor assets
 		$this->scripts->enqueue_editor_asset( 'plover-block-sticky', array(
 			'ver'   => 'core',
-			'src'   => $this->core->core_url( 'assets/js/block-supports/sticky/index.js' ),
-			'path'  => $this->core->core_path( 'assets/js/block-supports/sticky/index.js' ),
-			'asset' => $this->core->core_path( 'assets/js/block-supports/sticky/index.asset.php' )
+			'src'   => $this->core->core_url( 'assets/js/block-supports/sticky/index.min.js' ),
+			'path'  => $this->core->core_path( 'assets/js/block-supports/sticky/index.min.js' ),
+			'asset' => $this->core->core_path( 'assets/js/block-supports/sticky/index.min.asset.php' )
 		) );
 
 		$this->scripts->enqueue_asset( 'plover-sticky', array(
 			'ver'      => 'core',
-			'src'      => $this->core->core_url( 'assets/js/frontend/sticky/index.js' ),
-			'path'     => $this->core->core_path( 'assets/js/frontend/sticky/index.js' ),
-			'asset'    => $this->core->core_path( 'assets/js/frontend/sticky/index.asset.php' ),
+			'src'      => $this->core->core_url( 'assets/js/frontend/sticky/index.min.js' ),
+			'path'     => $this->core->core_path( 'assets/js/frontend/sticky/index.min.js' ),
+			'asset'    => $this->core->core_path( 'assets/js/frontend/sticky/index.min.asset.php' ),
 			'keywords' => [ 'plover-is-sticky-block' ],
 		) );
 

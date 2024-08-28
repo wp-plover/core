@@ -74,16 +74,16 @@ class Icon extends Extension {
 		// Enqueue icon extension assets
 		$this->scripts->enqueue_editor_asset( 'plover-icon-extension', array(
 			'ver'    => 'core',
-			'src'    => $this->core->core_url( 'assets/js/block-extensions/icon/index.js' ),
-			'path'   => $this->core->core_path( 'assets/js/block-extensions/icon/index.js' ),
-			'asset'  => $this->core->core_path( 'assets/js/block-extensions/icon/index.asset.php' ),
+			'src'    => $this->core->core_url( 'assets/js/block-extensions/icon/index.min.js' ),
+			'path'   => $this->core->core_path( 'assets/js/block-extensions/icon/index.min.js' ),
+			'asset'  => $this->core->core_path( 'assets/js/block-extensions/icon/index.min.asset.php' ),
 			'footer' => true,
 		) );
 		$this->styles->enqueue_editor_asset( 'plover-icon-extension', array(
 			'ver'  => 'core',
 			'rtl'  => 'replace',
-			'src'  => $this->core->core_url( 'assets/js/block-extensions/icon/style.css' ),
-			'path' => $this->core->core_path( 'assets/js/block-extensions/icon/style.css' ),
+			'src'  => $this->core->core_url( 'assets/js/block-extensions/icon/style.min.css' ),
+			'path' => $this->core->core_path( 'assets/js/block-extensions/icon/style.min.css' ),
 		) );
 
 		// Allow safe svg in post

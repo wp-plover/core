@@ -21,9 +21,9 @@ class Search extends Extension {
 		// Enqueue search extension assets
 		$this->scripts->enqueue_editor_asset( 'plover-search-enhancement', array(
 			'ver'   => 'core',
-			'src'   => $this->core->core_url( 'assets/js/block-extensions/search/index.js' ),
-			'path'  => $this->core->core_path( 'assets/js/block-extensions/search/index.js' ),
-			'asset' => $this->core->core_path( 'assets/js/block-extensions/search/index.asset.php' ),
+			'src'   => $this->core->core_url( 'assets/js/block-extensions/search/index.min.js' ),
+			'path'  => $this->core->core_path( 'assets/js/block-extensions/search/index.min.js' ),
+			'asset' => $this->core->core_path( 'assets/js/block-extensions/search/index.min.asset.php' ),
 		) );
 
 		// Render search fields for core/search block
