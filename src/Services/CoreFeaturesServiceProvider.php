@@ -232,11 +232,30 @@ class CoreFeaturesServiceProvider extends ServiceProvider {
 	}
 
 	/**
-	 * Load core text domain
+	 * Load core text domain, inherited from the plover theme by default
 	 *
-	 * @return void
+	 * @return bool
 	 */
 	public function load_textdomain() {
-		load_theme_textdomain( 'plover', $this->core->core_path( 'languages' ) );
+		/** @var \WP_Textdomain_Registry $wp_textdomain_registry */
+		global $wp_textdomain_registry;
+
+		$domain = 'plover';
+
+		$locale = apply_filters( 'theme_locale', determine_locale(), $domain );
+
+		$mofile = $domain . '-' . $locale . '.mo';
+
+		// Try to load from the plover theme language directory first.
+		if ( load_textdomain( $domain, WP_LANG_DIR . '/themes/' . $mofile, $locale ) ) {
+			return true;
+		}
+
+		// Load own languages files.
+		$path = $this->core->core_path( 'languages' );
+
+		$wp_textdomain_registry->set_custom_path( $domain, $path );
+
+		return load_textdomain( $domain, $path . '/' . $locale . '.mo', $locale );
 	}
 }
